@@ -5,10 +5,10 @@ import { Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
+import TabOneScreen from '../screens/LoginScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
-import { TabBarIcon } from './tabBarIcon';
+import { TabBarIcon } from './TabBarIcon';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 

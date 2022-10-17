@@ -2,15 +2,20 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
-import LinkingConfiguration from './LinkingConfiguration';
-import { RootNavigator } from './rootNavigator';
+import { PublicNavigator } from './PublicNavigator';
+import { RootNavigator } from './RootNavigator';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  let isLoggedIn: boolean = false;
+
   return (
     <NavigationContainer
-      linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RootNavigator />
+      {
+        isLoggedIn
+          ? <RootNavigator />
+          : <PublicNavigator />
+      }
     </NavigationContainer>
   );
 }
