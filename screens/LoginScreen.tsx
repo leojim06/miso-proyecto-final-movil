@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, ActivityIndicator } from 'react-native';
-
+import { StyleSheet, ActivityIndicator, Text } from 'react-native';
+import Container from '../components/Container';
 import LoginForm from '../components/forms/loginForm';
-import { Text, View } from '../components/Themed';
+import { useTheme } from '../hooks';
 
-export default function TabOneScreen() {
+
+
+export default function LoginScreen() {
+  const { colors, sizes } = useTheme();
 
   // useEffect(() => {
-    
+
   // }, [])
 
   // const getContent = () => {
@@ -15,10 +18,20 @@ export default function TabOneScreen() {
   // }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bienvenido a SportApp</Text>
-      <LoginForm />
-    </View>
+    <Container
+      margin={sizes.md}
+      color={colors.background}
+    >
+      <Container
+        padding={sizes.padding}
+        shadow={true}
+        color={colors.card}
+        center
+      >
+        <Text style={styles.title}>Bienvenido a SportApp</Text>
+        <LoginForm />
+      </Container>
+    </Container>
   );
 }
 

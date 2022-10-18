@@ -27,6 +27,10 @@ export const COLORS = {
     /** UI color for #info */
     info: '#17C1E8',
 
+    /** UI colors for navigation & card */
+    card: '#FFFFFF',
+    background: '#E9ECEF',
+
     /** UI color for shadowColor */
     shadow: '#000000',
     overlay: 'rgba(0,0,0,0.3)',

@@ -1,11 +1,11 @@
 import { Formik } from "formik";
-import { StyleSheet, Button } from 'react-native';
-import { View, Text, TextInput } from '../Themed';
-import { LoginFormValidationSchema } from "./loginFormValidationSchema";
+import { StyleSheet, Button, View, Text, TextInput } from 'react-native';
+// import { View, Text, TextInput } from '../Themed';
+import { LoginFormValidationSchema } from './loginFormValidationSchema';
 import { useTheme } from '../../hooks';
 
 
-import i18n from "../../services/i18n";
+import i18n from '../../services/i18n';
 
 let initialValues = {
     email: '',
@@ -54,7 +54,7 @@ export function LoginForm() {
                         <Button
                             color="#3740FE"
                             title="Login"
-                            disabled={!isValid}
+                            // disabled={!isValid}
                             onPress={() => handleSubmit()}
                         />
                     </View>
