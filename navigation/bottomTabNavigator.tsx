@@ -3,23 +3,24 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import { Pressable } from 'react-native';
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/LoginScreen';
+// import Colors from '../constants/Colors';
+// import useColorScheme from '../hooks/useColorScheme';
+import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
 import { TabBarIcon } from './TabBarIcon';
+import { useTheme } from '../hooks';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 export function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+  const {colors} = useTheme();
 
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        // tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
       <BottomTab.Screen
         name="TabOne"
@@ -36,7 +37,7 @@ export function BottomTabNavigator() {
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={Colors[colorScheme].text}
+                color={colors.text}
                 style={{ marginRight: 15 }}
               />
             </Pressable>

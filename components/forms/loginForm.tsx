@@ -1,5 +1,6 @@
 import { Formik } from "formik";
-import { StyleSheet, Button, View, Text, TextInput } from 'react-native';
+import { Block, Button, Text, Input } from '../'
+// import { StyleSheet, Button, View, Text, TextInput } from 'react-native';
 // import { View, Text, TextInput } from '../Themed';
 import { LoginFormValidationSchema } from './loginFormValidationSchema';
 import { useTheme } from '../../hooks';
@@ -13,6 +14,7 @@ let initialValues = {
 }
 
 export function LoginForm() {
+    const {gradients, sizes, colors} = useTheme();
     return (
         <Formik
             initialValues={initialValues}
@@ -22,65 +24,47 @@ export function LoginForm() {
             }}
         >
             {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
-                <View style={styles.formContainer}>
-                    <View style={styles.containerInput}>
-                        <TextInput
+                <Block keyboard>
+                    <Block>
+                        <Input
                             testID="email"
                             value={values.email}
-                            style={styles.input}
                             onChangeText={handleChange('email')}
                             onBlur={() => setFieldTouched('email')}
                             placeholder={i18n.t("textLogin.label.email")}
                         />
                         {touched.email && errors.email &&
-                            <Text style={{ fontSize: 12, color: '#FF0D10' }}>{errors.email}</Text>
+                            <Text size={sizes.text} color={colors.danger}>{errors.email}</Text>
                         }
-                    </View>
-                    <View>
-                        <TextInput
+                    </Block>
+                    <Block>
+                        <Input
                             testID="password"
                             value={values.password}
-                            style={styles.input}
                             onChangeText={handleChange('password')}
                             onBlur={() => setFieldTouched('password')}
                             placeholder={i18n.t("textLogin.label.password")}
                             secureTextEntry={true}
                         />
                         {touched.password && errors.password &&
-                            <Text style={{ fontSize: 12, color: '#FF0D10' }}>{errors.password}</Text>
+                            <Text size={sizes.text} color={colors.danger}>{errors.password}</Text>
                         }
-                    </View>
-                    <View>
+                    </Block>
+                    <Block>
                         <Button
-                            color="#3740FE"
-                            title="Login"
-                            // disabled={!isValid}
+                            flex={1}
+                            // gradient={gradients.primary}
+                            color={colors.primary}
+                            marginBottom={sizes.base}                        
                             onPress={() => handleSubmit()}
-                        />
-                    </View>
-                </View>
+                        >
+                            <Text white bold transform="uppercase">Iniciar sesion</Text>
+                        </Button>
+                    </Block>
+                </Block>
             )}
         </Formik>
     )
 }
-
-const styles = StyleSheet.create({
-    formContainer: {
-        // backgroundColor: "transparent",
-        // flex: 1,
-        // flexDirection: "column",
-    },
-    containerInput: {
-        // backgroundColor: "transparent",
-        // width: "100%",
-        // height: 50,
-    },
-    input: {
-        // backgroundColor: "transparent",
-        // height: 50,
-        // width: "100%",
-        // fontSize: 16,
-    },
-});
 
 export default LoginForm;

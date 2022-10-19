@@ -1,8 +1,17 @@
-import { Dimensions, Platform } from "react-native";
+import { Dimensions, Platform } from 'react-native';
+import {
+    ICommonTheme,
+    ThemeAssets,
+    ThemeFonts,
+    ThemeIcons,
+    ThemeLineHeights,
+    ThemeWeights,
+} from './types';
 
 const { width, height } = Dimensions.get('window');
 
-export const WEIGHTS = {
+// Naming source: https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#Common_weight_name_mapping
+export const WEIGHTS: ThemeWeights = {
     text: 'normal',
     h1: Platform.OS === 'ios' ? '700' : 'normal',
     h2: Platform.OS === 'ios' ? '700' : 'normal',
@@ -22,20 +31,24 @@ export const WEIGHTS = {
     black: Platform.OS === 'ios' ? '900' : 'normal',
 };
 
-export const ICONS = {
-    home: require('../assets/icons/home.png')
-}
+export const ICONS: ThemeIcons = {
+    check: require('../assets/icons/check.png'),
+    close: require('../assets/icons/close.png'),
+    home: require('../assets/icons/home.png'),
+    search: require('../assets/icons/search.png'),
+    warning: require('../assets/icons/warning.png'),
+};
 
-export const ASSETS = {
+export const ASSETS: ThemeAssets = {
     // fonts
     OpenSansLight: require('../assets/fonts/OpenSans-Light.ttf'),
     OpenSansRegular: require('../assets/fonts/OpenSans-Regular.ttf'),
     OpenSansSemiBold: require('../assets/fonts/OpenSans-SemiBold.ttf'),
     OpenSansExtraBold: require('../assets/fonts/OpenSans-ExtraBold.ttf'),
     OpenSansBold: require('../assets/fonts/OpenSans-Bold.ttf'),
-}
+};
 
-export const FONTS = {
+export const FONTS: ThemeFonts = {
     // based on font size
     text: 'OpenSans-Regular',
     h1: 'OpenSans-Bold',
@@ -57,7 +70,7 @@ export const FONTS = {
     black: 'OpenSans-ExtraBold',
 };
 
-export const LINE_HEIGHTS = {
+export const LINE_HEIGHTS: ThemeLineHeights = {
     // font lineHeight
     text: 22,
     h1: 60,
@@ -68,7 +81,7 @@ export const LINE_HEIGHTS = {
     p: 22,
 };
 
-export const THEME = {
+export const THEME: ICommonTheme = {
     icons: ICONS,
     assets: { ...ICONS, ...ASSETS },
     fonts: FONTS,

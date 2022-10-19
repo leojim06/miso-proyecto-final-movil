@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, ActivityIndicator, Text } from 'react-native';
-import Container from '../components/Container';
+import { StyleSheet, ActivityIndicator } from 'react-native';
+import { Block, Text } from '../components';
 import LoginForm from '../components/forms/loginForm';
 import { useTheme } from '../hooks';
 
@@ -18,31 +18,17 @@ export default function LoginScreen() {
   // }
 
   return (
-    <Container
-      margin={sizes.md}
-      color={colors.background}
-    >
-      <Container
-        padding={sizes.padding}
-        shadow={true}
+    <Block safe>
+      <Block
+        flex={1}
+        padding={sizes.md}
         color={colors.card}
-        center
+        justify={'center'}
+      // align={'center'}
       >
-        <Text style={styles.title}>Bienvenido a SportApp</Text>
+        <Text h3>Bienvenido a SportApp</Text>
         <LoginForm />
-      </Container>
-    </Container>
+      </Block>
+    </Block>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});

@@ -1,7 +1,14 @@
+import {
+    ITheme,
+    ThemeColors,
+    ThemeGradients,
+    ThemeSizes,
+    ThemeSpacing,
+} from './types';
+
 import { THEME as commonTheme } from './theme';
 
-
-export const COLORS = {
+export const COLORS: ThemeColors = {
     // default text color
     text: '#252F40',
 
@@ -12,6 +19,13 @@ export const COLORS = {
     secondary: '#627594', // '#8392AB',
     /** UI color for #tertiary */
     tertiary: '#E8AE4C',
+
+    // non-colors
+    black: '#252F40',
+    white: '#FFFFFF',
+
+    dark: '#252F40',
+    light: '#E9ECEF',
 
     // gray variations
     /** UI color for #gray */
@@ -39,6 +53,14 @@ export const COLORS = {
     focus: '#E293D3',
     input: '#252F40',
 
+    /** UI color for switch checked/active color */
+    switchOn: '#3A416F',
+    switchOff: '#E9ECEF',
+
+    /** UI color for checkbox icon checked/active color */
+    checkbox: ['#3A416F', '#141727'],
+    checkboxIcon: '#FFFFFF',
+
     /** social colors */
     facebook: '#3B5998',
     twitter: '#55ACEE',
@@ -52,10 +74,31 @@ export const COLORS = {
 
     /** product link color */
     link: '#CB0C9F',
+};
 
-}
+export const GRADIENTS: ThemeGradients = {
+    primary: ['#FF0080', '#7928CA'],
+    secondary: ['#A8B8D8', '#627594'],
+    info: ['#21D4FD', '#2152FF'],
+    success: ['#98EC2D', '#17AD37'],
+    warning: ['#FBCF33', '#F53939'],
+    danger: ['#FF667C', '#EA0606'],
 
-export const SIZES = {
+    light: ['#EBEFF4', '#CED4DA'],
+    dark: ['#3A416F', '#141727'],
+
+    white: [String(COLORS.white), '#EBEFF4'],
+    black: [String(COLORS.black), '#141727'],
+
+    divider: ['rgba(255,255,255,0.3)', 'rgba(102, 116, 142, 0.6)'],
+    menu: [
+        'rgba(255, 255, 255, 0.2)',
+        'rgba(112, 125, 149, 0.5)',
+        'rgba(255, 255, 255, 0.2)',
+    ],
+};
+
+export const SIZES: ThemeSizes = {
     // global sizes
     base: 8,
     text: 14,
@@ -90,19 +133,35 @@ export const SIZES = {
     inputRadius: 8,
     inputPadding: 12,
 
+    // card sizes
+    cardRadius: 16,
+    cardPadding: 10,
+
     // image sizes
     imageRadius: 14,
     avatarSize: 32,
     avatarRadius: 8,
+
+    // switch sizes
+    switchWidth: 50,
+    switchHeight: 24,
+    switchThumb: 20,
+
+    // checkbox sizes
+    checkboxWidth: 18,
+    checkboxHeight: 18,
+    checkboxRadius: 5,
+    checkboxIconWidth: 10,
+    checkboxIconHeight: 8,
 
     // product link size
     linkSize: 12,
 
     /** font size multiplier: for maxFontSizeMultiplier prop */
     multiplier: 2,
-}
+};
 
-export const SPACING = {
+export const SPACING: ThemeSpacing = {
     /** xs: 4px */
     xs: SIZES.base * 0.5,
     /** s: 8px */
@@ -119,10 +178,11 @@ export const SPACING = {
     xl: SIZES.base * 6,
     /** xxl: 56px */
     xxl: SIZES.base * 7,
-}
+};
 
-export const THEME = {
+export const THEME: ITheme = {
     ...commonTheme,
     colors: COLORS,
+    gradients: GRADIENTS,
     sizes: { ...SIZES, ...commonTheme.sizes, ...SPACING },
-}
+};
