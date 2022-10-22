@@ -14,6 +14,7 @@ export const loginEs = {
         minLenghtPassword: "La contraseña debe tener al menos 6 caracteres"
     },
     error: {
-        
+        unauthorized: "Usuario o contraseña incorrecta",
+        server: "Problemas con el servicio SportApp"
     }
 }
