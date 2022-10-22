@@ -27,7 +27,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     }, [setIsDark]);
 
     // handle user
-    const handleUser = useCallback((payload: IUser) => {
+    const handleUser = useCallback((payload: any) => {
         if (JSON.stringify(payload) !== JSON.stringify(user)) {
             setUser(payload);
         }

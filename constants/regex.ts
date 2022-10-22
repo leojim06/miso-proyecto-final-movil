@@ -1,7 +1,7 @@
 /*
  * email validation
  */
-export const email: RegExp = /^[^\s@]+@[^\s@]+\.([^\s@]{2,})+$/;
+export const emailRegExp: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 /*
  * password validation, should contain:
@@ -10,4 +10,4 @@ export const email: RegExp = /^[^\s@]+@[^\s@]+\.([^\s@]{2,})+$/;
  * (?=.*[A-Z]): at least one uppercase case
  * [0-9a-zA-Z]{6,}: at least 6 from the mentioned characters
  */
-export const password: RegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+export const passwordRegExp: RegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;

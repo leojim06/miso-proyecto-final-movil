@@ -1,19 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, ActivityIndicator } from 'react-native';
-import { Block, Text } from '../components';
+import React, { useState } from 'react';
+import { Block, Modal, ModalPanel, Text } from '../components';
 import LoginForm from '../components/forms/loginForm';
-import { useTheme } from '../hooks';
-
-
+import { useTheme, useTranslation, useData } from '../hooks';
+import useLoginEndpoint from '../services/api/useLoginEndpoint';
 
 export default function LoginScreen() {
+  const [showModal, setModal] = useState(false);
+  const [error, setError] = useState("");
   const { colors, sizes } = useTheme();
+  const { t } = useTranslation();
+  const { loadLogin } = useLoginEndpoint();
+  const { handleUser } = useData();
 
-  // useEffect(() => {
 
-  // }, [])
+  const handleSubmit = async (values: any) => {
+    try {
+      var response = await loadLogin({ username: values.email, password: values.password })
+      handleUser(response)
+    } catch (error) {
+      console.log(JSON.stringify(error));
+      setError(error);
+      setModal(true);
+    }
+  }
 
-  // const getContent = () => {
+    // const getContent = () => {
   //   return <ActivityIndicator size="large" />
   // }
 
@@ -23,12 +34,15 @@ export default function LoginScreen() {
         flex={1}
         padding={sizes.md}
         color={colors.card}
-        justify={'center'}
-      // align={'center'}
       >
-        <Text h3>Bienvenido a SportApp</Text>
-        <LoginForm />
+        <Text h3>{t("login.label.title")}</Text>
+        <LoginForm
+          onSubmit={(values) => handleSubmit(values)}
+        />
       </Block>
+      <ModalPanel visible={showModal} closeModal={() => setModal(false)} >
+        <Text h5>{error}</Text>
+      </ModalPanel>
     </Block>
   );
 }

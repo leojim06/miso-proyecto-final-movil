@@ -64,26 +64,8 @@ export interface IUseData {
     handleIsDark: (isDark?: boolean) => void;
     theme: ITheme;
     setTheme: (theme?: ITheme) => void;
-    user: IUser;
-    users: IUser[];
-    handleUser: (data?: IUser) => void;
-    handleUsers: (data?: IUser[]) => void;
-    basket: IBasket;
-    handleBasket: (data?: IBasket) => void;
-    following: IProduct[];
-    setFollowing: (data?: IProduct[]) => void;
-    trending: IProduct[];
-    setTrending: (data?: IProduct[]) => void;
-    categories: ICategory[];
-    setCategories: (data?: ICategory[]) => void;
-    recommendations: IArticle[];
-    setRecommendations: (data?: IArticle[]) => void;
-    articles: IArticle[];
-    setArticles: (data?: IArticle[]) => void;
-    article: IArticle;
-    handleArticle: (data?: IArticle) => void;
-    notifications: INotification[];
-    handleNotifications: (data?: INotification[]) => void;
+    user: any;
+    handleUser: (data?: any) => void;
 }
 
 export interface ITranslate {

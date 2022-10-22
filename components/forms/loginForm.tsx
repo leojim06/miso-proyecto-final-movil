@@ -1,27 +1,38 @@
-import { Formik } from "formik";
+import { Formik, FormikErrors } from "formik";
+import * as yup from 'yup'
 import { Block, Button, Text, Input } from '../'
-// import { StyleSheet, Button, View, Text, TextInput } from 'react-native';
-// import { View, Text, TextInput } from '../Themed';
-import { LoginFormValidationSchema } from './loginFormValidationSchema';
-import { useTheme } from '../../hooks';
+import { emailRegExp } from "../../constants/regex";
+import { useTheme, useTranslation } from '../../hooks';
 
-
-import i18n from '../../services/i18n';
+type LoginFormProps = {
+    onSubmit(values: any): void,
+}
 
 let initialValues = {
     email: '',
     password: ''
 }
 
-export function LoginForm() {
-    const {gradients, sizes, colors} = useTheme();
+const LoginForm = (props: LoginFormProps) => {
+    const {sizes, colors} = useTheme();
+    const {t} = useTranslation();
+
+    const LoginFormValidationSchema = yup.object().shape({
+        email: yup.string()
+            // .matches(
+            //     emailRegExp, 
+            //     t("login.validation.invalidEmail"))
+            .required(t("login.validation.requiredEmail")),
+        password: yup.string()
+            .min(6, t("login.validation.minLenghtPassword"))
+            .required(t("login.validation.requiredPassword"))
+    });
+
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={LoginFormValidationSchema}
-            onSubmit={values => {
-                console.log(JSON.stringify(values));
-            }}
+            onSubmit={values => props.onSubmit(values)}
         >
             {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
                 <Block keyboard>
@@ -31,7 +42,7 @@ export function LoginForm() {
                             value={values.email}
                             onChangeText={handleChange('email')}
                             onBlur={() => setFieldTouched('email')}
-                            placeholder={i18n.t("textLogin.label.email")}
+                            placeholder={t("login.label.email")}
                         />
                         {touched.email && errors.email &&
                             <Text size={sizes.text} color={colors.danger}>{errors.email}</Text>
@@ -43,7 +54,7 @@ export function LoginForm() {
                             value={values.password}
                             onChangeText={handleChange('password')}
                             onBlur={() => setFieldTouched('password')}
-                            placeholder={i18n.t("textLogin.label.password")}
+                            placeholder={t("login.label.password")}
                             secureTextEntry={true}
                         />
                         {touched.password && errors.password &&
@@ -52,13 +63,12 @@ export function LoginForm() {
                     </Block>
                     <Block>
                         <Button
-                            flex={1}
-                            // gradient={gradients.primary}
                             color={colors.primary}
                             marginBottom={sizes.base}                        
+                            // onPress={() => handleSubmit()}
                             onPress={() => handleSubmit()}
                         >
-                            <Text white bold transform="uppercase">Iniciar sesion</Text>
+                            <Text white bold transform="uppercase">{t("login.btn.title")}</Text>
                         </Button>
                     </Block>
                 </Block>
