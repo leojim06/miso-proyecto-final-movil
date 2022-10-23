@@ -29,9 +29,9 @@ import { ISpacing, ITheme } from './theme';
  */
 export interface IBlockProps
     extends ISpacing,
-    ViewProps,
-    ScrollViewProps,
-    KeyboardAvoidingViewProps {
+        ViewProps,
+        ScrollViewProps,
+        KeyboardAvoidingViewProps {
     /**
      * id for testID & accesibilityLabel
      */

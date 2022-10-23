@@ -1,10 +1,4 @@
-import {
-    ITheme,
-    ThemeColors,
-    ThemeGradients,
-    ThemeSizes,
-    ThemeSpacing,
-} from './types';
+import { ITheme, ThemeColors, ThemeGradients, ThemeSizes, ThemeSpacing } from './types';
 
 import { THEME as commonTheme } from './theme';
 
@@ -91,11 +85,7 @@ export const GRADIENTS: ThemeGradients = {
     black: [String(COLORS.black), '#141727'],
 
     divider: ['rgba(255,255,255,0.3)', 'rgba(102, 116, 142, 0.6)'],
-    menu: [
-        'rgba(255, 255, 255, 0.2)',
-        'rgba(112, 125, 149, 0.5)',
-        'rgba(255, 255, 255, 0.2)',
-    ],
+    menu: ['rgba(255, 255, 255, 0.2)', 'rgba(112, 125, 149, 0.5)', 'rgba(255, 255, 255, 0.2)'],
 };
 
 export const SIZES: ThemeSizes = {

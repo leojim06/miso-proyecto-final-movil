@@ -7,7 +7,6 @@ import { light } from '../constants';
 export const DataContext = React.createContext({});
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
-
     const [isDark, setIsDark] = useState(false);
     const [theme, setTheme] = useState<ITheme>(light);
     const [user, setUser] = useState<IUser>();
@@ -22,22 +21,31 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     }, [setIsDark]);
 
     // handle isDark mode
-    const handleIsDark = useCallback((payload: boolean) => {
-        setIsDark(payload);
-        Storage.setItem('isDark', JSON.stringify(payload));
-    }, [setIsDark]);
+    const handleIsDark = useCallback(
+        (payload: boolean) => {
+            setIsDark(payload);
+            Storage.setItem('isDark', JSON.stringify(payload));
+        },
+        [setIsDark]
+    );
 
     // handle user
-    const handleUser = useCallback((payload: any) => {
-        if (JSON.stringify(payload) !== JSON.stringify(user)) {
-            setUser(payload);
-        }
-    }, [user, setUser]);
+    const handleUser = useCallback(
+        (payload: any) => {
+            if (JSON.stringify(payload) !== JSON.stringify(user)) {
+                setUser(payload);
+            }
+        },
+        [user, setUser]
+    );
 
     // handle isLoading
-    const handleLoading = useCallback((payload: boolean) => {
-        setIsLoading(payload);
-    }, [setIsLoading]);
+    const handleLoading = useCallback(
+        (payload: boolean) => {
+            setIsLoading(payload);
+        },
+        [setIsLoading]
+    );
 
     // get initial data for: isDark & language
     useEffect(() => {
@@ -58,13 +66,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         handleUser,
         isLoading,
         handleLoading,
-    }
+    };
 
-    return (
-        <DataContext.Provider value={contextValue}>
-            {children}
-        </DataContext.Provider>
-    );
+    return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
 };
 
 export const useData = () => useContext(DataContext) as IUseData;

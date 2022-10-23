@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-    StyleSheet,
-    Image as RNImage,
-    ImageStyle,
-    ImageBackground,
-    Platform,
-} from 'react-native';
+import { StyleSheet, Image as RNImage, ImageStyle, ImageBackground, Platform } from 'react-native';
 import { IImageProps } from '../constants/types';
 
 import useTheme from '../hooks/useTheme';
@@ -62,7 +56,10 @@ const Image = ({
             ...(paddingRight && { paddingRight }),
             ...(paddingLeft && { paddingLeft }),
             ...(rounded && { borderRadius: sizes.radius, overflow: 'hidden' }),
-            ...(radius !== undefined && { borderRadius: radius, overflow: 'hidden' }),
+            ...(radius !== undefined && {
+                borderRadius: radius,
+                overflow: 'hidden',
+            }),
             ...(color && { tintColor: color }),
             ...(transform && { transform }),
             ...(shadow && {
@@ -84,8 +81,7 @@ const Image = ({
     ]) as ImageStyle;
 
     // generate component testID or accessibilityLabel based on Platform.OS
-    const imageID =
-        Platform.OS === 'android' ? { accessibilityLabel: id } : { testID: id };
+    const imageID = Platform.OS === 'android' ? { accessibilityLabel: id } : { testID: id };
 
     if (background) {
         return (

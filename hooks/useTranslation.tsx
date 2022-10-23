@@ -16,16 +16,19 @@ export const TranlationProvider = ({ children }: { children: React.ReactNode }) 
     i18n.locale = locale;
     i18n.translations = translations;
     i18n.enableFallback = true;
-    i18n.defaultLocale = "es";
+    i18n.defaultLocale = 'es';
 
-    const t = useCallback((scope, options) => {
-        return i18n.t(scope, { ...options, locale })
-    }, [locale]);
+    const t = useCallback(
+        (scope, options) => {
+            return i18n.t(scope, { ...options, locale });
+        },
+        [locale]
+    );
 
     // get local from storage
     const getLocale = useCallback(async () => {
         const localeJSON = await Storage.getItem('locale');
-        setLocale(localeJSON !== null ? localeJSON : Localization.locale)
+        setLocale(localeJSON !== null ? localeJSON : Localization.locale);
     }, [setLocale]);
 
     useEffect(() => {
@@ -44,10 +47,8 @@ export const TranlationProvider = ({ children }: { children: React.ReactNode }) 
     };
 
     return (
-        <TranslationContext.Provider value={contextValue}>
-            {children}
-        </TranslationContext.Provider>
+        <TranslationContext.Provider value={contextValue}>{children}</TranslationContext.Provider>
     );
-}
+};
 
 export const useTranslation = () => useContext(TranslationContext) as ITranslate;

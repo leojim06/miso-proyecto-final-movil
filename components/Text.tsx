@@ -65,29 +65,25 @@ const Typography = (props: ITextProps) => {
     const colorIndex = primary
         ? 'primary'
         : secondary
-            ? 'secondary'
-            : tertiary
-                ? 'tertiary'
-                : black
-                    ? 'black'
-                    : white
-                        ? 'white'
-                        : gray
-                            ? 'gray'
-                            : danger
-                                ? 'danger'
-                                : warning
-                                    ? 'warning'
-                                    : success
-                                        ? 'success'
-                                        : info
-                                            ? 'info'
-                                            : null;
-    const textColor = color
-        ? color
-        : colorIndex
-            ? colors?.[colorIndex]
-            : undefined;
+        ? 'secondary'
+        : tertiary
+        ? 'tertiary'
+        : black
+        ? 'black'
+        : white
+        ? 'white'
+        : gray
+        ? 'gray'
+        : danger
+        ? 'danger'
+        : warning
+        ? 'warning'
+        : success
+        ? 'success'
+        : info
+        ? 'info'
+        : null;
+    const textColor = color ? color : colorIndex ? colors?.[colorIndex] : undefined;
 
     const textStyles = StyleSheet.flatten([
         style,
@@ -172,15 +168,11 @@ const Typography = (props: ITextProps) => {
     const gradientHeight =
         Number(textStyles?.lineHeight || textStyles?.fontSize || 0) +
         Number(
-            textStyles?.marginVertical ||
-            textStyles?.marginTop ||
-            textStyles?.marginBottom ||
-            0,
+            textStyles?.marginVertical || textStyles?.marginTop || textStyles?.marginBottom || 0
         );
 
     // generate component testID or accessibilityLabel based on Platform.OS
-    const textID =
-        Platform.OS === 'android' ? { accessibilityLabel: id } : { testID: id };
+    const textID = Platform.OS === 'android' ? { accessibilityLabel: id } : { testID: id };
 
     if (gradient) {
         return (
@@ -189,12 +181,17 @@ const Typography = (props: ITextProps) => {
                     <Text {...textID} {...rest} style={textStyles}>
                         {children}
                     </Text>
-                }>
+                }
+            >
                 <LinearGradient
                     colors={gradient}
                     end={end || [0.2, 0]}
                     start={start || [0, 0]}
-                    style={{ flex: 1, height: gradientHeight, flexWrap: 'wrap' }}
+                    style={{
+                        flex: 1,
+                        height: gradientHeight,
+                        flexWrap: 'wrap',
+                    }}
                 />
             </MaskedView>
         );

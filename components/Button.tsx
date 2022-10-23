@@ -1,11 +1,5 @@
 import React, { useCallback } from 'react';
-import {
-    ViewStyle,
-    Vibration,
-    StyleSheet,
-    TouchableOpacity,
-    Platform,
-} from 'react-native';
+import { ViewStyle, Vibration, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
@@ -74,34 +68,30 @@ const Button = ({
     const colorIndex = primary
         ? 'primary'
         : secondary
-            ? 'secondary'
-            : tertiary
-                ? 'tertiary'
-                : black
-                    ? 'black'
-                    : white
-                        ? 'white'
-                        : light
-                            ? 'light'
-                            : dark
-                                ? 'dark'
-                                : gray
-                                    ? 'gray'
-                                    : danger
-                                        ? 'danger'
-                                        : warning
-                                            ? 'warning'
-                                            : success
-                                                ? 'success'
-                                                : info
-                                                    ? 'info'
-                                                    : null;
+        ? 'secondary'
+        : tertiary
+        ? 'tertiary'
+        : black
+        ? 'black'
+        : white
+        ? 'white'
+        : light
+        ? 'light'
+        : dark
+        ? 'dark'
+        : gray
+        ? 'gray'
+        : danger
+        ? 'danger'
+        : warning
+        ? 'warning'
+        : success
+        ? 'success'
+        : info
+        ? 'info'
+        : null;
 
-    const buttonColor = color
-        ? color
-        : colorIndex
-            ? colors?.[colorIndex]
-            : 'transparent';
+    const buttonColor = color ? color : colorIndex ? colors?.[colorIndex] : 'transparent';
 
     const buttonStyles = StyleSheet.flatten([
         style,
@@ -114,15 +104,15 @@ const Button = ({
             borderRadius: rounded ? sizes.s : sizes.buttonRadius,
             ...(shadow &&
                 buttonColor !== 'transparent' && {
-                shadowColor: colors.shadow,
-                shadowOffset: {
-                    width: sizes.shadowOffsetWidth,
-                    height: sizes.shadowOffsetHeight,
-                },
-                shadowOpacity: sizes.shadowOpacity,
-                shadowRadius: sizes.shadowRadius,
-                elevation: sizes.elevation,
-            }),
+                    shadowColor: colors.shadow,
+                    shadowOffset: {
+                        width: sizes.shadowOffsetWidth,
+                        height: sizes.shadowOffsetHeight,
+                    },
+                    shadowOpacity: sizes.shadowOpacity,
+                    shadowRadius: sizes.shadowRadius,
+                    elevation: sizes.elevation,
+                }),
             ...(row && { flexDirection: 'row' }),
             ...(radius && { borderRadius: radius }),
             ...(flex !== undefined && { flex }),
@@ -183,7 +173,7 @@ const Button = ({
                 Haptics.selectionAsync();
             }
         },
-        [haptic, vibrate, vibrateRepeat, onPress],
+        [haptic, vibrate, vibrateRepeat, onPress]
     );
 
     if (round) {
@@ -193,7 +183,7 @@ const Button = ({
             Number(buttonStyles.maxWidth || 0),
             Number(buttonStyles.height || 0),
             Number(buttonStyles.minHeight || 0),
-            Number(buttonStyles.maxHeight || 0),
+            Number(buttonStyles.maxHeight || 0)
         );
         buttonStyles.maxWidth = maxSize;
         buttonStyles.maxHeight = maxSize;
@@ -210,8 +200,7 @@ const Button = ({
     ]) as ViewStyle;
 
     // generate component testID or accessibilityLabel based on Platform.OS
-    const buttonID =
-        Platform.OS === 'android' ? { accessibilityLabel: id } : { testID: id };
+    const buttonID = Platform.OS === 'android' ? { accessibilityLabel: id } : { testID: id };
 
     if (gradient) {
         return (
@@ -220,12 +209,14 @@ const Button = ({
                 activeOpacity={activeOpacity}
                 onPress={handlePress}
                 {...props}
-                style={buttonStyles}>
+                style={buttonStyles}
+            >
                 <LinearGradient
                     style={gradientStyles}
                     colors={gradient}
                     start={[0, 1]}
-                    end={[1, 0]}>
+                    end={[1, 0]}
+                >
                     {children}
                 </LinearGradient>
             </TouchableOpacity>
@@ -237,8 +228,8 @@ const Button = ({
             social === 'facebook'
                 ? 'logo-facebook'
                 : social === 'twitter'
-                    ? 'logo-twitter'
-                    : 'logo-dribbble';
+                ? 'logo-twitter'
+                : 'logo-dribbble';
 
         return (
             <TouchableOpacity
@@ -246,12 +237,9 @@ const Button = ({
                 activeOpacity={activeOpacity}
                 onPress={handlePress}
                 {...props}
-                style={buttonStyles}>
-                <Ionicons
-                    name={socialIcon}
-                    size={sizes.socialIconSize}
-                    color={colors.white}
-                />
+                style={buttonStyles}
+            >
+                <Ionicons name={socialIcon} size={sizes.socialIconSize} color={colors.white} />
             </TouchableOpacity>
         );
     }
@@ -262,7 +250,8 @@ const Button = ({
             activeOpacity={activeOpacity}
             onPress={handlePress}
             {...props}
-            style={buttonStyles}>
+            style={buttonStyles}
+        >
             {children}
         </TouchableOpacity>
     );

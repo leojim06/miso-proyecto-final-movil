@@ -3,10 +3,10 @@ import { DataProvider } from './hooks/useData';
 import Navigation from './navigation';
 
 export default function App() {
-  return (
-    <DataProvider>
-      <Navigation />
-      <StatusBar />
-    </DataProvider>
-  );
+    return (
+        <DataProvider>
+            <Navigation />
+            <StatusBar />
+        </DataProvider>
+    );
 }

@@ -1,1 +1,1 @@
-export { THEME as light } from './light'
+export { THEME as light } from './light';

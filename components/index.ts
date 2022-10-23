@@ -7,13 +7,4 @@ import ModalPanel from './ModalPanel';
 import Spinner from './Spinner';
 import Text from './Text';
 
-export {
-    Block,
-    Button,
-    Image,
-    Input,
-    Modal,
-    ModalPanel,
-    Spinner,
-    Text,
-};
+export { Block, Button, Image, Input, Modal, ModalPanel, Spinner, Text };

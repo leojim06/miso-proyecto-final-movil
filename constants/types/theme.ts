@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-    ColorValue,
-    FlexStyle,
-    ImageSourcePropType,
-    ScaledSize,
-    TextStyle,
-} from 'react-native';
+import { ColorValue, FlexStyle, ImageSourcePropType, ScaledSize, TextStyle } from 'react-native';
 
 // Spacing types
 export interface ISpacing
@@ -25,7 +19,7 @@ export interface ISpacing
         | 'paddingRight'
         | 'paddingTop'
         | 'paddingBottom'
-    > { }
+    > {}
 
 export type TWeight =
     /** fontWeight: 400 */
