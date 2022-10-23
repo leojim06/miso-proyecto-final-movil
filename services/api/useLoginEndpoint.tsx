@@ -1,10 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useTranslation } from "../../hooks";
-
-type loginResponse = {
-  userId: number;
-  accessToken: string;
-};
+import { SPORT_APP_URL } from "@env";
+import { IUser } from "../../constants/types";
 
 type loginRequest = {
   username: string;
@@ -13,11 +10,11 @@ type loginRequest = {
 
 const useLoginEndpoint = () => {
   const { t } = useTranslation();
-  const url = "http://35.244.150.255/autenticador/auth";
+  const url = `${SPORT_APP_URL}/autenticador/auth`;
 
   const loadLogin = async ({ username, password }: loginRequest) => {
     try {
-      const response: AxiosResponse<loginResponse> = await axios.post(url, {
+      const response: AxiosResponse<IUser> = await axios.post(url, {
         username,
         password,
       });

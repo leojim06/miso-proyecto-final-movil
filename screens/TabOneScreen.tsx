@@ -5,7 +5,7 @@ import { useData } from '../hooks';
 import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  const { handleUser } = useData();
+  const { handleUser, user } = useData();
 
   const logout = () => {
     handleUser(null);
@@ -14,6 +14,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab One</Text>
+      <Text style={styles.text}>{user.userId}</Text>
+      <Text style={styles.text}>{user.accessToken}</Text>
       <View style={styles.separator} />
       <TouchableOpacity
         style={styles.buttonStyle}
@@ -34,6 +36,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  text:{
+    fontSize: 12,
   },
   separator: {
     marginVertical: 30,
