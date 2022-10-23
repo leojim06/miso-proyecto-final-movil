@@ -2,6 +2,7 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import React, { useEffect } from 'react';
 import { Platform, StatusBar } from 'react-native';
+import { Spinner } from '../components';
 import { TranlationProvider, ThemeProvider, useData } from '../hooks';
 
 import { PublicNavigator } from './PublicNavigator';
@@ -9,7 +10,7 @@ import { RootNavigator } from './RootNavigator';
 
 export default function Navigation() {
 
-  const { isDark, theme, setTheme, user } = useData();
+  const { isDark, isLoading, theme, setTheme, user } = useData();
 
   /* set the status bar based on isDark constant */
   useEffect(() => {
@@ -53,6 +54,7 @@ export default function Navigation() {
           {
             user ? <RootNavigator /> : <PublicNavigator />
           }
+          <Spinner isLoading={isLoading} />
         </NavigationContainer>
       </ThemeProvider>
     </TranlationProvider>

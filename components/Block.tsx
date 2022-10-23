@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Platform,
   SafeAreaView,
@@ -6,17 +6,17 @@ import {
   StyleSheet,
   View,
   ViewStyle,
-} from 'react-native';
-import { BlurView } from 'expo-blur';
-import { LinearGradient } from 'expo-linear-gradient';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+} from "react-native";
+import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import useTheme from '../hooks/useTheme';
-import { IBlockProps } from '../constants/types';
+import useTheme from "../hooks/useTheme";
+import { IBlockProps } from "../constants/types";
 
 const Block = (props: IBlockProps) => {
   const {
-    id = 'Block',
+    id = "Block",
     children,
     style,
     shadow,
@@ -76,32 +76,32 @@ const Block = (props: IBlockProps) => {
   const { colors, sizes } = useTheme();
 
   const colorIndex = primary
-    ? 'primary'
+    ? "primary"
     : secondary
-      ? 'secondary'
-      : tertiary
-        ? 'tertiary'
-        : black
-          ? 'black'
-          : white
-            ? 'white'
-            : gray
-              ? 'gray'
-              : danger
-                ? 'danger'
-                : warning
-                  ? 'warning'
-                  : success
-                    ? 'success'
-                    : info
-                      ? 'info'
-                      : null;
+    ? "secondary"
+    : tertiary
+    ? "tertiary"
+    : black
+    ? "black"
+    : white
+    ? "white"
+    : gray
+    ? "gray"
+    : danger
+    ? "danger"
+    : warning
+    ? "warning"
+    : success
+    ? "success"
+    : info
+    ? "info"
+    : null;
 
   const blockColor = color
     ? color
     : colorIndex
-      ? colors?.[colorIndex]
-      : undefined;
+    ? colors?.[colorIndex]
+    : undefined;
 
   const blockStyles = StyleSheet.flatten([
     style,
@@ -148,16 +148,16 @@ const Block = (props: IBlockProps) => {
       ...(width && { width }),
       ...(overflow && { overflow }),
       ...(flex !== undefined && { flex }),
-      ...(row && { flexDirection: 'row' }),
+      ...(row && { flexDirection: "row" }),
       ...(align && { alignItems: align }),
-      ...(center && { justifyContent: 'center' }),
+      ...(center && { justifyContent: "center" }),
       ...(justify && { justifyContent: justify }),
       ...(wrap && { flexWrap: wrap }),
       ...(blockColor && { backgroundColor: blockColor }),
       ...(outlined && {
         borderWidth: 1,
         borderColor: blockColor,
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
       }),
       ...(position && { position }),
       ...(right !== undefined && { right }),
@@ -169,7 +169,7 @@ const Block = (props: IBlockProps) => {
 
   // generate component testID or accessibilityLabel based on Platform.OS
   const blockID =
-    Platform.OS === 'android' ? { accessibilityLabel: id } : { testID: id };
+    Platform.OS === "android" ? { accessibilityLabel: id } : { testID: id };
 
   if (safe) {
     return (
@@ -181,7 +181,12 @@ const Block = (props: IBlockProps) => {
 
   if (keyboard) {
     return (
-      <KeyboardAwareScrollView {...blockID} {...rest} style={blockStyles}>
+      <KeyboardAwareScrollView
+        {...blockID}
+        {...rest}
+        style={blockStyles}
+        keyboardShouldPersistTaps="always"
+      >
         {children}
       </KeyboardAwareScrollView>
     );
@@ -203,7 +208,8 @@ const Block = (props: IBlockProps) => {
         style={blockStyles}
         end={end || [1, 0]}
         start={start || [0, 0]}
-        {...rest}>
+        {...rest}
+      >
         {children}
       </LinearGradient>
     );
@@ -215,7 +221,8 @@ const Block = (props: IBlockProps) => {
         {...blockID}
         tint={tint}
         intensity={intensity}
-        style={blockStyles}>
+        style={blockStyles}
+      >
         {children}
       </BlurView>
     );

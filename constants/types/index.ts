@@ -66,6 +66,8 @@ export interface IUseData {
     setTheme: (theme?: ITheme) => void;
     user: any;
     handleUser: (data?: any) => void;
+    isLoading: boolean;
+    handleLoading: (isLoading?: boolean) => void;
 }
 
 export interface ITranslate {

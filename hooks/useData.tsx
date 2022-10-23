@@ -11,6 +11,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [isDark, setIsDark] = useState(false);
     const [theme, setTheme] = useState<ITheme>(light);
     const [user, setUser] = useState<IUser>();
+    const [isLoading, setIsLoading] = useState(false);
 
     // get isDark mode from storage
     const getIsDark = useCallback(async () => {
@@ -33,6 +34,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [user, setUser]);
 
+    // handle isLoading
+    const handleLoading = useCallback((payload: boolean) => {
+        setIsLoading(payload);
+    }, [setIsLoading]);
+
     // get initial data for: isDark & language
     useEffect(() => {
         getIsDark();
@@ -49,7 +55,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         theme,
         setTheme,
         user,
-        handleUser
+        handleUser,
+        isLoading,
+        handleLoading,
     }
 
     return (
