@@ -15,7 +15,7 @@ export default function LoginScreen() {
     const handleSubmit = async (values: any) => {
         handleLoading(true);
         try {
-            var response = await loadLogin({
+            const response = await loadLogin({
                 username: values.email,
                 password: values.password,
             });

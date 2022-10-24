@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useTranslation } from '../../hooks';
 import { SPORT_APP_URL } from '@env';
 import { IUser } from '../../constants/types';
@@ -8,9 +8,11 @@ type loginRequest = {
     password: string;
 };
 
+const URL = "http://35.244.246.183";
+
 const useLoginEndpoint = () => {
     const { t } = useTranslation();
-    const url = `${SPORT_APP_URL}/autenticador/auth`;
+    const url = `${URL}/autenticador/auth`;
 
     const loadLogin = async ({ username, password }: loginRequest) => {
         try {
