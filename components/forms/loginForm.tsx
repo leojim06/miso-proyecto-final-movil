@@ -79,7 +79,6 @@ const LoginForm = (props: LoginFormProps) => {
                         <Button
                             color={colors.primary}
                             marginBottom={sizes.base}
-                            // onPress={() => handleSubmit()}
                             onPress={() => handleSubmit()}
                         >
                             <Text white bold transform="uppercase">
