@@ -91,17 +91,18 @@ export const GRADIENTS: ThemeGradients = {
 export const SIZES: ThemeSizes = {
     // global sizes
     base: 8,
-    text: 14,
+    text: 12,
     radius: 4,
-    padding: 20,
+    padding: 16,
+    margin: 16,
 
     // font sizes
-    h1: 44,
-    h2: 40,
-    h3: 32,
-    h4: 24,
-    h5: 18,
-    p: 16,
+    h1: 40,
+    h2: 36,
+    h3: 28,
+    h4: 20,
+    h5: 14,
+    p: 12,
 
     // button sizes
     buttonBorder: 1,

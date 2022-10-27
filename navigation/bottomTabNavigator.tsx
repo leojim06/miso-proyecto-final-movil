@@ -35,7 +35,7 @@ export function BottomTabNavigator() {
                 options={{
                     title: t('app.menubar.events'),
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                        <TabBarIcon name="map-o" color={color} />
                     ),
                 }}
             />
@@ -45,7 +45,7 @@ export function BottomTabNavigator() {
                 options={{
                     title: t('app.menubar.progress'),
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                        <TabBarIcon name="bar-chart" color={color} />
                     ),
                 }}
             />
@@ -55,7 +55,7 @@ export function BottomTabNavigator() {
                 options={{
                     title: t('app.menubar.plans'),
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                        <TabBarIcon name="file-text-o" color={color} />
                     ),
                 }}
             />
@@ -65,7 +65,7 @@ export function BottomTabNavigator() {
                 options={{
                     title: t('app.menubar.training'),
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                        <TabBarIcon name="bicycle" color={color} />
                     ),
                 }}
             />
@@ -75,7 +75,7 @@ export function BottomTabNavigator() {
                 options={{
                     title: t('app.menubar.profile'),
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                        <TabBarIcon name="user" color={color} />
                     ),
                 }}
             />
