@@ -5,11 +5,12 @@ import { Platform, StatusBar } from 'react-native';
 import { Spinner } from '../components';
 import { TranlationProvider, ThemeProvider, useData } from '../hooks';
 
-import { PublicNavigator } from './PublicNavigator';
-import { RootNavigator } from './RootNavigator';
+import { PublicNavigator } from './publicNavigator';
+import { RootNavigator } from './rootNavigator';
 
 export default function Navigation() {
-    const { isDark, isLoading, theme, setTheme, user } = useData();
+    const { isDark, isLoading, theme, setTheme, /*user*/ } = useData();
+    const user = true;
 
     /* set the status bar based on isDark constant */
     useEffect(() => {

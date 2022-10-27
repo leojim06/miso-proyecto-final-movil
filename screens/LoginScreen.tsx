@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Block, ModalPanel, Text, Spinner } from '../components';
+import { Block, ModalPanel, Text } from '../components';
 import LoginForm from '../components/forms/loginForm';
 import { useTheme, useTranslation, useData } from '../hooks';
 import useLoginEndpoint from '../services/api/useLoginEndpoint';

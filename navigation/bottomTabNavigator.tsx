@@ -3,57 +3,80 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import { Pressable } from 'react-native';
 
-// import Colors from '../constants/Colors';
-// import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
-import { TabBarIcon } from './TabBarIcon';
-import { useTheme } from '../hooks';
+import { TabBarIcon } from './tabBarIcon';
+import { useTheme, useTranslation } from '../hooks';
+import EventsScreen from '../screens/EventsScreen';
+import ProgressScreen from '../screens/ProgressScreen';
+import PlansScreen from '../screens/PlansScreen';
+import TrainingScreen from '../screens/TrainingScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+// const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const BottomTab = createBottomTabNavigator();
+
 
 export function BottomTabNavigator() {
     const { colors } = useTheme();
+    const { t } = useTranslation();
 
     return (
         <BottomTab.Navigator
-            initialRouteName="TabOne"
-            screenOptions={
-                {
-                    // tabBarActiveTintColor: Colors[colorScheme].tint,
-                }
-            }
+            initialRouteName="PlansScreen"
+            screenOptions={{
+                tabBarActiveTintColor: String(colors.primary),
+                headerTitle: ""
+            }}
         >
             <BottomTab.Screen
-                name="TabOne"
-                component={TabOneScreen}
-                options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-                    title: 'Tab One',
-                    tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-                    headerRight: () => (
-                        <Pressable
-                            onPress={() => navigation.navigate('Modal')}
-                            style={({ pressed }) => ({
-                                opacity: pressed ? 0.5 : 1,
-                            })}
-                        >
-                            <FontAwesome
-                                name="info-circle"
-                                size={25}
-                                color={colors.text}
-                                style={{ marginRight: 15 }}
-                            />
-                        </Pressable>
+                name="EventsScreen"
+                component={EventsScreen}
+                // options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+                options={{
+                    title: t('app.menubar.events'),
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="code" color={color} />
                     ),
-                })}
+                }}
             />
             <BottomTab.Screen
-                name="TabTwo"
-                component={TabTwoScreen}
+                name="ProgressScreen"
+                component={ProgressScreen}
                 options={{
-                    title: 'Tab Two',
-                    tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+                    title: t('app.menubar.progress'),
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="code" color={color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="PlansScreen"
+                component={PlansScreen}
+                options={{
+                    title: t('app.menubar.plans'),
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="code" color={color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="TrainingScreen"
+                component={TrainingScreen}
+                options={{
+                    title: t('app.menubar.training'),
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="code" color={color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="ProfileScreen"
+                component={ProfileScreen}
+                options={{
+                    title: t('app.menubar.profile'),
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="code" color={color} />
+                    ),
                 }}
             />
         </BottomTab.Navigator>
