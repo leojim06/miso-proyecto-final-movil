@@ -1,5 +1,6 @@
 import i18n from 'i18n-js';
 import { ImageSourcePropType } from 'react-native';
+import { InfoModalProps } from '../../components/modals/InformationModal';
 import { ITheme } from './theme';
 
 export * from './components';
@@ -70,6 +71,8 @@ export interface IUseData {
     handleUser: (data?: any) => void;
     isLoading: boolean;
     handleLoading: (isLoading?: boolean) => void;
+    hasInfoModal: InfoModalProps,
+    handleInfoModalPanel: (data?: InfoModalProps) => void;
 }
 
 export interface ITranslate {

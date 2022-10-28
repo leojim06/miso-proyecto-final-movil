@@ -4,50 +4,31 @@ import { Block, Text } from '../components';
 import CustomInfoOption from '../components/modals/CustomInfoOption';
 import CustomInfoPanel from '../components/modals/CustomInfoPanel';
 import TrainigPlan, { TrainingPlanProps } from '../components/plans/TrainigPlan';
-import { useTheme, useTranslation } from '../hooks';
-
-const plans: TrainingPlanProps[] = [
-    {
-        id: 1,
-        name: 'Name',
-        description: 'Lorem ipsum',
-        level: 'Beginner',
-        duration: 10,
-    },
-    {
-        id: 2,
-        name: 'Name',
-        description: 'Lorem ipsum',
-        level: 'Intermediate',
-        duration: 10,
-    },
-    {
-        id: 3,
-        name: 'Name',
-        description: 'Lorem ipsum',
-        level: 'Advanced',
-        duration: 10,
-    },
-];
-
-const plansNotFound: TrainingPlanProps[] = [];
+import { useData, useTheme, useTranslation } from '../hooks';
+import useMyPlansEndpoint from '../services/api/useMyPlansEndpoint';
 
 export default function PlansScreen() {
-    const [myPlans, setMyPlans] = useState(plansNotFound);
+    const [showModal, setModal] = useState(false);
+    const [error, setError] = useState<string>();
+    const { handleLoading } = useData();
+    const [myPlans, setMyPlans] = useState<TrainingPlanProps[]>();
     const [isMyPlansLoading, setIsMyPlansLoading] = useState<boolean>(false);
-    const [mySuggestedPlans, setMySuggestedPlans] = useState(plansNotFound);
+    const [mySuggestedPlans, setMySuggestedPlans] = useState();
     const [isMySuggestedPlansLoading, setIsMySuggestedPlansLoading] = useState<boolean>(false);
     const { t } = useTranslation();
     const { sizes } = useTheme();
+    const { loadMyPlans } = useMyPlansEndpoint();
 
     useEffect(() => {
-        // try {
-        // } catch (error) {
-        //     setError(error);
-        //     setModal(true);
-        // } finally {
-        //     handleLoading(false);
-        // }
+        handleLoading(true);
+
+        loadMyPlans('10', true)
+            .then((data: TrainingPlanProps[]) => setMyPlans(data))
+            .catch((error: string) => {
+                setError(error);
+                setModal(true);
+            })
+            .finally(() => handleLoading(false));
     }, []);
 
     return (
@@ -99,8 +80,10 @@ export default function PlansScreen() {
                 onCancelPress={() => {
                     // setShowErrorMessage(false);
                 }}
-                tempInfo={"temp info from screen"}
-                message={'Ha seleccionado el cierre de sesión asdf  af as lsalaskdjlsdkfjslkfj asldfj asldf lasd lasdjf alsdkjf laskdjfl askdjf lksjd flkasjdf lkasjd flkajsdlf kjasdlfk jasldkfj a;lsdkf jasdjkf hn,asdjmn wkljur474as;lkf jalsdkjf alskjfalskdfj lasdkfj asldkj'}
+                tempInfo={'temp info from screen'}
+                message={
+                    'Ha seleccionado el cierre de sesión asdf  af as lsalaskdjlsdkfjslkfj asldfj asldf lasd lasdjf alsdkjf laskdjfl askdjf lksjd flkasjdf lkasjd flkajsdlf kjasdlfk jasldkfj a;lsdkf jasdjkf hn,asdjmn wkljur474as;lkf jalsdkjf alskjfalskdfj lasdkfj asldkj'
+                }
             />
         </Block>
     );

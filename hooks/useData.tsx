@@ -3,6 +3,7 @@ import Storage from '@react-native-async-storage/async-storage';
 
 import { ITheme, IUseData, IUser } from '../constants/types';
 import { light } from '../constants';
+import { InfoModalProps } from '../components/modals/InformationModal';
 
 export const DataContext = React.createContext({});
 
@@ -11,6 +12,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [theme, setTheme] = useState<ITheme>(light);
     const [user, setUser] = useState<IUser>();
     const [isLoading, setIsLoading] = useState(false);
+    const [hasInfoModal, setInfoModal] = useState<InfoModalProps>();
 
     // get isDark mode from storage
     const getIsDark = useCallback(async () => {
@@ -47,6 +49,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         [setIsLoading]
     );
 
+    // handle info modal panel
+    const handleInfoModalPanel = useCallback((payload: InfoModalProps) => {
+        setInfoModal(payload);
+    }, [setInfoModal]);
+
     // get initial data for: isDark & language
     useEffect(() => {
         getIsDark();
@@ -66,6 +73,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         handleUser,
         isLoading,
         handleLoading,
+        hasInfoModal,
+        handleInfoModalPanel,
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

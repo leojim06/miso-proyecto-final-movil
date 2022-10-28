@@ -3,14 +3,15 @@ import { useFonts } from 'expo-font';
 import React, { useEffect } from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { Spinner } from '../components';
+import InformationModal from '../components/modals/InformationModal';
 import { TranlationProvider, ThemeProvider, useData } from '../hooks';
 
 import { PublicNavigator } from './publicNavigator';
 import { RootNavigator } from './rootNavigator';
 
 export default function Navigation() {
-    const { isDark, isLoading, theme, setTheme, /*user*/ } = useData();
-    const user = true;
+    const { isDark, isLoading, theme, setTheme, user, hasInfoModal } = useData();
+    // const user = true;
 
     /* set the status bar based on isDark constant */
     useEffect(() => {
@@ -53,6 +54,7 @@ export default function Navigation() {
                 <NavigationContainer theme={navigationTheme}>
                     {user ? <RootNavigator /> : <PublicNavigator />}
                     <Spinner isLoading={isLoading} />
+                    <InformationModal {...hasInfoModal} />
                 </NavigationContainer>
             </ThemeProvider>
         </TranlationProvider>
