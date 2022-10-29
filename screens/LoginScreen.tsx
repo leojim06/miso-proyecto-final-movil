@@ -1,31 +1,28 @@
 import React, { useState } from 'react';
-import { Block, ModalPanel, Text, Spinner } from '../components';
+import { Block, ModalPanel, Text } from '../components';
 import LoginForm from '../components/forms/loginForm';
+import { IUser } from '../constants/types';
 import { useTheme, useTranslation, useData } from '../hooks';
 import useLoginEndpoint from '../services/api/useLoginEndpoint';
 
 export default function LoginScreen() {
     const [showModal, setModal] = useState(false);
-    const [error, setError] = useState();
+    const [error, setError] = useState<string>();
     const { handleUser, handleLoading } = useData();
     const { colors, sizes } = useTheme();
     const { t } = useTranslation();
     const { loadLogin } = useLoginEndpoint();
 
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = (values: any) => {
         handleLoading(true);
-        try {
-            const response = await loadLogin({
-                username: values.email,
-                password: values.password,
-            });
-            handleUser(response);
-        } catch (error) {
-            setError(error);
-            setModal(true);
-        } finally {
-            handleLoading(false);
-        }
+
+        loadLogin({username: values.email,password: values.password,})
+            .then((user: IUser) => handleUser(user))
+            .catch((error: string) => {
+                setError(error);
+                setModal(true);
+            })
+            .finally(() => handleLoading(false))
     };
 
     return (

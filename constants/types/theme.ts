@@ -123,6 +123,7 @@ export interface ThemeSizes {
     text: number;
     radius: number;
     padding: number;
+    margin: number;
 
     h1: number;
     h2: number;

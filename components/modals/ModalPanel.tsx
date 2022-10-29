@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, KeyboardAvoidingView, Modal, Platform, TouchableOpacity, View } from 'react-native';
-import { useTheme } from '../hooks';
+import { useTheme } from '../../hooks';
 // import {Image} from '../components';
 
 const ModalPanel = (props) => {

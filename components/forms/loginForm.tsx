@@ -1,4 +1,4 @@
-import { Formik, FormikErrors } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Block, Button, Text, Input } from '../';
 import { emailRegExp } from '../../constants/regex';
@@ -20,9 +20,9 @@ const LoginForm = (props: LoginFormProps) => {
     const LoginFormValidationSchema = yup.object().shape({
         email: yup
             .string()
-            // .matches(
-            //     emailRegExp,
-            //     t("login.validation.invalidEmail"))
+            .matches(
+                emailRegExp,
+                t("login.validation.invalidEmail"))
             .required(t('login.validation.requiredEmail')),
         password: yup
             .string()
@@ -42,7 +42,6 @@ const LoginForm = (props: LoginFormProps) => {
                 errors,
                 setFieldTouched,
                 touched,
-                isValid,
                 handleSubmit,
             }) => (
                 <Block keyboard>
@@ -79,7 +78,6 @@ const LoginForm = (props: LoginFormProps) => {
                         <Button
                             color={colors.primary}
                             marginBottom={sizes.base}
-                            // onPress={() => handleSubmit()}
                             onPress={() => handleSubmit()}
                         >
                             <Text white bold transform="uppercase">
