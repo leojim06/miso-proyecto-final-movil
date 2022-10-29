@@ -1,50 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
-import { Block, Text } from '../components';
-import CustomInfoOption from '../components/modals/CustomInfoOption';
-import CustomInfoPanel from '../components/modals/CustomInfoPanel';
-import TrainigPlan, { TrainingPlanProps } from '../components/plans/TrainigPlan';
-import { useData, useTheme, useTranslation } from '../hooks';
-import useMyPlansEndpoint from '../services/api/useMyPlansEndpoint';
+import { Block, Button, Text } from '../../components';
+import LoadingPlaceholder from '../../components/LoadingPlaceholder';
+import CustomInfoOption from '../../components/modals/CustomInfoOption';
+import CustomInfoPanel from '../../components/modals/CustomInfoPanel';
+import TrainigPlan, { ITrainigPlans } from '../../components/plans/TrainigPlan';
+import { useData, useTheme, useTranslation } from '../../hooks';
+import usePlansEndpoint from '../../services/api/usePlansEndpoint';
 
-export default function PlansScreen() {
+export default function PlansScreen({ navigation }) {
     const [showModal, setModal] = useState(false);
     const [error, setError] = useState<string>();
-    const { handleLoading } = useData();
-    const [myPlans, setMyPlans] = useState<TrainingPlanProps[]>();
+    const [myPlans, setMyPlans] = useState<ITrainigPlans[]>([]);
     const [isMyPlansLoading, setIsMyPlansLoading] = useState<boolean>(false);
-    const [mySuggestedPlans, setMySuggestedPlans] = useState();
+    const [mySuggestedPlans, setMySuggestedPlans] = useState<ITrainigPlans[]>([]);
     const [isMySuggestedPlansLoading, setIsMySuggestedPlansLoading] = useState<boolean>(false);
+
+    // const { handleLoading } = useData();
     const { t } = useTranslation();
     const { sizes } = useTheme();
-    const { loadMyPlans } = useMyPlansEndpoint();
+    const { loadMyPlans, loadMySuggestedPlans } = usePlansEndpoint();
 
     useEffect(() => {
-        handleLoading(true);
+        // handleLoading(true);
+        setMyPlans([]);
+        setIsMyPlansLoading(true);
+        setMySuggestedPlans([]);
+        setIsMySuggestedPlansLoading(true);
 
         loadMyPlans('10', true)
-            .then((data: TrainingPlanProps[]) => setMyPlans(data))
+            .then((data: ITrainigPlans[]) => setMyPlans(data))
             .catch((error: string) => {
                 setError(error);
                 setModal(true);
             })
-            .finally(() => handleLoading(false));
+            .finally(() => setIsMyPlansLoading(false));
+
+        loadMySuggestedPlans('10', true)
+            .then((data: ITrainigPlans[]) => setMySuggestedPlans(data))
+            .catch((error: string) => {
+                setError(error);
+                setModal(true);
+            })
+            .finally(() => setIsMySuggestedPlansLoading(false));
     }, []);
 
     return (
         <Block safe flex={1} margin={sizes.margin}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
                 <Text h3>{t('plans.label.title')}</Text>
-            </Block>
+            </Block>            
             <Block flex={1} marginBottom={sizes.xl}>
                 <Text h4>{t('plans.label.myPlans')}</Text>
                 <FlatList
                     data={myPlans}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item, index }) => <TrainigPlan {...item} />}
+                    renderItem={({ item, index }) => <TrainigPlan onPress={() => 
+                        navigation.navigate('PlanDetailScreen', { planId: item.id, isInMyPlans: true })
+                    } {...item} />}
                     ListEmptyComponent={
                         isMyPlansLoading ? (
-                            <Text>Cargando</Text>
+                            <LoadingPlaceholder />
                         ) : (
                             <Text>{t('plans.warning.myPlansNotFound')}</Text>
                         )
@@ -57,10 +73,12 @@ export default function PlansScreen() {
                 <FlatList
                     data={mySuggestedPlans}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item, index }) => <TrainigPlan {...item} />}
+                    renderItem={({ item, index }) => <TrainigPlan onPress={() => 
+                        navigation.navigate('PlanDetailScreen', { planId: item.id, isInMyPlans: false })
+                    } {...item} />}
                     ListEmptyComponent={
                         isMySuggestedPlansLoading ? (
-                            <Text>Cargando</Text>
+                            <LoadingPlaceholder />
                         ) : (
                             <Text>{t('plans.warning.mySuggestedPlansNotFound')}</Text>
                         )

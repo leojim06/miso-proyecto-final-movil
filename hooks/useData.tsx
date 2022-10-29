@@ -12,7 +12,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [theme, setTheme] = useState<ITheme>(light);
     const [user, setUser] = useState<IUser>();
     const [isLoading, setIsLoading] = useState(false);
-    const [hasInfoModal, setInfoModal] = useState<InfoModalProps>();
+    // const [hasInfoModal, setInfoModal] = useState<InfoModalProps>();
 
     // get isDark mode from storage
     const getIsDark = useCallback(async () => {
@@ -49,10 +49,13 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         [setIsLoading]
     );
 
-    // handle info modal panel
-    const handleInfoModalPanel = useCallback((payload: InfoModalProps) => {
-        setInfoModal(payload);
-    }, [setInfoModal]);
+    // // handle info modal panel
+    // const handleInfoModalPanel = useCallback(
+    //     (payload: InfoModalProps) => {
+    //         setInfoModal(payload);
+    //     },
+    //     [setInfoModal]
+    // );
 
     // get initial data for: isDark & language
     useEffect(() => {
@@ -64,6 +67,13 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         setTheme(isDark ? light : light);
     }, [isDark]);
 
+    // // get initial data for information panel
+    // useEffect(() => {
+    //     setInfoModal({
+    //         isVisible: false,
+    //     });
+    // }, [hasInfoModal]);
+
     const contextValue = {
         isDark,
         handleIsDark,
@@ -73,8 +83,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         handleUser,
         isLoading,
         handleLoading,
-        hasInfoModal,
-        handleInfoModalPanel,
+        // hasInfoModal,
+        // handleInfoModalPanel,
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

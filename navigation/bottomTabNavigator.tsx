@@ -8,9 +8,10 @@ import { TabBarIcon } from './tabBarIcon';
 import { useTheme, useTranslation } from '../hooks';
 import EventsScreen from '../screens/EventsScreen';
 import ProgressScreen from '../screens/ProgressScreen';
-import PlansScreen from '../screens/PlansScreen';
+import PlansScreen from '../screens/Plans/PlansScreen';
 import TrainingScreen from '../screens/TrainingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import { PlansNavigator } from './plansNavigator';
 
 // const BottomTab = createBottomTabNavigator<RootTabParamList>();
 const BottomTab = createBottomTabNavigator();
@@ -22,10 +23,11 @@ export function BottomTabNavigator() {
 
     return (
         <BottomTab.Navigator
-            initialRouteName="PlansScreen"
+            initialRouteName="Plans"
             screenOptions={{
                 tabBarActiveTintColor: String(colors.primary),
-                headerTitle: ""
+                headerTitle: "",
+                headerShown: false, 
             }}
         >
             <BottomTab.Screen
@@ -50,8 +52,8 @@ export function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="PlansScreen"
-                component={PlansScreen}
+                name="Plans"
+                component={PlansNavigator}
                 options={{
                     title: t('app.menubar.plans'),
                     tabBarIcon: ({ color }) => (

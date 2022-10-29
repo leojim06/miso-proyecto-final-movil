@@ -68,11 +68,11 @@ export interface IUseData {
     theme: ITheme;
     setTheme: (theme?: ITheme) => void;
     user: any;
-    handleUser: (data?: any) => void;
+    handleUser: (data?: IUser) => void;
     isLoading: boolean;
     handleLoading: (isLoading?: boolean) => void;
-    hasInfoModal: InfoModalProps,
-    handleInfoModalPanel: (data?: InfoModalProps) => void;
+    // hasInfoModal: InfoModalProps,
+    // handleInfoModalPanel: (data?: InfoModalProps) => void;
 }
 
 export interface ITranslate {

@@ -10,8 +10,8 @@ import { PublicNavigator } from './publicNavigator';
 import { RootNavigator } from './rootNavigator';
 
 export default function Navigation() {
-    const { isDark, isLoading, theme, setTheme, user, hasInfoModal } = useData();
-    // const user = true;
+    const { isDark, isLoading, theme, setTheme, /*user*/ } = useData();
+    const user = true;
 
     /* set the status bar based on isDark constant */
     useEffect(() => {
@@ -54,7 +54,7 @@ export default function Navigation() {
                 <NavigationContainer theme={navigationTheme}>
                     {user ? <RootNavigator /> : <PublicNavigator />}
                     <Spinner isLoading={isLoading} />
-                    <InformationModal {...hasInfoModal} />
+                    {/* <InformationModal {...hasInfoModal} /> */}
                 </NavigationContainer>
             </ThemeProvider>
         </TranlationProvider>

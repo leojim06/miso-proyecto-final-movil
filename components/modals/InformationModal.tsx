@@ -5,8 +5,8 @@ import ModalPanel from './ModalPanel';
 
 export type InfoModalProps = {
     isVisible: boolean;
-    text: string;
-    onCloseModal: () => void;
+    text?: string;
+    onCloseModal?: () => void;
 };
 
 const InformationModal = (props: InfoModalProps) => {
