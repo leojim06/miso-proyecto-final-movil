@@ -16,13 +16,13 @@ export default function LoginScreen() {
     const handleSubmit = (values: any) => {
         handleLoading(true);
 
-        loadLogin({username: values.email,password: values.password,})
+        loadLogin({ username: values.email, password: values.password })
             .then((user: IUser) => handleUser(user))
             .catch((error: string) => {
                 setError(error);
                 setModal(true);
             })
-            .finally(() => handleLoading(false))
+            .finally(() => handleLoading(false));
     };
 
     return (

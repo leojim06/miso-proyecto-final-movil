@@ -2,7 +2,7 @@ export const plansEs = {
     label: {
         title: 'Planes',
         myPlans: 'Mis Planes',
-        suggestedPlans: 'Planes sugeridos'
+        suggestedPlans: 'Planes sugeridos',
     },
     warning: {
         myPlansNotFound: 'No tienes planes seleccionados',
@@ -13,5 +13,5 @@ export const plansEs = {
             level: 'Nivel: ',
             duration: 'Duración: ',
         },
-    }
-}
+    },
+};

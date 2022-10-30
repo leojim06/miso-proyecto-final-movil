@@ -13,7 +13,7 @@ export interface ITrainigPlans {
     duration?: number;
 }
 
-const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainigPlans, isInMyPlans: boolean }) => {
+const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainigPlans; isInMyPlans: boolean }) => {
     // hooks from app
     const { t } = useTranslation();
     const { colors, sizes } = useTheme();

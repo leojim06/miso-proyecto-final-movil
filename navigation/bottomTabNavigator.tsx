@@ -13,7 +13,6 @@ import { BottomTabNavigatorParamList } from './types';
 // const BottomTab = createBottomTabNavigator<RootTabParamList>();
 const BottomTab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
-
 export function BottomTabNavigator() {
     const { colors } = useTheme();
     const { t } = useTranslation();
@@ -23,8 +22,8 @@ export function BottomTabNavigator() {
             initialRouteName="Plans"
             screenOptions={{
                 tabBarActiveTintColor: String(colors.primary),
-                headerTitle: "",
-                headerShown: false, 
+                headerTitle: '',
+                headerShown: false,
             }}
         >
             <BottomTab.Screen
@@ -33,9 +32,7 @@ export function BottomTabNavigator() {
                 // options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
                 options={{
                     title: t('app.menubar.events'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="map-o" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="map-o" color={color} />,
                 }}
             />
             <BottomTab.Screen
@@ -43,9 +40,7 @@ export function BottomTabNavigator() {
                 component={ProgressScreen}
                 options={{
                     title: t('app.menubar.progress'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="bar-chart" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="bar-chart" color={color} />,
                 }}
             />
             <BottomTab.Screen
@@ -53,9 +48,7 @@ export function BottomTabNavigator() {
                 component={PlansNavigator}
                 options={{
                     title: t('app.menubar.plans'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="file-text-o" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="file-text-o" color={color} />,
                 }}
             />
             <BottomTab.Screen
@@ -63,9 +56,7 @@ export function BottomTabNavigator() {
                 component={TrainingScreen}
                 options={{
                     title: t('app.menubar.training'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="bicycle" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="bicycle" color={color} />,
                 }}
             />
             <BottomTab.Screen
@@ -73,9 +64,7 @@ export function BottomTabNavigator() {
                 component={ProfileScreen}
                 options={{
                     title: t('app.menubar.profile'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="user" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
                 }}
             />
         </BottomTab.Navigator>

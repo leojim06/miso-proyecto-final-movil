@@ -12,6 +12,6 @@ export default {
         events: eventsEs,
     },
     ptBR: {
-        app: applicationPtBR
-    }
+        app: applicationPtBR,
+    },
 };

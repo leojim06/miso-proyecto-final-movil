@@ -41,7 +41,7 @@ const useMyPlansEndpoint = () => {
         try {
             // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/my-plans/${user_id}`);
             // return response.data;
-            await timeout(800)
+            await timeout(800);
             return withData ? plans : plansNotFound;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -52,12 +52,14 @@ const useMyPlansEndpoint = () => {
         }
     };
 
-
-    const loadMySuggestedPlans = async (user_id: string, withData: boolean): Promise<ITrainigPlans[]> => {
+    const loadMySuggestedPlans = async (
+        user_id: string,
+        withData: boolean
+    ): Promise<ITrainigPlans[]> => {
         try {
             // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/my-plans/${user_id}`);
             // return response.data;
-            await timeout(1500)
+            await timeout(1500);
             return withData ? plans : plansNotFound;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -66,7 +68,7 @@ const useMyPlansEndpoint = () => {
                 throw t('login.error.server');
             }
         }
-    };    
+    };
 
     return { loadMyPlans, loadMySuggestedPlans };
 };

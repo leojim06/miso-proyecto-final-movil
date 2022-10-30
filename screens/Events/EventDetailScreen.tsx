@@ -62,7 +62,6 @@ export default function EventDetailScreen() {
             </View>
 
             <View>
-
                 <FontAwesome size={30} name={'map-marker'} />
                 <Text p>{eventDetail?.location}</Text>
 
@@ -80,7 +79,6 @@ export default function EventDetailScreen() {
                 <FontAwesome size={30} name={'bed'} />
                 <Text p>{eventDetail?.host}</Text>
             </View>
-
         </View>
     );
 }

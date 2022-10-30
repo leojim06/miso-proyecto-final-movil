@@ -20,9 +20,7 @@ const LoginForm = (props: LoginFormProps) => {
     const LoginFormValidationSchema = yup.object().shape({
         email: yup
             .string()
-            .matches(
-                emailRegExp,
-                t("login.validation.invalidEmail"))
+            .matches(emailRegExp, t('login.validation.invalidEmail'))
             .required(t('login.validation.requiredEmail')),
         password: yup
             .string()
@@ -36,14 +34,7 @@ const LoginForm = (props: LoginFormProps) => {
             validationSchema={LoginFormValidationSchema}
             onSubmit={(values) => props.onSubmit(values)}
         >
-            {({
-                values,
-                handleChange,
-                errors,
-                setFieldTouched,
-                touched,
-                handleSubmit,
-            }) => (
+            {({ values, handleChange, errors, setFieldTouched, touched, handleSubmit }) => (
                 <Block keyboard>
                     <Block>
                         <Input

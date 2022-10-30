@@ -51,13 +51,15 @@ export default function PlansScreen() {
         <Block safe flex={1} margin={sizes.margin}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
                 <Text h3>{t('plans.label.title')}</Text>
-            </Block>            
+            </Block>
             <Block flex={1} marginBottom={sizes.xl}>
                 <Text h4>{t('plans.label.myPlans')}</Text>
                 <FlatList
                     data={myPlans}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item, index }) => <TrainigPlan props={item} isInMyPlans={true} />}
+                    renderItem={({ item, index }) => (
+                        <TrainigPlan props={item} isInMyPlans={true} />
+                    )}
                     ListEmptyComponent={
                         isMyPlansLoading ? (
                             <LoadingPlaceholder />
@@ -73,7 +75,9 @@ export default function PlansScreen() {
                 <FlatList
                     data={mySuggestedPlans}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item, index }) => <TrainigPlan props={item} isInMyPlans={false} />}
+                    renderItem={({ item, index }) => (
+                        <TrainigPlan props={item} isInMyPlans={false} />
+                    )}
                     ListEmptyComponent={
                         isMySuggestedPlansLoading ? (
                             <LoadingPlaceholder />

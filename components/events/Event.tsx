@@ -18,13 +18,15 @@ const Event = (props: IEventProps) => {
     const navigation = useNavigation<EventsScreenNavigationProp>();
 
     return (
-        <TouchableOpacity onPress={() => 
-            navigation.navigate('EventDetailScreen', {
-                eventId: props.id
-            })
-        }>
+        <TouchableOpacity
+            onPress={() =>
+                navigation.navigate('EventDetailScreen', {
+                    eventId: props.id,
+                })
+            }
+        >
             <Text h5 bold>
-                {i18n.l("currency", "2009") }
+                {i18n.l('currency', '2009')}
             </Text>
             <Text p>{props.description}</Text>
         </TouchableOpacity>

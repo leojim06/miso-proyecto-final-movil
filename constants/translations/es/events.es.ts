@@ -9,5 +9,5 @@ export const eventsEs = {
         title: 'Evento',
         food: 'Comida: ',
         host: 'Estadía: ',
-    }
-}
+    },
+};

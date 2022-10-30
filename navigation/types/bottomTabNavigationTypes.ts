@@ -1,5 +1,5 @@
-import { EventStackNavigatorParamList } from "./eventNavigationTypes";
-import { PlanStackNavigatorParamList } from "./planNavigationTypes";
+import { EventStackNavigatorParamList } from './eventNavigationTypes';
+import { PlanStackNavigatorParamList } from './planNavigationTypes';
 
 export type BottomTabNavigatorParamList = {
     Events: EventStackNavigatorParamList;

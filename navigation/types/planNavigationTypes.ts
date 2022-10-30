@@ -1,11 +1,11 @@
-import type { RouteProp } from '@react-navigation/native'
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import type { RouteProp } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type PlanStackNavigatorParamList = {
-    PlansScreen: undefined,
+    PlansScreen: undefined;
     PlanDetailScreen: {
         planId: string;
-        isInMyPlans: boolean
+        isInMyPlans: boolean;
     };
 };
 
@@ -14,7 +14,4 @@ export type PlansScreenNavigationProp = NativeStackNavigationProp<
     'PlanDetailScreen'
 >;
 
-export type PlanDetailScreenRouteProp = RouteProp<
-    PlanStackNavigatorParamList,
-    'PlanDetailScreen'
->;
+export type PlanDetailScreenRouteProp = RouteProp<PlanStackNavigatorParamList, 'PlanDetailScreen'>;

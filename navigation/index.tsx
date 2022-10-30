@@ -10,7 +10,7 @@ import { PublicNavigator } from './publicNavigator';
 import { RootNavigator } from './rootNavigator';
 
 export default function Navigation() {
-    const { isDark, isLoading, theme, setTheme, /*user*/ } = useData();
+    const { isDark, isLoading, theme, setTheme /*user*/ } = useData();
     const user = true;
 
     /* set the status bar based on isDark constant */

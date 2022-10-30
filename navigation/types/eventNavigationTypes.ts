@@ -1,11 +1,11 @@
-import type { RouteProp } from '@react-navigation/native'
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import type { RouteProp } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type EventStackNavigatorParamList = {
-    EventsScreen: undefined,
+    EventsScreen: undefined;
     EventDetailScreen: {
-        eventId: string
-    },
+        eventId: string;
+    };
 };
 
 export type EventsScreenNavigationProp = NativeStackNavigationProp<
