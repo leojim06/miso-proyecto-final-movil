@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { Text } from '../../components';
+import { Block, Text } from '../../components';
 import Event, { IEventProps } from '../../components/events/Event';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
-import { useTranslation } from '../../hooks';
+import { useTheme, useTranslation } from '../../hooks';
 import useEventEndpoint from '../../services/api/useEventEndpoint';
 
 export default function EventsScreen() {
@@ -14,6 +14,7 @@ export default function EventsScreen() {
     // hooks from app
     const { t } = useTranslation();
     const { loadMySuggestedEvents } = useEventEndpoint();
+    const { sizes } = useTheme();
 
     useEffect(() => {
         setMySuggestedEvents([]);
@@ -26,11 +27,11 @@ export default function EventsScreen() {
     }, []);
 
     return (
-        <View>
-            <View>
-                <Text h3>{t('events.label.title')}</Text>
-            </View>
-            <View>
+        <Block safe margin={sizes.margin}>
+            <Block flex={0} align="center" paddingBottom={sizes.s}>
+                <Text h3 center>{t('events.label.title')}</Text>
+            </Block>
+            <Block flex={1} marginBottom={sizes.xl}>
                 <FlatList
                     data={mySuggestedEvents}
                     keyExtractor={(item) => item.id.toString()}
@@ -44,7 +45,7 @@ export default function EventsScreen() {
                     }
                     showsVerticalScrollIndicator={false}
                 />
-            </View>
-        </View>
+            </Block>
+        </Block>
     );
 }

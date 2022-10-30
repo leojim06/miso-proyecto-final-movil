@@ -20,39 +20,35 @@ const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainigPlans; isInMyPlans
     const navigation = useNavigation<PlansScreenNavigationProp>();
 
     return (
-        <TouchableOpacity
-            onPress={() =>
-                navigation.navigate('PlanDetailScreen', {
-                    planId: props.id,
-                    isInMyPlans: isInMyPlans,
-                })
-            }
-        >
-            <Block
-                color={colors.card}
-                marginVertical={sizes.sm}
-                padding={sizes.sm}
-                radius={sizes.sm}
-                shadow={true}
+        <Block color={colors.card} marginVertical={sizes.sm} radius={sizes.sm} shadow={true}>
+            <TouchableOpacity
+                onPress={() =>
+                    navigation.navigate('PlanDetailScreen', {
+                        planId: props.id,
+                        isInMyPlans: isInMyPlans,
+                    })
+                }
             >
-                <Text h5 bold>
-                    {props.name}
-                </Text>
-                <Text p>{props.description}</Text>
-                <Block row>
-                    <Text p bold>
-                        {t('plans.trainigPlan.label.level')}
+                <Block padding={sizes.sm}>
+                    <Text h5 bold>
+                        {props.name}
                     </Text>
-                    <Text p>{props.level}</Text>
+                    <Text p>{props.description}</Text>
+                    <Block row>
+                        <Text p bold>
+                            {t('plans.label.level')}
+                        </Text>
+                        <Text p>{props.level}</Text>
+                    </Block>
+                    <Block row>
+                        <Text p bold>
+                            {t('plans.label.duration')}
+                        </Text>
+                        <Text p>{props.duration}</Text>
+                    </Block>
                 </Block>
-                <Block row>
-                    <Text p bold>
-                        {t('plans.trainigPlan.label.duration')}
-                    </Text>
-                    <Text p>{props.duration}</Text>
-                </Block>
-            </Block>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </Block>
     );
 };
 

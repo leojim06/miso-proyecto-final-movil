@@ -3,15 +3,21 @@ export const plansEs = {
         title: 'Planes',
         myPlans: 'Mis Planes',
         suggestedPlans: 'Planes sugeridos',
+        level: 'Nivel: ',
+        duration: 'Duración: ',
     },
     warning: {
         myPlansNotFound: 'No tienes planes seleccionados',
         mySuggestedPlansNotFound: 'No tienes planes sugeridos',
     },
-    trainigPlan: {
+    detail: {
         label: {
-            level: 'Nivel: ',
-            duration: 'Duración: ',
+
+            routine: 'Rutina',
+            day: 'Dia %{day}'
         },
+        btn: {
+            suscribe: 'Registrarme en este plan'
+        }
     },
 };

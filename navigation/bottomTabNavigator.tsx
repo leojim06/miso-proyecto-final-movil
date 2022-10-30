@@ -24,6 +24,7 @@ export function BottomTabNavigator() {
                 tabBarActiveTintColor: String(colors.primary),
                 headerTitle: '',
                 headerShown: false,
+                unmountOnBlur: true,
             }}
         >
             <BottomTab.Screen

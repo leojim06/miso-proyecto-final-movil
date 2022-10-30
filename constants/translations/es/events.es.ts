@@ -6,8 +6,10 @@ export const eventsEs = {
         mySuggestedEventsNotFound: 'No tienes eventos sugeridos',
     },
     detail: {
-        title: 'Evento',
-        food: 'Comida: ',
-        host: 'Estadía: ',
+        label: {
+            title: 'Evento',
+            food: 'Comida: %{food}',
+            host: 'Estadía: %{host}',
+        },
     },
 };

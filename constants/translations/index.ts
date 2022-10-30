@@ -11,7 +11,7 @@ export default {
         plans: plansEs,
         events: eventsEs,
     },
-    ptBR: {
+    "pt-BR": {
         app: applicationPtBR,
     },
 };

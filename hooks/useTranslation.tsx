@@ -9,10 +9,11 @@ import translations from '../constants/translations';
 export const TranslationContext = React.createContext({});
 
 export const TranlationProvider = ({ children }: { children: React.ReactNode }) => {
-    const [locale, setLocale] = useState('es');
+    const [locale, setLocale] = useState('es-CO');
 
     // Set the local once at the beginning of your app.
     const i18n = new I18n();
+    i18n.defaultLocale = "es";
     i18n.locale = locale;
     i18n.translations = translations;
     i18n.enableFallback = true;

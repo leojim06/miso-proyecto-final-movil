@@ -48,7 +48,7 @@ export default function PlansScreen() {
     }, []);
 
     return (
-        <Block safe flex={1} margin={sizes.margin}>
+        <Block safe margin={sizes.margin}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
                 <Text h3>{t('plans.label.title')}</Text>
             </Block>
