@@ -6,15 +6,16 @@ import { Pressable } from 'react-native';
 import { RootTabParamList, RootTabScreenProps } from '../types';
 import { TabBarIcon } from './tabBarIcon';
 import { useTheme, useTranslation } from '../hooks';
-import EventsScreen from '../screens/EventsScreen';
 import ProgressScreen from '../screens/ProgressScreen';
 import PlansScreen from '../screens/Plans/PlansScreen';
 import TrainingScreen from '../screens/TrainingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { PlansNavigator } from './plansNavigator';
+import { EventsNavigator } from './eventsNavigator';
+import { BottomTabNavigatorParamList } from './types';
 
 // const BottomTab = createBottomTabNavigator<RootTabParamList>();
-const BottomTab = createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
 
 export function BottomTabNavigator() {
@@ -31,8 +32,8 @@ export function BottomTabNavigator() {
             }}
         >
             <BottomTab.Screen
-                name="EventsScreen"
-                component={EventsScreen}
+                name="Events"
+                component={EventsNavigator}
                 // options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
                 options={{
                     title: t('app.menubar.events'),
@@ -42,7 +43,7 @@ export function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="ProgressScreen"
+                name="Progress"
                 component={ProgressScreen}
                 options={{
                     title: t('app.menubar.progress'),
@@ -62,7 +63,7 @@ export function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="TrainingScreen"
+                name="Training"
                 component={TrainingScreen}
                 options={{
                     title: t('app.menubar.training'),
@@ -72,7 +73,7 @@ export function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="ProfileScreen"
+                name="Profile"
                 component={ProfileScreen}
                 options={{
                     title: t('app.menubar.profile'),

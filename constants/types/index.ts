@@ -80,6 +80,7 @@ export interface ITranslate {
     setLocale: (locale?: string) => void;
     t: (scope?: i18n.Scope, options?: i18n.TranslateOptions) => string;
     translate: (scope?: i18n.Scope, options?: i18n.TranslateOptions) => string;
+    i18n: i18n.I18n;
 }
 export interface IExtra {
     id?: number;

@@ -8,7 +8,8 @@ import TrainigPlan, { ITrainigPlans } from '../../components/plans/TrainigPlan';
 import { useData, useTheme, useTranslation } from '../../hooks';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
 
-export default function PlansScreen({ navigation }) {
+export default function PlansScreen() {
+    // hooks for screen
     const [showModal, setModal] = useState(false);
     const [error, setError] = useState<string>();
     const [myPlans, setMyPlans] = useState<ITrainigPlans[]>([]);
@@ -16,6 +17,7 @@ export default function PlansScreen({ navigation }) {
     const [mySuggestedPlans, setMySuggestedPlans] = useState<ITrainigPlans[]>([]);
     const [isMySuggestedPlansLoading, setIsMySuggestedPlansLoading] = useState<boolean>(false);
 
+    // hooks from app
     // const { handleLoading } = useData();
     const { t } = useTranslation();
     const { sizes } = useTheme();
@@ -55,9 +57,7 @@ export default function PlansScreen({ navigation }) {
                 <FlatList
                     data={myPlans}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item, index }) => <TrainigPlan onPress={() => 
-                        navigation.navigate('PlanDetailScreen', { planId: item.id, isInMyPlans: true })
-                    } {...item} />}
+                    renderItem={({ item, index }) => <TrainigPlan props={item} isInMyPlans={true} />}
                     ListEmptyComponent={
                         isMyPlansLoading ? (
                             <LoadingPlaceholder />
@@ -73,9 +73,7 @@ export default function PlansScreen({ navigation }) {
                 <FlatList
                     data={mySuggestedPlans}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item, index }) => <TrainigPlan onPress={() => 
-                        navigation.navigate('PlanDetailScreen', { planId: item.id, isInMyPlans: false })
-                    } {...item} />}
+                    renderItem={({ item, index }) => <TrainigPlan props={item} isInMyPlans={false} />}
                     ListEmptyComponent={
                         isMySuggestedPlansLoading ? (
                             <LoadingPlaceholder />

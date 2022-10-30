@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { useTranslation } from '../../hooks';
 import { API_URL } from '@env';
 import { ITrainigPlans } from '../../components/plans/TrainigPlan';
+import { timeout } from '../../utils/timeout';
 
 type loginRequest = {};
 
@@ -9,21 +10,21 @@ export interface IMyPlans {}
 
 const plans: ITrainigPlans[] = [
     {
-        id: 1,
+        id: '1',
         name: 'Name',
         description: 'Lorem ipsum',
         level: 'Beginner',
         duration: 10,
     },
     {
-        id: 2,
+        id: '2',
         name: 'Name',
         description: 'Lorem ipsum',
         level: 'Intermediate',
         duration: 10,
     },
     {
-        id: 3,
+        id: '3',
         name: 'Name',
         description: 'Lorem ipsum',
         level: 'Advanced',
@@ -32,10 +33,6 @@ const plans: ITrainigPlans[] = [
 ];
 
 const plansNotFound: ITrainigPlans[] = [];
-
-function timeout(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-}
 
 const useMyPlansEndpoint = () => {
     const { t } = useTranslation();

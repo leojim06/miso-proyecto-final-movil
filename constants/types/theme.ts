@@ -207,6 +207,7 @@ export interface ThemeIcons {
     home: ImageSourcePropType;
     search: ImageSourcePropType;
     warning: ImageSourcePropType;
+    landscapePlaceholder: ImageSourcePropType;
 }
 
 export interface ThemeAssets {

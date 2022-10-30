@@ -1,8 +1,11 @@
+import { useRoute } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { Text, Button } from '../../components';
+import { PlanDetailScreenRouteProp } from '../../navigation/types';
 
-export default function PlanDetailScreen({ route, navigation }) {
+export default function PlanDetailScreen() {
+    const route = useRoute<PlanDetailScreenRouteProp>();
     const { planId, isInMyPlans } = route.params;
 
     return (

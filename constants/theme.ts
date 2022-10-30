@@ -37,6 +37,7 @@ export const ICONS: ThemeIcons = {
     home: require('../assets/icons/home.png'),
     search: require('../assets/icons/search.png'),
     warning: require('../assets/icons/warning.png'),
+    landscapePlaceholder: require('../assets/images/landscape2.jpg'),
 };
 
 export const ASSETS: ThemeAssets = {
