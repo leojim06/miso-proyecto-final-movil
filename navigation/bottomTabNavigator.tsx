@@ -1,13 +1,9 @@
-import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { Pressable } from 'react-native';
 
-import { RootTabParamList, RootTabScreenProps } from '../types';
 import { TabBarIcon } from './tabBarIcon';
 import { useTheme, useTranslation } from '../hooks';
 import ProgressScreen from '../screens/ProgressScreen';
-import PlansScreen from '../screens/Plans/PlansScreen';
 import TrainingScreen from '../screens/TrainingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { PlansNavigator } from './plansNavigator';

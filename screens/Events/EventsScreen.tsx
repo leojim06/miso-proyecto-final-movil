@@ -6,7 +6,7 @@ import LoadingPlaceholder from '../../components/LoadingPlaceholder';
 import { useTranslation } from '../../hooks';
 import useEventEndpoint from '../../services/api/useEventEndpoint';
 
-export default function EventsScreen({navigation}) {
+export default function EventsScreen() {
     // hooks for screen
     const [mySuggestedEvents, setMySuggestedEvents] = useState<IEventProps[]>([]);
     const [isEventsLoading, setIsEventsLoading] = useState<boolean>(false);
@@ -34,9 +34,7 @@ export default function EventsScreen({navigation}) {
                 <FlatList
                     data={mySuggestedEvents}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item, index }) => <Event onPress={() => 
-                        navigation
-                    } {...item} />}
+                    renderItem={({ item, index }) => <Event {...item} />}
                     ListEmptyComponent={
                         isEventsLoading ? (
                             <LoadingPlaceholder />

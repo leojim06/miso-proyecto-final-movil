@@ -5,6 +5,7 @@ import { Text, Button } from '../../components';
 import { PlanDetailScreenRouteProp } from '../../navigation/types';
 
 export default function PlanDetailScreen() {
+    // hooks from app
     const route = useRoute<PlanDetailScreenRouteProp>();
     const { planId, isInMyPlans } = route.params;
 

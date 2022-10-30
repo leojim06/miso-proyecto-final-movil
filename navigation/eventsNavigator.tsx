@@ -1,8 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import EventDetailScreen from '../screens/Events/EventDetailScreen';
 import EventsScreen from '../screens/Events/EventsScreen';
+import { EventStackNavigatorParamList } from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<EventStackNavigatorParamList>();
 
 export function EventsNavigator() {
     return(

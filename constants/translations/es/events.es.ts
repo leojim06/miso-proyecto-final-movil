@@ -1,7 +1,6 @@
 export const eventsEs = {
     label: {
         title: 'Calendario de Eventos',
-
     },
     warning: {
         mySuggestedEventsNotFound: 'No tienes eventos sugeridos',
