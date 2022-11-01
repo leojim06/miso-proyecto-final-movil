@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, SafeAreaView, ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
-import { BlurView } from 'expo-blur';
-import { LinearGradient } from 'expo-linear-gradient';
+// import { BlurView } from 'expo-blur';
+// import { LinearGradient } from 'expo-linear-gradient';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import useTheme from '../hooks/useTheme';
@@ -55,15 +55,15 @@ const Block = (props: IBlockProps) => {
         flex = 1,
         wrap,
         blur,
-        intensity,
-        tint,
+        // intensity,
+        // tint,
         position,
         right,
         left,
         top,
         bottom,
-        end,
-        start,
+        // end,
+        // start,
         ...rest
     } = props;
     const { colors, sizes } = useTheme();
@@ -188,28 +188,28 @@ const Block = (props: IBlockProps) => {
         );
     }
 
-    if (gradient) {
-        return (
-            <LinearGradient
-                {...blockID}
-                colors={gradient}
-                style={blockStyles}
-                end={end || [1, 0]}
-                start={start || [0, 0]}
-                {...rest}
-            >
-                {children}
-            </LinearGradient>
-        );
-    }
+    // if (gradient) {
+    //     return (
+    //         <LinearGradient
+    //             {...blockID}
+    //             colors={gradient}
+    //             style={blockStyles}
+    //             end={end || [1, 0]}
+    //             start={start || [0, 0]}
+    //             {...rest}
+    //         >
+    //             {children}
+    //         </LinearGradient>
+    //     );
+    // }
 
-    if (blur) {
-        return (
-            <BlurView {...blockID} tint={tint} intensity={intensity} style={blockStyles}>
-                {children}
-            </BlurView>
-        );
-    }
+    // if (blur) {
+    //     return (
+    //         <BlurView {...blockID} tint={tint} intensity={intensity} style={blockStyles}>
+    //             {children}
+    //         </BlurView>
+    //     );
+    // }
 
     return (
         <View {...blockID} {...rest} style={blockStyles}>

@@ -15,8 +15,8 @@ import {
     ViewProps,
     ViewStyle,
 } from 'react-native';
-import { BlurProps } from 'expo-blur';
-import { LinearGradientPoint } from 'expo-linear-gradient';
+// import { BlurProps } from 'expo-blur';
+// import { LinearGradientPoint } from 'expo-linear-gradient';
 import { ISpacing, ITheme } from './theme';
 
 /**
@@ -196,12 +196,12 @@ export interface IBlockProps
      * BlueView intensity, default: 50, values accepted: 1 to 100
      * @see https://docs.expo.io/versions/latest/sdk/blur-view/#intensity
      */
-    intensity?: BlurProps['intensity'];
+    // intensity?: BlurProps['intensity'];
     /**
      * BlueView tint color, default: 'default', values accepted: 'light', 'dark', 'default'
      * @see https://docs.expo.io/versions/latest/sdk/blur-view/#blurtint
      */
-    tint?: BlurProps['tint'];
+    // tint?: BlurProps['tint'];
     /**
      * Renders the View position
      * @see https://reactnative.dev/docs/layout-props#position
@@ -231,12 +231,12 @@ export interface IBlockProps
      * Renders LinearGradient start points
      * @see https://docs.expo.io/versions/latest/sdk/linear-gradient/#props
      */
-    start?: LinearGradientPoint;
+    // start?: LinearGradientPoint;
     /**
      * Renders LinearGradient end points
      * @see https://docs.expo.io/versions/latest/sdk/linear-gradient/#props
      */
-    end?: LinearGradientPoint;
+    // end?: LinearGradientPoint;
 }
 
 /**
@@ -815,12 +815,12 @@ export interface ITextProps extends TextProps, ISpacing {
      * Renders LinearGradient start points
      * @see https://docs.expo.io/versions/latest/sdk/linear-gradient/#props
      */
-    start?: LinearGradientPoint;
+    // start?: LinearGradientPoint;
     /**
      * Renders LinearGradient end points
      * @see https://docs.expo.io/versions/latest/sdk/linear-gradient/#props
      */
-    end?: LinearGradientPoint;
+    // end?: LinearGradientPoint;
     /**
      * Renders a Text with predefined fontSize from theme sizes.h1
      * @see https://reactnative.dev/docs/text-style-props#fontsize

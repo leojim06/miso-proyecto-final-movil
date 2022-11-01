@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { View } from 'react-native';
 import { Block, ModalPanel, Text } from '../components';
 import LoginForm from '../components/forms/loginForm';
 import { IUser } from '../constants/types';
@@ -26,6 +27,10 @@ export default function LoginScreen() {
     };
 
     return (
+        // <View>
+        //     <Text>Hola</Text>
+        //     <Text>Mundo</Text>
+        // </View>
         <Block safe>
             <Block flex={1} padding={sizes.md} color={colors.card} keyboard>
                 <Text h3>{t('login.label.title')}</Text>

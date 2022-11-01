@@ -1,28 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<App /> renders correctly 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "#fff",
-      "flex": 1,
-      "justifyContent": "center",
-    }
-  }
->
-  <Image
-    source={1}
-    style={
-      Object {
-        "height": 120,
-        "margin": 10,
-        "width": 120,
-      }
-    }
-  />
+exports[`<LoginScreen /> App test against snapshot 1`] = `
+<View>
   <Text>
-    Open up App.tsx to start working on your app!
+    Hola
+  </Text>
+  <Text>
+    Mundo
   </Text>
 </View>
 `;
