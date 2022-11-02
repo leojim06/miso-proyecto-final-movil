@@ -12,11 +12,12 @@ export const plansEs = {
     },
     detail: {
         label: {
-
             routine: 'Rutina',
+            week: 'Semana %{week}',
             day: 'Dia %{day}'
         },
         btn: {
+            startTrainig: 'Iniciar esta rutina',
             suscribe: 'Registrarme en este plan'
         }
     },

@@ -58,7 +58,7 @@ export default function PlansScreen() {
                     data={myPlans}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item, index }) => (
-                        <TrainigPlan props={item} isInMyPlans={false} />
+                        <TrainigPlan props={item} isInMyPlans={true} />
                     )}
                     ListEmptyComponent={
                         isMyPlansLoading ? (

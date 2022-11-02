@@ -43,24 +43,54 @@ const planDetail: ITrainigPlanDetailProps = {
         'Es importante que, para mantener un balance en el trabajo que se hace durante la caminata, se complemente con alguna serie sencilla de ejercicios de fortalecimiento abdominal, de esta forma la postura logrará mejorías y la columna se verá beneficiada.',
     duration: '6 semanas',
     routine: [
-        { day: 1, exercise: '30’ con paso lento' },
-        { day: 2, exercise: '25’ con paso moderado' },
-        { day: 3, exercise: '30’ con paso lento' },
-        { day: 4, exercise: '30’ con paso moderado' },
-        { day: 5, exercise: '35’ con paso lento' },
-        { day: 6, exercise: '30’ con paso moderado' },
-        { day: 7, exercise: '30’ con paso moderado' },
-        { day: 8, exercise: '35’ con paso lento' },
-        { day: 9, exercise: '30’ con paso moderado' },
-        { day: 10, exercise: '35’ con paso acelerado' },
-        { day: 11, exercise: '40’ con paso moderado' },
-        { day: 12, exercise: '35’ con paso acelerado' },
-        { day: 13, exercise: '40’ con paso acelerado' },
-        { day: 14, exercise: '45’ con paso moderado' },
-        { day: 15, exercise: '40’ con paso acelerado' },
-        { day: 16, exercise: '45’ con paso moderado' },
-        { day: 17, exercise: '45’ con paso acelerado' },
-        { day: 18, exercise: '45’ con paso moderado' },
+        {
+            week: 1,
+            days: [
+                { id: '1', day: 1, exercise: '30’ con paso lento' },
+                { id: '2', day: 2, exercise: '25’ con paso moderado' },
+                { id: '3', day: 3, exercise: '30’ con paso lento' },
+            ],
+        },
+        {
+            week: 2,
+            days: [
+                { id: '4', day: 1, exercise: '30’ con paso moderado' },
+                { id: '5', day: 2, exercise: '35’ con paso lento' },
+                { id: '6', day: 3, exercise: '30’ con paso moderado' },
+            ],
+        },
+        {
+            week: 3,
+            days: [
+                { id: '7', day: 1, exercise: '30’ con paso moderado' },
+                { id: '8', day: 2, exercise: '35’ con paso lento' },
+                { id: '9', day: 3, exercise: '30’ con paso moderado' },
+            ],
+        },
+        {
+            week: 4,
+            days: [
+                { id: '10', day: 1, exercise: '35’ con paso acelerado' },
+                { id: '11', day: 2, exercise: '40’ con paso moderado' },
+                { id: '12', day: 3, exercise: '35’ con paso acelerado' },
+            ],
+        },
+        {
+            week: 5,
+            days: [
+                { id: '13', day: 1, exercise: '40’ con paso acelerado' },
+                { id: '14', day: 2, exercise: '45’ con paso moderado' },
+                { id: '15', day: 3, exercise: '40’ con paso acelerado' },
+            ],
+        },
+        {
+            week: 6,
+            days: [
+                { id: '16', day: 1, exercise: '45’ con paso moderado' },
+                { id: '17', day: 2, exercise: '45’ con paso acelerado' },
+                { id: '18', day: 3, exercise: '45’ con paso moderado' },
+            ],
+        },
     ],
 };
 

@@ -1,17 +1,17 @@
 import React from 'react';
 import { useTheme, useTranslation } from '../../hooks';
-import { IRoutine } from '../../screens/Plans/PlanDetailScreen';
+import { IDayRoutine } from '../../screens/Plans/PlanDetailScreen';
 import Block from '../Block';
 import Text from '../Text';
 
-const Routine = (props: IRoutine) => {
+const DayRoutine = (props: IDayRoutine) => {
     // hooks from app
     const { sizes } = useTheme();
     const { t } = useTranslation();
 
     return (
         <Block marginBottom={sizes.margin}>
-            <Text bold>{t('plans.detail.label.day', {day: props.day})}</Text>
+            <Text semibold>{t('plans.detail.label.day', { day: props.day })}</Text>
             <Text p paddingLeft={sizes.sm}>
                 {props.exercise}
             </Text>
@@ -19,4 +19,4 @@ const Routine = (props: IRoutine) => {
     );
 };
 
-export default Routine;
+export default DayRoutine;

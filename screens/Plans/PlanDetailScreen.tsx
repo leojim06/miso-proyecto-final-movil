@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, Image as ReactImage } from 'react-native';
 import styles from '../../assets/style/styles';
 import { Text, Button, Block, Image } from '../../components';
-import Routine from '../../components/events/Routine';
+import WeekRoutine from '../../components/plans/WeekRoutine';
 import IconRow from '../../components/utils/IconRow';
 import { useData, useTheme, useTranslation } from '../../hooks';
 import { PlanDetailScreenRouteProp } from '../../navigation/types';
@@ -16,10 +16,16 @@ export interface ITrainigPlanDetailProps {
     name?: string;
     description?: string;
     duration?: string;
-    routine?: IRoutine[];
+    routine?: IWeekRoutine[];
 }
 
-export interface IRoutine {
+export interface IWeekRoutine {
+    week: number;
+    days: IDayRoutine[];
+}
+
+export interface IDayRoutine {
+    id: string;
     day: number;
     exercise: string;
 }
@@ -81,13 +87,13 @@ export default function PlanDetailScreen() {
                     </Block>
                     {/* Button suscription */}
                     <Block paddingBottom={sizes.md}>
-                        {isInMyPlans ? null : (
-                            <Button primary>
-                                <Text white bold transform="uppercase">
-                                    {t('plans.detail.btn.suscribe')}
-                                </Text>
-                            </Button>
-                        )}
+                        <Button primary>
+                            <Text white bold transform="uppercase">
+                                {isInMyPlans
+                                    ? t('plans.detail.btn.startTrainig')
+                                    : t('plans.detail.btn.suscribe')}
+                            </Text>
+                        </Button>
                     </Block>
                     {/* Routine */}
                     <Block card>
@@ -96,7 +102,7 @@ export default function PlanDetailScreen() {
                         </Block>
                         <FlatList
                             data={planDetail?.routine}
-                            renderItem={({ item, index }) => <Routine {...item} />}
+                            renderItem={({ item, index }) => <WeekRoutine {...item} />}
                         />
                     </Block>
                 </Block>

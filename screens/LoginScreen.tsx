@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
-import { Block, ModalPanel, Text } from '../components';
+import { View, StyleSheet } from 'react-native';
+import { Block, Input, ModalPanel, Text } from '../components';
 import LoginForm from '../components/forms/loginForm';
 import { IUser } from '../constants/types';
 import { useTheme, useTranslation, useData } from '../hooks';
@@ -27,8 +27,8 @@ export default function LoginScreen() {
     };
 
     return (
-        <Block safe>
-            <Block flex={1} padding={sizes.md} color={colors.card} keyboard>
+        <Block justify='center'>
+            <Block flex={0} padding={sizes.md}>
                 <Text h3>{t('login.label.title')}</Text>
                 <LoginForm onSubmit={(values) => handleSubmit(values)} />
             </Block>
@@ -38,3 +38,12 @@ export default function LoginScreen() {
         </Block>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+        backgroundColor: 'dodgerblue',
+    },
+});
