@@ -46,6 +46,9 @@ export const ASSETS: ThemeAssets = {
     OpenSansSemiBold: require('../assets/fonts/OpenSans-SemiBold.ttf'),
     OpenSansExtraBold: require('../assets/fonts/OpenSans-ExtraBold.ttf'),
     OpenSansBold: require('../assets/fonts/OpenSans-Bold.ttf'),
+
+    // background/images
+    landscapePlaceholder: require('../assets/images/background.png'),
 };
 
 export const FONTS: ThemeFonts = {

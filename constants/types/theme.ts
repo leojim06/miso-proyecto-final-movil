@@ -215,6 +215,8 @@ export interface ThemeAssets {
     OpenSansSemiBold?: any;
     OpenSansExtraBold?: any;
     OpenSansBold?: any;
+    
+    landscapePlaceholder: ImageSourcePropType;
 }
 
 export interface ThemeFonts {

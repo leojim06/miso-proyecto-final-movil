@@ -1,21 +1,17 @@
-import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { Pressable } from 'react-native';
 
-import { RootTabParamList, RootTabScreenProps } from '../types';
 import { TabBarIcon } from './tabBarIcon';
 import { useTheme, useTranslation } from '../hooks';
-import EventsScreen from '../screens/EventsScreen';
 import ProgressScreen from '../screens/ProgressScreen';
-import PlansScreen from '../screens/Plans/PlansScreen';
 import TrainingScreen from '../screens/TrainingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { PlansNavigator } from './plansNavigator';
+import { EventsNavigator } from './eventsNavigator';
+import { BottomTabNavigatorParamList } from './types';
 
 // const BottomTab = createBottomTabNavigator<RootTabParamList>();
-const BottomTab = createBottomTabNavigator();
-
+const BottomTab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
 export function BottomTabNavigator() {
     const { colors } = useTheme();
@@ -26,29 +22,26 @@ export function BottomTabNavigator() {
             initialRouteName="Plans"
             screenOptions={{
                 tabBarActiveTintColor: String(colors.primary),
-                headerTitle: "",
-                headerShown: false, 
+                headerTitle: '',
+                headerShown: false,
+                unmountOnBlur: true,
             }}
         >
             <BottomTab.Screen
-                name="EventsScreen"
-                component={EventsScreen}
+                name="Events"
+                component={EventsNavigator}
                 // options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
                 options={{
                     title: t('app.menubar.events'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="map-o" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="map-o" color={color} />,
                 }}
             />
             <BottomTab.Screen
-                name="ProgressScreen"
+                name="Progress"
                 component={ProgressScreen}
                 options={{
                     title: t('app.menubar.progress'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="bar-chart" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="bar-chart" color={color} />,
                 }}
             />
             <BottomTab.Screen
@@ -56,29 +49,23 @@ export function BottomTabNavigator() {
                 component={PlansNavigator}
                 options={{
                     title: t('app.menubar.plans'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="file-text-o" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="file-text-o" color={color} />,
                 }}
             />
             <BottomTab.Screen
-                name="TrainingScreen"
+                name="Training"
                 component={TrainingScreen}
                 options={{
                     title: t('app.menubar.training'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="bicycle" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="bicycle" color={color} />,
                 }}
             />
             <BottomTab.Screen
-                name="ProfileScreen"
+                name="Profile"
                 component={ProfileScreen}
                 options={{
                     title: t('app.menubar.profile'),
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="user" color={color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
                 }}
             />
         </BottomTab.Navigator>

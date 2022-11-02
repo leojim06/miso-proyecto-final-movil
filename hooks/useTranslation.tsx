@@ -1,4 +1,4 @@
-import { I18n } from 'i18n-js';
+import i18n, { I18n } from 'i18n-js';
 import * as Localization from 'expo-localization';
 import Storage from '@react-native-async-storage/async-storage';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
@@ -9,17 +9,18 @@ import translations from '../constants/translations';
 export const TranslationContext = React.createContext({});
 
 export const TranlationProvider = ({ children }: { children: React.ReactNode }) => {
-    const [locale, setLocale] = useState('es');
+    const [locale, setLocale] = useState('es-CO');
 
     // Set the local once at the beginning of your app.
     const i18n = new I18n();
+    i18n.defaultLocale = "es";
     i18n.locale = locale;
     i18n.translations = translations;
     i18n.enableFallback = true;
     i18n.defaultLocale = 'es';
 
     const t = useCallback(
-        (scope, options) => {
+        (scope: i18n.Scope, options: i18n.TranslateOptions) => {
             return i18n.t(scope, { ...options, locale });
         },
         [locale]
@@ -41,6 +42,7 @@ export const TranlationProvider = ({ children }: { children: React.ReactNode }) 
 
     const contextValue = {
         t,
+        i18n,
         locale,
         setLocale,
         translate: t,

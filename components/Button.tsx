@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { ViewStyle, Vibration, StyleSheet, TouchableOpacity, Platform } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+// import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 
@@ -202,26 +202,26 @@ const Button = ({
     // generate component testID or accessibilityLabel based on Platform.OS
     const buttonID = Platform.OS === 'android' ? { accessibilityLabel: id } : { testID: id };
 
-    if (gradient) {
-        return (
-            <TouchableOpacity
-                {...buttonID}
-                activeOpacity={activeOpacity}
-                onPress={handlePress}
-                {...props}
-                style={buttonStyles}
-            >
-                <LinearGradient
-                    style={gradientStyles}
-                    colors={gradient}
-                    start={[0, 1]}
-                    end={[1, 0]}
-                >
-                    {children}
-                </LinearGradient>
-            </TouchableOpacity>
-        );
-    }
+    // if (gradient) {
+    //     return (
+    //         <TouchableOpacity
+    //             {...buttonID}
+    //             activeOpacity={activeOpacity}
+    //             onPress={handlePress}
+    //             {...props}
+    //             style={buttonStyles}
+    //         >
+    //             <LinearGradient
+    //                 style={gradientStyles}
+    //                 colors={gradient}
+    //                 start={[0, 1]}
+    //                 end={[1, 0]}
+    //             >
+    //                 {children}
+    //             </LinearGradient>
+    //         </TouchableOpacity>
+    //     );
+    // }
 
     if (social) {
         const socialIcon =

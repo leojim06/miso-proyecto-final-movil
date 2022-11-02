@@ -10,8 +10,9 @@ import { PublicNavigator } from './publicNavigator';
 import { RootNavigator } from './rootNavigator';
 
 export default function Navigation() {
-    const { isDark, isLoading, theme, setTheme, /*user*/ } = useData();
-    const user = true;
+    const { isDark, isLoading, theme, setTheme, user } = useData();
+    // const user = true;
+    /*user*/
 
     /* set the status bar based on isDark constant */
     useEffect(() => {

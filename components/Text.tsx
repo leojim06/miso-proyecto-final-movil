@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, TextStyle } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import MaskedView from '@react-native-community/masked-view';
+// import { LinearGradient } from 'expo-linear-gradient';
+// import MaskedView from '@react-native-community/masked-view';
 
 import useTheme from '../hooks/useTheme';
 import { ITextProps } from '../constants/types';
@@ -44,8 +44,8 @@ const Typography = (props: ITextProps) => {
         left,
         top,
         bottom,
-        start,
-        end,
+        // start,
+        // end,
         marginBottom,
         marginTop,
         marginHorizontal,
@@ -83,6 +83,7 @@ const Typography = (props: ITextProps) => {
         : info
         ? 'info'
         : null;
+        
     const textColor = color ? color : colorIndex ? colors?.[colorIndex] : undefined;
 
     const textStyles = StyleSheet.flatten([
@@ -165,37 +166,37 @@ const Typography = (props: ITextProps) => {
      * Calculate gradient height container based on text lineHeight or fontSize
      * add an extra value from marginVertical or marginTop or marginBottom
      */
-    const gradientHeight =
-        Number(textStyles?.lineHeight || textStyles?.fontSize || 0) +
-        Number(
-            textStyles?.marginVertical || textStyles?.marginTop || textStyles?.marginBottom || 0
-        );
+    // const gradientHeight =
+    //     Number(textStyles?.lineHeight || textStyles?.fontSize || 0) +
+    //     Number(
+    //         textStyles?.marginVertical || textStyles?.marginTop || textStyles?.marginBottom || 0
+    //     );
 
     // generate component testID or accessibilityLabel based on Platform.OS
     const textID = Platform.OS === 'android' ? { accessibilityLabel: id } : { testID: id };
 
-    if (gradient) {
-        return (
-            <MaskedView
-                maskElement={
-                    <Text {...textID} {...rest} style={textStyles}>
-                        {children}
-                    </Text>
-                }
-            >
-                <LinearGradient
-                    colors={gradient}
-                    end={end || [0.2, 0]}
-                    start={start || [0, 0]}
-                    style={{
-                        flex: 1,
-                        height: gradientHeight,
-                        flexWrap: 'wrap',
-                    }}
-                />
-            </MaskedView>
-        );
-    }
+    // if (gradient) {
+    //     return (
+    //         <MaskedView
+    //             maskElement={
+    //                 <Text {...textID} {...rest} style={textStyles}>
+    //                     {children}
+    //                 </Text>
+    //             }
+    //         >
+    //             <LinearGradient
+    //                 colors={gradient}
+    //                 end={end || [0.2, 0]}
+    //                 start={start || [0, 0]}
+    //                 style={{
+    //                     flex: 1,
+    //                     height: gradientHeight,
+    //                     flexWrap: 'wrap',
+    //                 }}
+    //             />
+    //         </MaskedView>
+    //     );
+    // }
 
     return (
         <Text {...textID} {...rest} style={textStyles}>
