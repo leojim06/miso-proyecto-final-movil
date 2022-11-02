@@ -38,7 +38,7 @@ const LoginForm = (props: LoginFormProps) => {
                 {({ values, handleChange, errors, setFieldTouched, touched, handleSubmit }) => (
                     <Block flex={0}>
                         {/* email */}
-                        <Block>
+                        <Block paddingBottom={sizes.sm}>
                             <Input
                                 testID="email"
                                 value={values.email}
@@ -53,7 +53,7 @@ const LoginForm = (props: LoginFormProps) => {
                             )}
                         </Block>
                         {/* password */}
-                        <Block>
+                        <Block paddingBottom={sizes.sm}>
                             <Input
                                 testID="password"
                                 value={values.password}
