@@ -207,7 +207,6 @@ export interface ThemeIcons {
     home: ImageSourcePropType;
     search: ImageSourcePropType;
     warning: ImageSourcePropType;
-    landscapePlaceholder: ImageSourcePropType;
 }
 
 export interface ThemeAssets {
@@ -216,6 +215,8 @@ export interface ThemeAssets {
     OpenSansSemiBold?: any;
     OpenSansExtraBold?: any;
     OpenSansBold?: any;
+    
+    landscapePlaceholder: ImageSourcePropType;
 }
 
 export interface ThemeFonts {

@@ -30,7 +30,7 @@ const eventsNotFound: IEventProps[] = [];
 
 const eventDetail: IEventDetailProps = {
     id: '1',
-    image: 'https://via.placeholder.com/150/0000FF/808080 ?Text=Digital.com',
+    image: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?fit=crop&w=450&q=80',
     location: 'Colombia',
     time: {
         start: Date.now(),

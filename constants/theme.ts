@@ -37,7 +37,6 @@ export const ICONS: ThemeIcons = {
     home: require('../assets/icons/home.png'),
     search: require('../assets/icons/search.png'),
     warning: require('../assets/icons/warning.png'),
-    landscapePlaceholder: require('../assets/images/landscape2.jpg'),
 };
 
 export const ASSETS: ThemeAssets = {
@@ -47,6 +46,9 @@ export const ASSETS: ThemeAssets = {
     OpenSansSemiBold: require('../assets/fonts/OpenSans-SemiBold.ttf'),
     OpenSansExtraBold: require('../assets/fonts/OpenSans-ExtraBold.ttf'),
     OpenSansBold: require('../assets/fonts/OpenSans-Bold.ttf'),
+
+    // background/images
+    landscapePlaceholder: require('../assets/images/background.png'),
 };
 
 export const FONTS: ThemeFonts = {

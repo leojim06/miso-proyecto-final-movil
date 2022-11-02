@@ -1,7 +1,9 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
+import styles from '../../assets/style/styles';
 import { Block, Image, Text } from '../../components';
+import IconRow from '../../components/utils/IconRow';
 import { useData, useTheme, useTranslation } from '../../hooks';
 import { EventDetailScreenRouteProp } from '../../navigation/types';
 import useEventEndpoint from '../../services/api/useEventEndpoint';
@@ -46,7 +48,7 @@ export default function EventDetailScreen() {
     return (
         <>
             {!eventDetail ? null : (
-                <Block scroll margin={sizes.margin}>
+                <Block padding={sizes.margin}>
                     {/* title */}
                     <Block flex={0} align="center" paddingBottom={sizes.s}>
                         <Text h4 center>
@@ -54,58 +56,45 @@ export default function EventDetailScreen() {
                         </Text>
                     </Block>
                     {/* Image */}
-                    <Block>
-                        {/* <Image
-                    radius={sizes.s}
-                    width={sizes.xl}
-                    height={sizes.xl}
-                    source={{ uri: eventDetail?.image ? eventDetail?.image : String(assets.landscapePlaceholder) }}
-                    style={{ backgroundColor: colors.white }}
-                /> */}
+                    <Block flex={0} paddingVertical={sizes.padding} style={styles.image_container}>
+                        {eventDetail?.image ? (
+                            <Image
+                                source={{ uri: eventDetail?.image }}
+                                style={styles.image_background}
+                            />
+                        ) : (
+                            <Image
+                                source={assets.landscapePlaceholder}
+                                style={styles.image_background}
+                            />
+                        )}
                     </Block>
-
                     {/* Content */}
                     <Block>
-                        <Block row align="center">
-                            <FontAwesome size={30} name={'map-marker'} />
-                            <Text p paddingLeft={sizes.s}>
-                                {eventDetail?.location}
-                            </Text>
-                        </Block>
-
-                        <Block row align="center">
-                            <FontAwesome size={30} name={'calendar'} />
-                            <Text p paddingLeft={sizes.s}>
-                                {i18n.toTime('date.formats.short', eventDetail?.time?.start ?? Date.now())}
-                            </Text>
-                        </Block>
-
-                        <Block row align="center">
-                        <FontAwesome size={30} name={'clock-o'} />
-                            <Text p paddingLeft={sizes.s}>
-                                {i18n.toTime('date.formats.short', eventDetail?.time?.end ?? Date.now())}
-                            </Text>
-                        </Block>
-
-                        <Block row align="center">
-                            <Text p paddingLeft={sizes.s}>
-                                {eventDetail?.description}
-                            </Text>
-                        </Block>
-
-                        <Block row align="center">
-                            <FontAwesome size={30} name={'houzz'} />
-                            <Text p paddingLeft={sizes.s}>
-                            {t('events.detail.label.food', {food: eventDetail?.food})}
-                            </Text>
-                        </Block>
-
-                        <Block row align="center">
-                            <FontAwesome size={30} name={'bed'} />
-                            <Text p paddingLeft={sizes.s}>
-                                {t('events.detail.label.host', {host: eventDetail.host})}
-                            </Text>
-                        </Block>
+                        <IconRow name={'map-marker'} text={eventDetail?.location} />
+                        <IconRow
+                            name={'calendar'}
+                            text={i18n.toTime(
+                                'date.formats.short',
+                                eventDetail?.time?.start ?? Date.now()
+                            )}
+                        />
+                        <IconRow
+                            name={'clock-o'}
+                            text={i18n.toTime(
+                                'date.formats.short',
+                                eventDetail?.time?.end ?? Date.now()
+                            )}
+                        />
+                        <IconRow text={eventDetail?.description} />
+                        <IconRow
+                            name={'houzz'}
+                            text={t('events.detail.label.food', { food: eventDetail?.food })}
+                        />
+                        <IconRow
+                            name={'bed'}
+                            text={t('events.detail.label.host', { host: eventDetail.host })}
+                        />
                     </Block>
                 </Block>
             )}

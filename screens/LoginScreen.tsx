@@ -27,10 +27,6 @@ export default function LoginScreen() {
     };
 
     return (
-        // <View>
-        //     <Text>Hola</Text>
-        //     <Text>Mundo</Text>
-        // </View>
         <Block safe>
             <Block flex={1} padding={sizes.md} color={colors.card} keyboard>
                 <Text h3>{t('login.label.title')}</Text>

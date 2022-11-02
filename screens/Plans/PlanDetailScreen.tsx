@@ -1,10 +1,10 @@
-import { FontAwesome } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
-import React, { useEffect, useState, useTransition } from 'react';
-import { FlatList, View } from 'react-native';
-import { Text, Button, Block } from '../../components';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Image as ReactImage } from 'react-native';
+import styles from '../../assets/style/styles';
+import { Text, Button, Block, Image } from '../../components';
 import Routine from '../../components/events/Routine';
-import LoadingPlaceholder from '../../components/LoadingPlaceholder';
+import IconRow from '../../components/utils/IconRow';
 import { useData, useTheme, useTranslation } from '../../hooks';
 import { PlanDetailScreenRouteProp } from '../../navigation/types';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
@@ -33,11 +33,12 @@ export default function PlanDetailScreen() {
     const route = useRoute<PlanDetailScreenRouteProp>();
     const { planId, isInMyPlans } = route.params;
     const { t } = useTranslation();
-    const { sizes } = useTheme();
+    const { sizes, assets, colors } = useTheme();
     const { handleLoading } = useData();
     const { loadPlanDetail } = usePlansEndpoint();
 
     useEffect(() => {
+        console.log('Prueba de logeo detalle plan', String(assets.landscapePlaceholder));
         setPlanDetail(undefined);
         handleLoading(true);
 
@@ -49,44 +50,37 @@ export default function PlanDetailScreen() {
 
     return (
         <>
-            {!planDetail ? (
-                null
-            ) : (
+            {!planDetail ? null : (
                 // screen
-                <Block scroll margin={sizes.margin}>
+                <Block scroll showsVerticalScrollIndicator={false} padding={sizes.margin}>
                     {/* title */}
-                    <Block flex={0} align="center" paddingBottom={sizes.s}>
+                    <Block align="center">
                         <Text h4 center>
                             {planDetail?.name}
                         </Text>
                     </Block>
                     {/* Image */}
-                    <Block></Block>
+                    <Block flex={0} paddingVertical={sizes.padding} style={styles.image_container}>
+                        {planDetail?.image ? (
+                            <Image
+                                source={{ uri: planDetail?.image }}
+                                style={styles.image_background}
+                            />
+                        ) : (
+                            <Image
+                                source={assets.landscapePlaceholder}
+                                style={styles.image_background}
+                            />
+                        )}
+                    </Block>
                     {/* Content */}
                     <Block>
-                        <Block row align="center">
-                            <FontAwesome size={30} name={'smile-o'} />
-                            <Text p paddingLeft={sizes.s}>
-                                {planDetail?.suscription}
-                            </Text>
-                        </Block>
-
-                        <Block flex={0} row>
-                            <FontAwesome size={30} name={'play'} />
-                            <Text p paddingLeft={sizes.s}>
-                                {planDetail?.description}
-                            </Text>
-                        </Block>
-
-                        <Block row align="center">
-                            <FontAwesome size={30} name={'clock-o'} />
-                            <Text p paddingLeft={sizes.s}>
-                                {planDetail?.duration}
-                            </Text>
-                        </Block>
+                        <IconRow name={'smile-o'} text={planDetail?.suscription} />
+                        <IconRow name={'play'} text={planDetail?.description} />
+                        <IconRow name={'clock-o'} text={planDetail?.duration} />
                     </Block>
                     {/* Button suscription */}
-                    <Block>
+                    <Block paddingBottom={sizes.md}>
                         {isInMyPlans ? null : (
                             <Button primary>
                                 <Text white bold transform="uppercase">
