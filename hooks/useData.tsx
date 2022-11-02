@@ -12,6 +12,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [theme, setTheme] = useState<ITheme>(light);
     const [user, setUser] = useState<IUser>();
     const [isLoading, setIsLoading] = useState(false);
+    const [trainingSession, setTrainingSession] = useState<any>();
     // const [hasInfoModal, setInfoModal] = useState<InfoModalProps>();
 
     // get isDark mode from storage
@@ -49,6 +50,15 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         [setIsLoading]
     );
 
+    const handleTrainingSession = useCallback(
+        (payload: any) => {
+            if (JSON.stringify(payload) !== JSON.stringify(trainingSession)) {
+                setTrainingSession({ ...trainingSession, ...payload });
+            }
+        },
+        [trainingSession, setTrainingSession]
+    );
+
     // // handle info modal panel
     // const handleInfoModalPanel = useCallback(
     //     (payload: InfoModalProps) => {
@@ -83,6 +93,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         handleUser,
         isLoading,
         handleLoading,
+        trainingSession,
+        handleTrainingSession
         // hasInfoModal,
         // handleInfoModalPanel,
     };

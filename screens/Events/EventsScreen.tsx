@@ -27,7 +27,7 @@ export default function EventsScreen() {
     }, []);
 
     return (
-        <Block safe margin={sizes.margin}>
+        <Block safe padding={sizes.padding}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
                 <Text h3 center>{t('events.label.title')}</Text>
             </Block>

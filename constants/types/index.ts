@@ -71,6 +71,8 @@ export interface IUseData {
     handleUser: (data?: IUser) => void;
     isLoading: boolean;
     handleLoading: (isLoading?: boolean) => void;
+    trainingSession: any:
+    handleTrainingSession: (trainingSession?: any) => void;
     // hasInfoModal: InfoModalProps,
     // handleInfoModalPanel: (data?: InfoModalProps) => void;
 }

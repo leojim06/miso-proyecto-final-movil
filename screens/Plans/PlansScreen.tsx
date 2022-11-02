@@ -50,7 +50,7 @@ export default function PlansScreen() {
     return (
         <Block safe margin={sizes.margin}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
-                <Text h3>{t('plans.label.title')}</Text>
+                <Text h3 center>{t('plans.label.title')}</Text>
             </Block>
             <Block flex={1} marginBottom={sizes.xl}>
                 <Text h4>{t('plans.label.myPlans')}</Text>

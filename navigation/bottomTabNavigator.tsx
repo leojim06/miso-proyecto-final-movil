@@ -4,13 +4,12 @@ import * as React from 'react';
 import { TabBarIcon } from './tabBarIcon';
 import { useTheme, useTranslation } from '../hooks';
 import ProgressScreen from '../screens/ProgressScreen';
-import TrainingScreen from '../screens/TrainingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { PlansNavigator } from './plansNavigator';
 import { EventsNavigator } from './eventsNavigator';
+import { TrainingSessionNavigator } from './trainigSessionNavigator';
 import { BottomTabNavigatorParamList } from './types';
 
-// const BottomTab = createBottomTabNavigator<RootTabParamList>();
 const BottomTab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
 export function BottomTabNavigator() {
@@ -30,7 +29,6 @@ export function BottomTabNavigator() {
             <BottomTab.Screen
                 name="Events"
                 component={EventsNavigator}
-                // options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
                 options={{
                     title: t('app.menubar.events'),
                     tabBarIcon: ({ color }) => <TabBarIcon name="map-o" color={color} />,
@@ -54,7 +52,7 @@ export function BottomTabNavigator() {
             />
             <BottomTab.Screen
                 name="Training"
-                component={TrainingScreen}
+                component={TrainingSessionNavigator}
                 options={{
                     title: t('app.menubar.training'),
                     tabBarIcon: ({ color }) => <TabBarIcon name="bicycle" color={color} />,
