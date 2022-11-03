@@ -169,6 +169,9 @@ export interface ThemeSizes {
     linkSize: number;
 
     multiplier: number;
+
+    panelIconHeight: number;
+    panelIconBorder: number;
 }
 
 export interface ThemeSpacing {
@@ -217,6 +220,11 @@ export interface ThemeAssets {
     OpenSansBold?: any;
     
     landscapePlaceholder: ImageSourcePropType;
+    
+    success: ImageSourcePropType;
+    warning: ImageSourcePropType;
+    error: ImageSourcePropType;
+    info: ImageSourcePropType;
 }
 
 export interface ThemeFonts {

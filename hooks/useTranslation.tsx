@@ -14,7 +14,7 @@ export const TranlationProvider = ({ children }: { children: React.ReactNode }) 
     // Set the local once at the beginning of your app.
     const i18n = new I18n();
     i18n.defaultLocale = "es";
-    i18n.locale = locale;
+    i18n.locale = Localization.locale;
     i18n.translations = translations;
     i18n.enableFallback = true;
     i18n.defaultLocale = 'es';

@@ -150,6 +150,10 @@ export const SIZES: ThemeSizes = {
 
     /** font size multiplier: for maxFontSizeMultiplier prop */
     multiplier: 2,
+
+    
+    panelIconBorder: 8,
+    panelIconHeight: 60
 };
 
 export const SPACING: ThemeSpacing = {

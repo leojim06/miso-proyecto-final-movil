@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
-import WeekSession from '../../components/training/WeekSession';
+import WeekSession from '../../components/trainings/WeekSession';
 import { useData, useTheme, useTranslation } from '../../hooks';
 
 export interface ITrainigSessionProps {

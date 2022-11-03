@@ -13,4 +13,9 @@ export const applicationEs = {
         training: 'Entrenamientos',
         profile: 'Perfil',
     },
+    date: {
+        formats:{
+            ordinalDay: "%B %{day}",
+        }
+    }
 };
