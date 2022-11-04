@@ -12,7 +12,8 @@ export const trainingEs = {
             duration: 'Tiempo estimado: %{duration}',
         },
         btn: {
-            start: 'Iniciar'
+            start: 'Iniciar',
+            end: 'Finalizar sessión',
         }
     }
 }

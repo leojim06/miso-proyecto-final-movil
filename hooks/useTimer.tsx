@@ -40,7 +40,6 @@ export const useTimer = () => {
                 interval.current = undefined;
             }
         }
-        return () => clearInterval(interval.current);
     }, [startTime]);
 
     const start = () => {
