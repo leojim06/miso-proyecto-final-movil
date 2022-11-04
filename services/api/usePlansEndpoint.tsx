@@ -3,7 +3,8 @@ import { useTranslation } from '../../hooks';
 import { API_URL } from '@env';
 import { ITrainigPlans } from '../../components/plans/TrainigPlan';
 import { timeout } from '../../utils/timeout';
-import { ITrainigPlanDetailProps } from '../../screens/Plans/PlanDetailScreen';
+import { ITrainingPlanDetailProps } from '../../screens/Plans/PlanDetailScreen';
+import { ITrainingSessionDetailProps } from '../../screens/TrainingSession/TrainingDetailScreen';
 
 export interface IMyPlans {}
 
@@ -33,7 +34,7 @@ const plans: ITrainigPlans[] = [
 
 const plansNotFound: ITrainigPlans[] = [];
 
-const planDetail: ITrainigPlanDetailProps = {
+const planDetail: ITrainingPlanDetailProps = {
     id: '1',
     image: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?fit=crop&w=450&q=80',
     // image: undefined,
@@ -94,6 +95,17 @@ const planDetail: ITrainigPlanDetailProps = {
     ],
 };
 
+const trainingSessionDetail: ITrainingSessionDetailProps = {
+    id: '1',
+    name: 'Entrenamiento general',
+    description:
+        'Este entrenamiento para el cuerpo entero de 7 minutos es ideal para principiantes.  Los movimientos activan todos los grupos musculares alternando ejercicios de alta y baja intensidad.',
+    duration: '7 - 10 min',
+    level: 'Beginner',
+    week: 1,
+    day: 1
+};
+
 const usePlansEndpoint = () => {
     const { t } = useTranslation();
 
@@ -133,12 +145,12 @@ const usePlansEndpoint = () => {
     const loadPlanDetail = async (
         event_id: string,
         withData: boolean
-    ): Promise<ITrainigPlanDetailProps> => {
+    ): Promise<ITrainingPlanDetailProps> => {
         try {
             // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/events/${event_id}`);
             // return response.data;
             await timeout(800);
-            return withData ? planDetail : ({} as ITrainigPlanDetailProps);
+            return withData ? planDetail : ({} as ITrainingPlanDetailProps);
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 throw t('login.error.unauthorized');
@@ -148,7 +160,25 @@ const usePlansEndpoint = () => {
         }
     };
 
-    return { loadMyPlans, loadMySuggestedPlans, loadPlanDetail };
+    const loadTrainingDetail = async (
+        trainingId: string,
+        withData: boolean
+    ): Promise<ITrainingSessionDetailProps> => {
+        try {
+            // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/events/${event_id}`);
+            // return response.data;
+            await timeout(800);
+            return withData ? trainingSessionDetail : ({} as ITrainingSessionDetailProps);
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response?.status === 401) {
+                throw t('login.error.unauthorized');
+            } else {
+                throw t('login.error.server');
+            }
+        }
+    };
+
+    return { loadMyPlans, loadMySuggestedPlans, loadPlanDetail, loadTrainingDetail };
 };
 
 export default usePlansEndpoint;

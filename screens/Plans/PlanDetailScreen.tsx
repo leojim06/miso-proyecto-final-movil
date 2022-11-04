@@ -9,7 +9,7 @@ import { useData, useTheme, useTranslation } from '../../hooks';
 import { PlanDetailScreenRouteProp } from '../../navigation/types';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
 
-export interface ITrainigPlanDetailProps {
+export interface ITrainingPlanDetailProps {
     id: string;
     image?: string;
     suscription?: 'Free' | 'Intermediate' | 'Pro';
@@ -32,7 +32,7 @@ export interface IDayRoutine {
 
 export default function PlanDetailScreen() {
     //hooks for screen
-    const [planDetail, setPlanDetail] = useState<ITrainigPlanDetailProps>();
+    const [planDetail, setPlanDetail] = useState<ITrainingPlanDetailProps>();
     const [error, setError] = useState<string>();
 
     // hooks from app
@@ -44,12 +44,11 @@ export default function PlanDetailScreen() {
     const { loadPlanDetail } = usePlansEndpoint();
 
     useEffect(() => {
-        console.log('Prueba de logeo detalle plan', String(assets.landscapePlaceholder));
         setPlanDetail(undefined);
         handleLoading(true);
 
         loadPlanDetail(planId, true)
-            .then((data: ITrainigPlanDetailProps) => setPlanDetail(data))
+            .then((data: ITrainingPlanDetailProps) => setPlanDetail(data))
             .catch((error: string) => setError(error))
             .finally(() => handleLoading(false));
     }, []);
@@ -58,7 +57,7 @@ export default function PlanDetailScreen() {
         <>
             {!planDetail ? null : (
                 // screen
-                <Block scroll showsVerticalScrollIndicator={false} padding={sizes.margin}>
+                <Block scroll showsVerticalScrollIndicator={false} padding={sizes.padding}>
                     {/* title */}
                     <Block align="center">
                         <Text h4 center>

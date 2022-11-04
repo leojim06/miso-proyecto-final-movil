@@ -48,7 +48,7 @@ export default function EventDetailScreen() {
     return (
         <>
             {!eventDetail ? null : (
-                <Block padding={sizes.margin}>
+                <Block padding={sizes.padding}>
                     {/* title */}
                     <Block flex={0} align="center" paddingBottom={sizes.s}>
                         <Text h4 center>

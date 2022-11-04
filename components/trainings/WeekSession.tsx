@@ -4,7 +4,7 @@ import { useTheme, useTranslation } from '../../hooks';
 import { IWeekTrainigSession } from '../../screens/TrainingSession/TrainingSesionScreen';
 import Block from '../Block';
 import Text from '../Text';
-import DayRoutine from './DaySession';
+import DaySession from './DaySession';
 
 const WeekSession = (props: IWeekTrainigSession) => {
     // hooks from app
@@ -12,7 +12,7 @@ const WeekSession = (props: IWeekTrainigSession) => {
     const { t } = useTranslation();
 
     return (
-        <Block card marginBottom={sizes.sm} color={props.active ? colors.primary : colors.gray}>
+        <Block card marginBottom={sizes.sm} color={props.active ? colors.secondary : colors.gray}>
             <FlatList
                 ListHeaderComponent={
                     <Text
@@ -25,7 +25,7 @@ const WeekSession = (props: IWeekTrainigSession) => {
                     </Text>
                 }
                 data={props.days}
-                renderItem={({ item, index }) => <DayRoutine {...item} />}
+                renderItem={({ item, index }) => <DaySession {...item} />}
                 style={{ paddingLeft: sizes.sm }}
             />
         </Block>

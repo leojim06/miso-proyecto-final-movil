@@ -101,10 +101,15 @@ export default function TrainingSessionScreen() {
     }, []);
 
     return (
-        <Block safe margin={sizes.margin}>
+        <Block safe padding={sizes.padding}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
                 <Text h3 center>
                     {t('training.label.title')}
+                </Text>
+            </Block>
+            <Block flex={0}>
+                <Text h4 primary>
+                    {trainigSession.name || 'Rutina'}
                 </Text>
             </Block>
             {trainingSession === undefined ? (
@@ -118,6 +123,7 @@ export default function TrainingSessionScreen() {
                 <FlatList
                     data={trainigSession.routine}
                     renderItem={({ item, index }) => <WeekSession {...item} />}
+                    showsVerticalScrollIndicator={false}
                 />
             )}
         </Block>
