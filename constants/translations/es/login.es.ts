@@ -17,4 +17,8 @@ export const loginEs = {
         unauthorized: 'Usuario o contraseña incorrecta',
         server: 'Problemas con el servicio SportApp',
     },
+    warning: {
+        modalTitle: 'Iniciar sesión',
+        modalButton: 'Aceptar'
+    }
 };

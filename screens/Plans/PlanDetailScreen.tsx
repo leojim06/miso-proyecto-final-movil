@@ -1,12 +1,13 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image as ReactImage } from 'react-native';
 import styles from '../../assets/style/styles';
 import { Text, Button, Block, Image } from '../../components';
+import CustomModal, { ICustomPanel } from '../../components/modals/CustomModal';
 import WeekRoutine from '../../components/plans/WeekRoutine';
 import IconRow from '../../components/utils/IconRow';
 import { useData, useTheme, useTranslation } from '../../hooks';
-import { PlanDetailScreenRouteProp } from '../../navigation/types';
+import { PlanDetailScreenRouteProp, PlansScreenNavigationProp } from '../../navigation/types';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
 
 export interface ITrainingPlanDetailProps {
@@ -32,10 +33,16 @@ export interface IDayRoutine {
 
 export default function PlanDetailScreen() {
     //hooks for screen
+    const [modal, setModal] = useState<ICustomPanel>({
+        isVisible: false,
+        type: 'success',
+        title: '',
+        message: '',
+    });
     const [planDetail, setPlanDetail] = useState<ITrainingPlanDetailProps>();
-    const [error, setError] = useState<string>();
 
     // hooks from app
+    const navigation = useNavigation<PlansScreenNavigationProp>();
     const route = useRoute<PlanDetailScreenRouteProp>();
     const { planId, isInMyPlans } = route.params;
     const { t } = useTranslation();
@@ -49,12 +56,55 @@ export default function PlanDetailScreen() {
 
         loadPlanDetail(planId, true)
             .then((data: ITrainingPlanDetailProps) => setPlanDetail(data))
-            .catch((error: string) => setError(error))
+            .catch((error: string) =>
+                setModal({
+                    isVisible: true,
+                    title: t('plans.detail.modal.errorTitle'),
+                    message: error,
+                    type: 'error',
+                    confirmButtonTitle: t('plans.detail.modal.errorButton'),
+                    onConfirmPress: () => {
+                        setModal({ ...modal, isVisible: false });
+                        navigation.pop();
+                    },
+                })
+            )
             .finally(() => handleLoading(false));
     }, []);
 
+    const handleStartRoutine = () => {
+        setModal({
+            isVisible: true,
+            title: t('plans.detail.modal.warningTitleStartRoutine'),
+            message: t('plans.detail.modal.warningMessageNewRoutine', { name: planDetail?.name }),
+            type: 'warning',
+            confirmButtonTitle: t('plans.detail.modal.confirmBtnTitle'),
+            cancelButtonTitle: t('plans.detail.modal.cancelBtnTitle'),
+            onConfirmPress: () => {},
+            onCancelPress: () => {
+                setModal({ ...modal, isVisible: false });
+            },
+        });
+    };
+
+    const handleTrainingSuscription = () => {
+        setModal({
+            isVisible: true,
+            title: t('plans.detail.modal.warningTitleSuscription'),
+            message: t('plans.detail.modal.warningMessageSuscription', { name: planDetail?.name }),
+            type: 'warning',
+            confirmButtonTitle: t('plans.detail.modal.confirmBtnTitle'),
+            cancelButtonTitle: t('plans.detail.modal.cancelBtnTitle'),
+            onConfirmPress: () => {},
+            onCancelPress: () => {
+                setModal({ ...modal, isVisible: false });
+            },
+        });
+    };
+
     return (
         <>
+            <CustomModal {...modal} />
             {!planDetail ? null : (
                 // screen
                 <Block scroll showsVerticalScrollIndicator={false} padding={sizes.padding}>
@@ -86,7 +136,10 @@ export default function PlanDetailScreen() {
                     </Block>
                     {/* Button suscription */}
                     <Block paddingBottom={sizes.md}>
-                        <Button primary>
+                        <Button
+                            primary
+                            onPress={isInMyPlans ? handleStartRoutine : handleTrainingSuscription}
+                        >
                             <Text white bold transform="uppercase">
                                 {isInMyPlans
                                     ? t('plans.detail.btn.startTrainig')

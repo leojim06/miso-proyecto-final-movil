@@ -103,7 +103,7 @@ const trainingSessionDetail: ITrainingSessionDetailProps = {
     duration: '7 - 10 min',
     level: 'Beginner',
     week: 1,
-    day: 1
+    day: 1,
 };
 
 const usePlansEndpoint = () => {

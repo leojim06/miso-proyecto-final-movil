@@ -104,7 +104,7 @@ const CustomModal = (props: ICustomPanel) => {
                     {/*     - content title, messsage and buttons */}
                     <View style={modalContent}>
                         <View style={titleContent}>
-                            <Text h3 center>
+                            <Text h4 center>
                                 {props.title}
                             </Text>
                         </View>
@@ -115,14 +115,14 @@ const CustomModal = (props: ICustomPanel) => {
                             {props.type === 'warning' ? (
                                 <View style={row}>
                                     <View style={buttonContent}>
-                                        <Button primary onPress={props.onConfirmPress}>
+                                        <Button success onPress={props.onConfirmPress}>
                                             <Text bold white transform="uppercase">
                                                 {props.confirmButtonTitle}
                                             </Text>
                                         </Button>
                                     </View>
                                     <View style={buttonContent}>
-                                        <Button secondary onPress={props.onCancelPress}>
+                                        <Button danger onPress={props.onCancelPress}>
                                             <Text bold white transform="uppercase">
                                                 {props.cancelButtonTitle}
                                             </Text>

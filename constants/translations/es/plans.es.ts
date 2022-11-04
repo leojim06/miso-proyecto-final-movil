@@ -19,6 +19,18 @@ export const plansEs = {
         btn: {
             startTrainig: 'Iniciar esta rutina',
             suscribe: 'Registrarme en este plan'
+        },
+        modal: {
+            errorTitle: 'Detalle del plan',
+            errorButton: 'Aceptar',
+            warningTitleStartRoutine: 'Iniciar rutina',
+            warningMessageNewRoutine: '¿Está seguro que desea iniciar la rutina "%{name}"?',
+            warningMessageWithRoutine: '',
+            warningTitleSuscription: 'Registrarse en este plan',
+            warningMessageSuscription: '¿Está seguro que desea registrarse en "%{name}"?',
+            confirmBtnTitle: 'Si',
+            cancelBtnTitle: 'No',
         }
+
     },
 };

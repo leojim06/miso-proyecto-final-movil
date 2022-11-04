@@ -1,48 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
-import { Block, Button, Text } from '../../components';
+import { Block, Text } from '../../components';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
-import CustomInfoOption from '../../components/modals/CustomInfoOption';
 import CustomInfoPanel from '../../components/modals/CustomInfoPanel';
 import TrainigPlan, { ITrainigPlans } from '../../components/plans/TrainigPlan';
-import { useData, useTheme, useTranslation } from '../../hooks';
+import { useTheme, useTranslation } from '../../hooks';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
 
 export default function PlansScreen() {
     // hooks for screen
-    const [showModal, setModal] = useState(false);
-    const [error, setError] = useState<string>();
     const [myPlans, setMyPlans] = useState<ITrainigPlans[]>([]);
     const [isMyPlansLoading, setIsMyPlansLoading] = useState<boolean>(false);
     const [mySuggestedPlans, setMySuggestedPlans] = useState<ITrainigPlans[]>([]);
     const [isMySuggestedPlansLoading, setIsMySuggestedPlansLoading] = useState<boolean>(false);
 
     // hooks from app
-    // const { handleLoading } = useData();
     const { t } = useTranslation();
     const { sizes } = useTheme();
     const { loadMyPlans, loadMySuggestedPlans } = usePlansEndpoint();
 
     useEffect(() => {
-        // handleLoading(true);
         setMyPlans([]);
         setIsMyPlansLoading(true);
         setMySuggestedPlans([]);
         setIsMySuggestedPlansLoading(true);
 
+        let errorMessage = '';
+
         loadMyPlans('10', true)
             .then((data: ITrainigPlans[]) => setMyPlans(data))
             .catch((error: string) => {
-                setError(error);
-                setModal(true);
+                errorMessage = errorMessage ? `${errorMessage}\n${error}` : error;
             })
             .finally(() => setIsMyPlansLoading(false));
 
         loadMySuggestedPlans('10', true)
             .then((data: ITrainigPlans[]) => setMySuggestedPlans(data))
             .catch((error: string) => {
-                setError(error);
-                setModal(true);
+                errorMessage = errorMessage ? `${errorMessage}\n${error}` : error;
             })
             .finally(() => setIsMySuggestedPlansLoading(false));
     }, []);
@@ -50,7 +45,9 @@ export default function PlansScreen() {
     return (
         <Block safe padding={sizes.padding}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
-                <Text h3 center>{t('plans.label.title')}</Text>
+                <Text h3 center>
+                    {t('plans.label.title')}
+                </Text>
             </Block>
             <Block flex={1} marginBottom={sizes.xl}>
                 <Text h4>{t('plans.label.myPlans')}</Text>
