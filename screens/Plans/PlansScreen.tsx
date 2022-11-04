@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
@@ -18,6 +19,7 @@ export default function PlansScreen() {
     const { t } = useTranslation();
     const { sizes } = useTheme();
     const { loadMyPlans, loadMySuggestedPlans } = usePlansEndpoint();
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         setMyPlans([]);
@@ -40,7 +42,7 @@ export default function PlansScreen() {
                 errorMessage = errorMessage ? `${errorMessage}\n${error}` : error;
             })
             .finally(() => setIsMySuggestedPlansLoading(false));
-    }, []);
+    }, [isFocused]);
 
     return (
         <Block safe padding={sizes.padding}>
@@ -85,23 +87,6 @@ export default function PlansScreen() {
                     showsVerticalScrollIndicator={false}
                 />
             </Block>
-            <CustomInfoPanel
-                isVisible={false}
-                type="warn"
-                title={'Cierre de sesión'}
-                confirmButtonTitle={'ACEPTAR'}
-                onConfirPress={() => {
-                    // showSpinner();
-                }}
-                cancelButtonTitle={'CANCELAR'}
-                onCancelPress={() => {
-                    // setShowErrorMessage(false);
-                }}
-                tempInfo={'temp info from screen'}
-                message={
-                    'Ha seleccionado el cierre de sesión asdf  af as lsalaskdjlsdkfjslkfj asldfj asldf lasd lasdjf alsdkjf laskdjfl askdjf lksjd flkasjdf lkasjd flkajsdlf kjasdlfk jasldkfj a;lsdkf jasdjkf hn,asdjmn wkljur474as;lkf jalsdkjf alskjfalskdfj lasdkfj asldkj'
-                }
-            />
         </Block>
     );
 }

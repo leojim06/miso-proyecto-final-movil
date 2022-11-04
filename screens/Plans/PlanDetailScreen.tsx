@@ -1,6 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image as ReactImage } from 'react-native';
 import styles from '../../assets/style/styles';
 import { Text, Button, Block, Image } from '../../components';
 import CustomModal, { ICustomPanel } from '../../components/modals/CustomModal';
@@ -46,9 +45,9 @@ export default function PlanDetailScreen() {
     const route = useRoute<PlanDetailScreenRouteProp>();
     const { planId, isInMyPlans } = route.params;
     const { t } = useTranslation();
-    const { sizes, assets, colors } = useTheme();
-    const { handleLoading } = useData();
-    const { loadPlanDetail } = usePlansEndpoint();
+    const { sizes, assets } = useTheme();
+    const { handleLoading, trainingSession, handleTrainingSession, user } = useData();
+    const { loadPlanDetail, subscribeMyPlan } = usePlansEndpoint();
 
     useEffect(() => {
         setPlanDetail(undefined);
@@ -73,18 +72,49 @@ export default function PlanDetailScreen() {
     }, []);
 
     const handleStartRoutine = () => {
-        setModal({
+        let modalInformation: ICustomPanel = {
+            type: 'success',
             isVisible: true,
-            title: t('plans.detail.modal.warningTitleStartRoutine'),
-            message: t('plans.detail.modal.warningMessageNewRoutine', { name: planDetail?.name }),
-            type: 'warning',
+            title: t('plans.detail.modal.warningTitleSuscription'),
+            message: '',
             confirmButtonTitle: t('plans.detail.modal.confirmBtnTitle'),
             cancelButtonTitle: t('plans.detail.modal.cancelBtnTitle'),
-            onConfirmPress: () => {},
-            onCancelPress: () => {
-                setModal({ ...modal, isVisible: false });
-            },
-        });
+            onCancelPress: () => setModal({ ...modal, isVisible: false }),
+        };
+
+        modalInformation = trainingSession
+            ? trainingSession.id === planDetail?.id
+                ? {
+                      ...modalInformation,
+                      type: 'info',
+                      message: t('plans.detail.modal.warningMessageSameRoutine'),
+                      confirmButtonTitle: t('plans.detail.modal.configmBtnTitleInfo'),
+                      onConfirmPress: () => setModal({ ...modal, isVisible: false }),
+                  }
+                : {
+                      ...modalInformation,
+                      type: 'warning',
+                      message: t('plans.detail.modal.warningMessageWithRoutine', {
+                          nameOld: trainingSession.name,
+                          nameNew: planDetail?.name,
+                      }),
+                      onConfirmPress: () => {
+                          setModal({ ...modal, isVisible: false });
+                          registerRoutineToStart();
+                      },
+                  }
+            : {
+                  ...modalInformation,
+                  type: 'warning',
+                  message: t('plans.detail.modal.warningMessageNewRoutine', {
+                      name: planDetail?.name,
+                  }),
+                  onConfirmPress: () => {
+                      setModal({ ...modal, isVisible: false });
+                      registerRoutineToStart();
+                  },
+              };
+        setModal(modalInformation);
     };
 
     const handleTrainingSuscription = () => {
@@ -95,11 +125,74 @@ export default function PlanDetailScreen() {
             type: 'warning',
             confirmButtonTitle: t('plans.detail.modal.confirmBtnTitle'),
             cancelButtonTitle: t('plans.detail.modal.cancelBtnTitle'),
-            onConfirmPress: () => {},
+            onConfirmPress: () => {
+                setModal({ ...modal, isVisible: false });
+                registerRoutineToSuscription();
+            },
             onCancelPress: () => {
                 setModal({ ...modal, isVisible: false });
             },
         });
+    };
+
+    const registerRoutineToStart = () => {
+        try {
+            handleTrainingSession(planDetail);
+            setModal({
+                ...modal,
+                isVisible: true,
+                type: 'info',
+                title: t('plans.detail.modal.warningTitleSuscription'),
+                message: t('plans.detail.modal.successMessageRegistery', {
+                    name: planDetail?.name,
+                }),
+                confirmButtonTitle: t('plans.detail.modal.configmBtnTitleInfo'),
+                onConfirmPress: () => setModal({ ...modal, isVisible: false }),
+            });
+        } catch (error) {
+            setModal({
+                ...modal,
+                isVisible: true,
+                type: 'error',
+                title: t('plans.detail.modal.warningTitleSuscription'),
+                message: t('plans.detail.modal.errorMessageRegistery'),
+                confirmButtonTitle: t('plans.detail.modal.configmBtnTitleInfo'),
+                onConfirmPress: () => setModal({ ...modal, isVisible: false }),
+            });
+        }
+    };
+
+    const registerRoutineToSuscription = () => {
+        handleLoading(true);
+        subscribeMyPlan(user.Id, true, planDetail?.id)
+            .then((data: boolean) => {
+                if (data)
+                    setModal({
+                        isVisible: true,
+                        title: t('plans.detail.modal.warningTitleSuscription'),
+                        message: t('plans.detail.modal.successMessageRegistery', {
+                            name: planDetail?.name,
+                        }),
+                        type: 'success',
+                        confirmButtonTitle: t('plans.detail.modal.configmBtnTitleInfo'),
+                        onConfirmPress: () => {
+                            setModal({ ...modal, isVisible: false });
+                            navigation.pop();
+                        },
+                    });
+                else throw '';
+            })
+            .catch((error: string) =>
+                setModal({
+                    isVisible: true,
+                    title: t('plans.detail.modal.warningTitleSuscription'),
+                    message: t('plans.detail.modal.errorMessageRegistery'),
+                    type: 'error',
+                    confirmButtonTitle: t('plans.detail.modal.configmBtnTitleInfo'),
+                    onConfirmPress: () => setModal({ ...modal, isVisible: false }),
+                })
+            )
+            .finally(() => handleLoading(false));
     };
 
     return (
@@ -152,10 +245,9 @@ export default function PlanDetailScreen() {
                         <Block flex={0} paddingBottom={sizes.s}>
                             <Text h4>{t('plans.detail.label.routine')}</Text>
                         </Block>
-                        <FlatList
-                            data={planDetail?.routine}
-                            renderItem={({ item, index }) => <WeekRoutine {...item} />}
-                        />
+                        {planDetail.routine?.map((item, index) => {
+                            return <WeekRoutine key={index} {...item} />;
+                        })}
                     </Block>
                 </Block>
             )}

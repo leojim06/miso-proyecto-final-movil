@@ -14,7 +14,7 @@ export interface IUser {
     // stats?: { posts?: number; followers?: number; following?: number };
     // social?: { twitter?: string; dribbble?: string };
     // about?: string;
-    userId: number;
+    id: string;
     accessToken: string;
 }
 
@@ -124,11 +124,11 @@ export interface INotification {
     business?: boolean;
     createdAt?: number | Date;
     type:
-        | 'document'
-        | 'documentation'
-        | 'payment'
-        | 'notification'
-        | 'profile'
-        | 'extras'
-        | 'office';
+    | 'document'
+    | 'documentation'
+    | 'payment'
+    | 'notification'
+    | 'profile'
+    | 'extras'
+    | 'office';
 }

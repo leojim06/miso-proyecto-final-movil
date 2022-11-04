@@ -178,7 +178,32 @@ const usePlansEndpoint = () => {
         }
     };
 
-    return { loadMyPlans, loadMySuggestedPlans, loadPlanDetail, loadTrainingDetail };
+    const subscribeMyPlan = async (
+        userId: string,
+        withData: boolean,
+        planId?: string
+    ): Promise<boolean> => {
+        try {
+            // const response: AxiosResponse<IMyPlans> = await axios.post(`${API_URL}/users/${userId}/plans/${planId}`);
+            // return response.data;
+            await timeout(800);
+            return withData ? true : false;
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response?.status === 401) {
+                throw t('login.error.unauthorized');
+            } else {
+                throw t('login.error.server');
+            }
+        }
+    };
+
+    return {
+        loadMyPlans,
+        loadMySuggestedPlans,
+        loadPlanDetail,
+        loadTrainingDetail,
+        subscribeMyPlan,
+    };
 };
 
 export default usePlansEndpoint;
