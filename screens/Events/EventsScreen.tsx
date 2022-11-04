@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
 import Event, { IEventProps } from '../../components/events/Event';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
+import CustomModal from '../../components/modals/CustomModal';
 import { useTheme, useTranslation } from '../../hooks';
 import useEventEndpoint from '../../services/api/useEventEndpoint';
 
@@ -29,7 +30,9 @@ export default function EventsScreen() {
     return (
         <Block safe padding={sizes.padding}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
-                <Text h3 center>{t('events.label.title')}</Text>
+                <Text h3 center>
+                    {t('events.label.title')}
+                </Text>
             </Block>
             <Block flex={1} marginBottom={sizes.xl}>
                 <FlatList

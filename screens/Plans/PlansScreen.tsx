@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
-import CustomInfoPanel from '../../components/modals/CustomInfoPanel';
 import TrainigPlan, { ITrainigPlans } from '../../components/plans/TrainigPlan';
 import { useTheme, useTranslation } from '../../hooks';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
