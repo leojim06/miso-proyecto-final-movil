@@ -8,27 +8,7 @@ import IconRow from '../../components/utils/IconRow';
 import { useData, useTheme, useTranslation } from '../../hooks';
 import { PlanDetailScreenRouteProp, PlansScreenNavigationProp } from '../../navigation/types';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
-
-export interface ITrainingPlanDetailProps {
-    id: string;
-    image?: string;
-    suscription?: 'Free' | 'Intermediate' | 'Pro';
-    name?: string;
-    description?: string;
-    duration?: string;
-    routine?: IWeekRoutine[];
-}
-
-export interface IWeekRoutine {
-    week: number;
-    days: IDayRoutine[];
-}
-
-export interface IDayRoutine {
-    id: string;
-    day: number;
-    exercise: string;
-}
+import { ITrainingPlanDetailProps, ITrainingSessionProps } from '../TrainingSession/TrainingSesion';
 
 export default function PlanDetailScreen() {
     //hooks for screen
@@ -137,7 +117,7 @@ export default function PlanDetailScreen() {
 
     const registerRoutineToStart = () => {
         try {
-            handleTrainingSession(planDetail);
+            handleTrainingSession(planDetail as ITrainingSessionProps);
             setModal({
                 ...modal,
                 isVisible: true,

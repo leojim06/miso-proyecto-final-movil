@@ -2,30 +2,13 @@ import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
 import WeekSession from '../../components/trainings/WeekSession';
+import DataNotFound from '../../components/utils/DataNotFound';
 import { useData, useTheme, useTranslation } from '../../hooks';
+import { ITrainingSessionProps } from './TrainingSesion';
 
-export interface ITrainigSessionProps {
-    name?: string;
-    description?: string;
-    duration?: string;
-    routine?: IWeekTrainigSession[];
-}
-
-export interface IWeekTrainigSession {
-    active: boolean;
-    week: number;
-    days: IDayTrainigSession[];
-}
-
-export interface IDayTrainigSession {
-    active: boolean;
-    complete?: boolean;
-    id: string;
-    day: number;
-    exercise: string;
-}
-
-const trainigSession: ITrainigSessionProps = {
+const trainingSessionMock: ITrainingSessionProps = {
+    id: '2',
+    active: true,
     name: 'Plan para comenzar a caminar',
     description:
         'Es importante que, para mantener un balance en el trabajo que se hace durante la caminata, se complemente con alguna serie sencilla de ejercicios de fortalecimiento abdominal, de esta forma la postura logrará mejorías y la columna se verá beneficiada.',
@@ -93,11 +76,20 @@ export default function TrainingSessionScreen() {
 
     // hooks from app
     const { t } = useTranslation();
-    const { colors, sizes } = useTheme();
+    const { sizes } = useTheme();
     const { handleTrainingSession, trainingSession } = useData();
 
     useEffect(() => {
-        handleTrainingSession('hola mundo');
+        // handleTrainingSession('hola mundo');
+        // console.info('después de asignar: ', JSON.stringify(trainingSession));
+        if (!trainingSession.active) {
+            const t: ITrainingSessionProps = Object.assign({}, trainingSession, {
+                ...trainingSession,
+                active: true,
+                routine: Object.assign({}, trainingSession.routine, { ...trainingSession.routine }),
+            });
+            console.info(JSON.stringify(t, null, 2));
+        }
     }, []);
 
     return (
@@ -107,21 +99,21 @@ export default function TrainingSessionScreen() {
                     {t('training.label.title')}
                 </Text>
             </Block>
-            <Block flex={0}>
-                <Text h4 primary>
-                    {trainigSession.name || 'Rutina'}
-                </Text>
-            </Block>
-            {trainingSession === undefined ? (
-                <Block card tertiary>
-                    <Text h4 bold>
-                        {t('training.warning.trainingSessionNotFound')}
-                    </Text>
-                    <Text p>{t('training.warning.instruction')}</Text>
-                </Block>
+            {trainingSessionMock === undefined ? (
+                <DataNotFound
+                    title={t('training.warning.trainingSessionNotFound')}
+                    message={t('training.warning.instruction')}
+                />
             ) : (
                 <FlatList
-                    data={trainigSession.routine}
+                    data={trainingSessionMock.routine}
+                    ListHeaderComponent={
+                        <Block flex={0}>
+                            <Text h4 primary>
+                                {trainingSessionMock.name || 'Rutina'}
+                            </Text>
+                        </Block>
+                    }
                     renderItem={({ item, index }) => <WeekSession {...item} />}
                     showsVerticalScrollIndicator={false}
                 />

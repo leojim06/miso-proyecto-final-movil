@@ -3,7 +3,7 @@ import Storage from '@react-native-async-storage/async-storage';
 
 import { ITheme, IUseData, IUser } from '../constants/types';
 import { light } from '../constants';
-import { InfoModalProps } from '../components/modals/InformationModal';
+import { ITrainingSessionProps } from '../screens/TrainingSession/TrainingSesion';
 
 export const DataContext = React.createContext({});
 
@@ -13,7 +13,6 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<IUser>();
     const [isLoading, setIsLoading] = useState(false);
     const [trainingSession, setTrainingSession] = useState<any>();
-    // const [hasInfoModal, setInfoModal] = useState<InfoModalProps>();
 
     // get isDark mode from storage
     const getIsDark = useCallback(async () => {
@@ -50,22 +49,20 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         [setIsLoading]
     );
 
-    const handleTrainingSession = useCallback(
-        (payload: any) => {
-            if (JSON.stringify(payload) !== JSON.stringify(trainingSession)) {
-                setTrainingSession({ ...trainingSession, ...payload });
-            }
-        },
-        [trainingSession, setTrainingSession]
-    );
+    const getTrainingSession = useCallback(async () => {
+        const myTrainingSession = await Storage.getItem('trainingSession');
+        if (myTrainingSession !== null) {
+            setTrainingSession(JSON.parse(myTrainingSession));
+        }
+    }, [setTrainingSession]);
 
-    // // handle info modal panel
-    // const handleInfoModalPanel = useCallback(
-    //     (payload: InfoModalProps) => {
-    //         setInfoModal(payload);
-    //     },
-    //     [setInfoModal]
-    // );
+    const handleTrainingSession = useCallback(
+        (payload: ITrainingSessionProps) => {
+            setTrainingSession(payload);
+            Storage.setItem('trainingSession', JSON.stringify(payload));
+        },
+        [setTrainingSession]
+    );
 
     // get initial data for: isDark & language
     useEffect(() => {
@@ -77,12 +74,10 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         setTheme(isDark ? light : light);
     }, [isDark]);
 
-    // // get initial data for information panel
-    // useEffect(() => {
-    //     setInfoModal({
-    //         isVisible: false,
-    //     });
-    // }, [hasInfoModal]);
+    // get initial data for training session
+    useEffect(() => {
+        getTrainingSession();
+    }, [getTrainingSession]);
 
     const contextValue = {
         isDark,
@@ -94,9 +89,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         isLoading,
         handleLoading,
         trainingSession,
-        handleTrainingSession
-        // hasInfoModal,
-        // handleInfoModalPanel,
+        handleTrainingSession,
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

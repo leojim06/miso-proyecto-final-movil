@@ -4,6 +4,7 @@ import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
 import TrainigPlan, { ITrainigPlans } from '../../components/plans/TrainigPlan';
+import DataNotFound from '../../components/utils/DataNotFound';
 import { useTheme, useTranslation } from '../../hooks';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
 
@@ -62,7 +63,7 @@ export default function PlansScreen() {
                         isMyPlansLoading ? (
                             <LoadingPlaceholder />
                         ) : (
-                            <Text>{t('plans.warning.myPlansNotFound')}</Text>
+                            <DataNotFound title={t('plans.warning.myPlansNotFound')} />
                         )
                     }
                     showsVerticalScrollIndicator={false}
@@ -80,7 +81,7 @@ export default function PlansScreen() {
                         isMySuggestedPlansLoading ? (
                             <LoadingPlaceholder />
                         ) : (
-                            <Text>{t('plans.warning.mySuggestedPlansNotFound')}</Text>
+                            <DataNotFound title={t('plans.warning.mySuggestedPlansNotFound')} />
                         )
                     }
                     showsVerticalScrollIndicator={false}

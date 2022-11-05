@@ -3,7 +3,7 @@ import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
 import Event, { IEventProps } from '../../components/events/Event';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
-import CustomModal from '../../components/modals/CustomModal';
+import DataNotFound from '../../components/utils/DataNotFound';
 import { useTheme, useTranslation } from '../../hooks';
 import useEventEndpoint from '../../services/api/useEventEndpoint';
 
@@ -11,11 +11,10 @@ export default function EventsScreen() {
     // hooks for screen
     const [mySuggestedEvents, setMySuggestedEvents] = useState<IEventProps[]>([]);
     const [isEventsLoading, setIsEventsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string>();
     // hooks from app
     const { t } = useTranslation();
-    const { loadMySuggestedEvents } = useEventEndpoint();
     const { sizes } = useTheme();
+    const { loadMySuggestedEvents } = useEventEndpoint();
 
     useEffect(() => {
         setMySuggestedEvents([]);
@@ -23,7 +22,7 @@ export default function EventsScreen() {
 
         loadMySuggestedEvents('10', true)
             .then((data: IEventProps[]) => setMySuggestedEvents(data))
-            .catch((error: string) => setError(error))
+            .catch((error: string) => {})
             .finally(() => setIsEventsLoading(false));
     }, []);
 
@@ -43,7 +42,7 @@ export default function EventsScreen() {
                         isEventsLoading ? (
                             <LoadingPlaceholder />
                         ) : (
-                            <Text>{t('events.warning.mySuggestedEventsNotFound')}</Text>
+                            <DataNotFound title={t('events.warning.mySuggestedEventsNotFound')} />
                         )
                     }
                     showsVerticalScrollIndicator={false}

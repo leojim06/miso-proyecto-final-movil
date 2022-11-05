@@ -25,7 +25,7 @@ export const plansEs = {
             errorButton: 'Aceptar',
             warningTitleStartRoutine: 'Iniciar rutina',
             warningMessageNewRoutine: '¿Está seguro que desea iniciar la rutina "%{name}"?',
-            warningMessageWithRoutine: 'Ya tienes un entrenamiento en progreso ("%{nameOld}".\nSi inicias un nuevo entrenamiento perderás el historial que tienes.\n¿Está seguro que desea iniciar la nueva rutina "%{nameNew}"?)',
+            warningMessageWithRoutine: 'Ya tienes un entrenamiento en progreso ("%{nameOld})".\nSi inicias un nuevo entrenamiento perderás el historial que tienes.\n¿Está seguro que desea iniciar la nueva rutina "%{nameNew}"?',
             warningMessageSameRoutine: 'Ya has iniciado esta rutina, dirigete al menú de entrenamiento para continuar',
             warningTitleSuscription: 'Registrarse en este plan',
             warningMessageSuscription: '¿Está seguro que desea registrarse en "%{name}"?',
