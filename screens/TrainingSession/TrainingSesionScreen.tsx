@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
 import WeekSession from '../../components/trainings/WeekSession';
@@ -73,6 +73,7 @@ const trainingSessionMock: ITrainingSessionProps = {
 
 export default function TrainingSessionScreen() {
     // hooks for screen
+    const [routine, setRoutine] = useState<ITrainingSessionProps>();
 
     // hooks from app
     const { t } = useTranslation();
@@ -80,16 +81,17 @@ export default function TrainingSessionScreen() {
     const { handleTrainingSession, trainingSession } = useData();
 
     useEffect(() => {
+        if (trainingSession) setRoutine(trainingSessionMock);
         // handleTrainingSession('hola mundo');
         // console.info('después de asignar: ', JSON.stringify(trainingSession));
-        if (!trainingSession.active) {
-            const t: ITrainingSessionProps = Object.assign({}, trainingSession, {
-                ...trainingSession,
-                active: true,
-                routine: Object.assign({}, trainingSession.routine, { ...trainingSession.routine }),
-            });
-            console.info(JSON.stringify(t, null, 2));
-        }
+        // if (!trainingSession.active) {
+        //     const t: ITrainingSessionProps = Object.assign({}, trainingSession, {
+        //         ...trainingSession,
+        //         active: true,
+        //         routine: Object.assign({}, trainingSession.routine, { ...trainingSession.routine }),
+        //     });
+        //     console.info(JSON.stringify(t, null, 2));
+        // }
     }, []);
 
     return (
@@ -99,18 +101,18 @@ export default function TrainingSessionScreen() {
                     {t('training.label.title')}
                 </Text>
             </Block>
-            {trainingSessionMock === undefined ? (
+            {routine === undefined ? (
                 <DataNotFound
                     title={t('training.warning.trainingSessionNotFound')}
                     message={t('training.warning.instruction')}
                 />
             ) : (
                 <FlatList
-                    data={trainingSessionMock.routine}
+                    data={routine.routine}
                     ListHeaderComponent={
                         <Block flex={0}>
                             <Text h4 primary>
-                                {trainingSessionMock.name || 'Rutina'}
+                                {routine.name || 'Rutina'}
                             </Text>
                         </Block>
                     }

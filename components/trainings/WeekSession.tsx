@@ -1,12 +1,12 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import { useTheme, useTranslation } from '../../hooks';
-import { IWeekTrainigSession } from '../../screens/TrainingSession/TrainingSesionScreen';
+import { IWeekTrainingSessionProps } from '../../screens/TrainingSession/TrainingSesion';
 import Block from '../Block';
 import Text from '../Text';
 import DaySession from './DaySession';
 
-const WeekSession = (props: IWeekTrainigSession) => {
+const WeekSession = (props: IWeekTrainingSessionProps) => {
     // hooks from app
     const { sizes, colors } = useTheme();
     const { t } = useTranslation();

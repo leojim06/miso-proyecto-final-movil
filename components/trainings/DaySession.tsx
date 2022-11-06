@@ -3,11 +3,11 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useTheme, useTranslation } from '../../hooks';
 import { TrainingSessionScreenNavigationProp } from '../../navigation/types/trainingSessionStackNavigatorParamList';
-import { IDayTrainigSession } from '../../screens/TrainingSession/TrainingSesionScreen';
+import { IDayTrainingSessionProps } from '../../screens/TrainingSession/TrainingSesion';
 import Block from '../Block';
 import Text from '../Text';
 
-const DaySession = (props: IDayTrainigSession) => {
+const DaySession = (props: IDayTrainingSessionProps) => {
     // hooks from app
     const navigation = useNavigation<TrainingSessionScreenNavigationProp>();
     const { sizes, colors } = useTheme();
@@ -26,7 +26,7 @@ const DaySession = (props: IDayTrainigSession) => {
             color={props.complete ? colors.success : props.active ? colors.tertiary : colors.light}
         >
             <TouchableOpacity
-                disabled={!props.active && !props.complete}
+                disabled={!props.active}
                 onPress={() =>
                     navigation.navigate('TrainingDetailScreen', {
                         trainingId: props.id,

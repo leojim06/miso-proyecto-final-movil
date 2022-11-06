@@ -3,7 +3,7 @@ import { useTranslation } from '../../hooks';
 import { API_URL } from '@env';
 import { ITrainigPlans } from '../../components/plans/TrainigPlan';
 import { timeout } from '../../utils/timeout';
-import { ITrainingPlanDetailProps } from '../../screens/Plans/PlanDetailScreen';
+import { ITrainingPlanDetailProps } from '../../screens/TrainingSession/TrainingSesion';
 import { ITrainingSessionDetailProps } from '../../screens/TrainingSession/TrainingDetailScreen';
 
 export interface IMyPlans {}
@@ -35,7 +35,7 @@ const plans: ITrainigPlans[] = [
 const plansNotFound: ITrainigPlans[] = [];
 
 const planDetail: ITrainingPlanDetailProps = {
-    id: '1',
+    id: '2',
     image: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?fit=crop&w=450&q=80',
     // image: undefined,
     suscription: 'Free',

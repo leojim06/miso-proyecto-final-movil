@@ -58,8 +58,12 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
     const handleTrainingSession = useCallback(
         (payload: ITrainingSessionProps) => {
+            if (payload === null || payload === undefined) {
+                Storage.removeItem('trainingSession');
+            } else {
+                Storage.setItem('trainingSession', JSON.stringify(payload));
+            }
             setTrainingSession(payload);
-            Storage.setItem('trainingSession', JSON.stringify(payload));
         },
         [setTrainingSession]
     );
