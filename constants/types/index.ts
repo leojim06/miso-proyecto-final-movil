@@ -68,7 +68,7 @@ export interface IUseData {
     handleIsDark: (isDark?: boolean) => void;
     theme: ITheme;
     setTheme: (theme?: ITheme) => void;
-    user: any;
+    user: IUser;
     handleUser: (data?: IUser) => void;
     isLoading: boolean;
     handleLoading: (isLoading?: boolean) => void;
