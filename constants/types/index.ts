@@ -1,6 +1,7 @@
 import i18n from 'i18n-js';
 import { ImageSourcePropType } from 'react-native';
 import { InfoModalProps } from '../../components/modals/InformationModal';
+import { ITrainingPlans } from '../../components/plans/TrainigPlan';
 import { ITrainingSessionProps } from '../../screens/TrainingSession/TrainingSesion';
 import { ITheme } from './theme';
 
@@ -15,7 +16,7 @@ export interface IUser {
     // stats?: { posts?: number; followers?: number; following?: number };
     // social?: { twitter?: string; dribbble?: string };
     // about?: string;
-    id: string;
+    userId: string;
     accessToken: string;
 }
 
@@ -72,8 +73,8 @@ export interface IUseData {
     handleUser: (data?: IUser) => void;
     isLoading: boolean;
     handleLoading: (isLoading?: boolean) => void;
-    trainingSession: ITrainingSessionProps;
-    handleTrainingSession: (trainingSession?: ITrainingSessionProps) => void;
+    trainingSession: ITrainingPlans;
+    handleTrainingSession: (trainingSession?: ITrainingPlans) => void;
     // hasInfoModal: InfoModalProps,
     // handleInfoModalPanel: (data?: InfoModalProps) => void;
 }

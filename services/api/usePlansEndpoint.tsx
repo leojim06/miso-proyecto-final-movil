@@ -1,38 +1,15 @@
 import axios, { AxiosResponse } from 'axios';
 import { useTranslation } from '../../hooks';
 import { API_URL } from '@env';
-import { ITrainigPlans } from '../../components/plans/TrainigPlan';
+import { ITrainingPlans } from '../../components/plans/TrainigPlan';
 import { timeout } from '../../utils/timeout';
 import { ITrainingPlanDetailProps } from '../../screens/TrainingSession/TrainingSesion';
 import { ITrainingSessionDetailProps } from '../../screens/TrainingSession/TrainingDetailScreen';
+import useAxiosInstance from '../../hooks/useAxiosInstance';
 
 export interface IMyPlans {}
 
-const plans: ITrainigPlans[] = [
-    {
-        id: '1',
-        name: 'Name',
-        description: 'Lorem ipsum',
-        level: 'Beginner',
-        duration: 10,
-    },
-    {
-        id: '2',
-        name: 'Name',
-        description: 'Lorem ipsum',
-        level: 'Intermediate',
-        duration: 10,
-    },
-    {
-        id: '3',
-        name: 'Name',
-        description: 'Lorem ipsum',
-        level: 'Advanced',
-        duration: 10,
-    },
-];
-
-const plansNotFound: ITrainigPlans[] = [];
+const plansNotFound: ITrainingPlans[] = [];
 
 const planDetail: ITrainingPlanDetailProps = {
     id: '2',
@@ -108,13 +85,30 @@ const trainingSessionDetail: ITrainingSessionDetailProps = {
 
 const usePlansEndpoint = () => {
     const { t } = useTranslation();
+    const sportAppInstance = useAxiosInstance();
 
-    const loadMyPlans = async (user_id: string, withData: boolean): Promise<ITrainigPlans[]> => {
+    const loadMyPlans = async (userId: string): Promise<ITrainingPlans[]> => {
         try {
-            // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/my-plans/${user_id}`);
-            // return response.data;
-            await timeout(800);
-            return withData ? plans : plansNotFound;
+            const url: string = `/planes-entrenamiento/deportista/${userId}/registrados`;
+            const response: AxiosResponse<ITrainingPlans[]> = await sportAppInstance.get(url);
+            return response.data;
+        } catch (error: unknown) {
+            if (
+                axios.isAxiosError(error) &&
+                (error.response?.status === 401 || error.response?.status === 403)
+            ) {
+                throw t('app.error.unauthorized');
+            } else {
+                throw t('app.error.server');
+            }
+        }
+    };
+
+    const loadMySuggestedPlans = async (userId: string): Promise<ITrainingPlans[]> => {
+        try {
+            const url: string = `/planes-entrenamiento/deportista/${userId}/sugeridos`;
+            const response: AxiosResponse<ITrainingPlans[]> = await sportAppInstance.get(url);
+            return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 throw t('login.error.unauthorized');
@@ -124,33 +118,11 @@ const usePlansEndpoint = () => {
         }
     };
 
-    const loadMySuggestedPlans = async (
-        user_id: string,
-        withData: boolean
-    ): Promise<ITrainigPlans[]> => {
+    const loadPlanDetail = async (planId: string): Promise<ITrainingPlans> => {
         try {
-            // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/my-plans/${user_id}`);
-            // return response.data;
-            await timeout(1500);
-            return withData ? plans : plansNotFound;
-        } catch (error: unknown) {
-            if (axios.isAxiosError(error) && error.response?.status === 401) {
-                throw t('login.error.unauthorized');
-            } else {
-                throw t('login.error.server');
-            }
-        }
-    };
-
-    const loadPlanDetail = async (
-        event_id: string,
-        withData: boolean
-    ): Promise<ITrainingPlanDetailProps> => {
-        try {
-            // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/events/${event_id}`);
-            // return response.data;
-            await timeout(800);
-            return withData ? planDetail : ({} as ITrainingPlanDetailProps);
+            const url: string = `/planes-entrenamiento/${planId}`;
+            const response: AxiosResponse<ITrainingPlans> = await sportAppInstance.get(url);
+            return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 throw t('login.error.unauthorized');
@@ -178,17 +150,13 @@ const usePlansEndpoint = () => {
         }
     };
 
-    const subscribeMyPlan = async (
-        userId: string,
-        withData: boolean,
-        planId?: string
-    ): Promise<boolean> => {
+    const subscribeMyPlan = async (userId: string, planId?: string): Promise<boolean> => {
         try {
-            // const response: AxiosResponse<IMyPlans> = await axios.post(`${API_URL}/users/${userId}/plans/${planId}`);
-            // return response.data;
-            await timeout(800);
-            return withData ? true : false;
+            const url: string = `/planes-entrenamiento/${planId}/deportistas/${userId}`;
+            const response: AxiosResponse<any> = await sportAppInstance.post(url);
+            return response.data;
         } catch (error: unknown) {
+            console.error(error)
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 throw t('login.error.unauthorized');
             } else {

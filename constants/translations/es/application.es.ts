@@ -17,5 +17,9 @@ export const applicationEs = {
         formats:{
             ordinalDay: "%B %{day}",
         }
-    }
+    },
+    error: {
+        unauthorized: 'Usuario o contraseña incorrecta',
+        server: 'Problemas con el servicio SportApp',
+    },
 };

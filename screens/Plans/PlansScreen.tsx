@@ -3,16 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
-import TrainigPlan, { ITrainigPlans } from '../../components/plans/TrainigPlan';
+import TrainigPlan, { ITrainingPlans } from '../../components/plans/TrainigPlan';
 import DataNotFound from '../../components/utils/DataNotFound';
-import { useTheme, useTranslation } from '../../hooks';
+import { useData, useTheme, useTranslation } from '../../hooks';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
 
 export default function PlansScreen() {
     // hooks for screen
-    const [myPlans, setMyPlans] = useState<ITrainigPlans[]>([]);
+    const [myPlans, setMyPlans] = useState<ITrainingPlans[]>([]);
     const [isMyPlansLoading, setIsMyPlansLoading] = useState<boolean>(false);
-    const [mySuggestedPlans, setMySuggestedPlans] = useState<ITrainigPlans[]>([]);
+    const [mySuggestedPlans, setMySuggestedPlans] = useState<ITrainingPlans[]>([]);
     const [isMySuggestedPlansLoading, setIsMySuggestedPlansLoading] = useState<boolean>(false);
 
     // hooks from app
@@ -20,6 +20,7 @@ export default function PlansScreen() {
     const { sizes } = useTheme();
     const { loadMyPlans, loadMySuggestedPlans } = usePlansEndpoint();
     const isFocused = useIsFocused();
+    const { user } = useData();
 
     useEffect(() => {
         setMyPlans([]);
@@ -29,15 +30,15 @@ export default function PlansScreen() {
 
         let errorMessage = '';
 
-        loadMyPlans('10', true)
-            .then((data: ITrainigPlans[]) => setMyPlans(data))
+        loadMyPlans(user.userId)
+            .then((data: ITrainingPlans[]) => setMyPlans(data))
             .catch((error: string) => {
                 errorMessage = errorMessage ? `${errorMessage}\n${error}` : error;
             })
             .finally(() => setIsMyPlansLoading(false));
 
-        loadMySuggestedPlans('10', true)
-            .then((data: ITrainigPlans[]) => setMySuggestedPlans(data))
+        loadMySuggestedPlans(user.userId)
+            .then((data: ITrainingPlans[]) => setMySuggestedPlans(data))
             .catch((error: string) => {
                 errorMessage = errorMessage ? `${errorMessage}\n${error}` : error;
             })

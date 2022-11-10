@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import styles from '../../assets/style/styles';
 import { Text, Button, Block, Image } from '../../components';
 import CustomModal, { ICustomPanel } from '../../components/modals/CustomModal';
+import DayRoutine from '../../components/plans/DayRoutine';
+import { ITrainingPlans } from '../../components/plans/TrainigPlan';
 import WeekRoutine from '../../components/plans/WeekRoutine';
 import IconRow from '../../components/utils/IconRow';
 import { useData, useTheme, useTranslation } from '../../hooks';
@@ -18,7 +20,7 @@ export default function PlanDetailScreen() {
         title: '',
         message: '',
     });
-    const [planDetail, setPlanDetail] = useState<ITrainingPlanDetailProps>();
+    const [planDetail, setPlanDetail] = useState<ITrainingPlans>();
 
     // hooks from app
     const navigation = useNavigation<PlansScreenNavigationProp>();
@@ -33,8 +35,8 @@ export default function PlanDetailScreen() {
         setPlanDetail(undefined);
         handleLoading(true);
 
-        loadPlanDetail(planId, true)
-            .then((data: ITrainingPlanDetailProps) => setPlanDetail(data))
+        loadPlanDetail(planId)
+            .then((data: ITrainingPlans) => setPlanDetail(data))
             .catch((error: string) =>
                 setModal({
                     isVisible: true,
@@ -75,8 +77,8 @@ export default function PlanDetailScreen() {
                       ...modalInformation,
                       type: 'warning',
                       message: t('plans.detail.modal.warningMessageWithRoutine', {
-                          nameOld: trainingSession.name,
-                          nameNew: planDetail?.name,
+                          nameOld: trainingSession.nombre,
+                          nameNew: planDetail?.nombre,
                       }),
                       onConfirmPress: () => {
                           setModal({ ...modal, isVisible: false });
@@ -87,7 +89,7 @@ export default function PlanDetailScreen() {
                   ...modalInformation,
                   type: 'warning',
                   message: t('plans.detail.modal.warningMessageNewRoutine', {
-                      name: planDetail?.name,
+                      name: planDetail?.nombre,
                   }),
                   onConfirmPress: () => {
                       setModal({ ...modal, isVisible: false });
@@ -101,7 +103,7 @@ export default function PlanDetailScreen() {
         setModal({
             isVisible: true,
             title: t('plans.detail.modal.warningTitleSuscription'),
-            message: t('plans.detail.modal.warningMessageSuscription', { name: planDetail?.name }),
+            message: t('plans.detail.modal.warningMessageSuscription', { name: planDetail?.nombre }),
             type: 'warning',
             confirmButtonTitle: t('plans.detail.modal.confirmBtnTitle'),
             cancelButtonTitle: t('plans.detail.modal.cancelBtnTitle'),
@@ -117,14 +119,14 @@ export default function PlanDetailScreen() {
 
     const registerRoutineToStart = () => {
         try {
-            handleTrainingSession(planDetail as ITrainingSessionProps);
+            handleTrainingSession(planDetail);
             setModal({
                 ...modal,
                 isVisible: true,
                 type: 'info',
                 title: t('plans.detail.modal.warningTitleSuscription'),
                 message: t('plans.detail.modal.successMessageRegistery', {
-                    name: planDetail?.name,
+                    name: planDetail?.nombre,
                 }),
                 confirmButtonTitle: t('plans.detail.modal.configmBtnTitleInfo'),
                 onConfirmPress: () => setModal({ ...modal, isVisible: false }),
@@ -144,14 +146,14 @@ export default function PlanDetailScreen() {
 
     const registerRoutineToSuscription = () => {
         handleLoading(true);
-        subscribeMyPlan(user.Id, true, planDetail?.id)
+        subscribeMyPlan(user.userId, planDetail?.id)
             .then((data: boolean) => {
                 if (data)
                     setModal({
                         isVisible: true,
                         title: t('plans.detail.modal.warningTitleSuscription'),
                         message: t('plans.detail.modal.successMessageRegistery', {
-                            name: planDetail?.name,
+                            name: planDetail?.nombre,
                         }),
                         type: 'success',
                         confirmButtonTitle: t('plans.detail.modal.configmBtnTitleInfo'),
@@ -184,14 +186,14 @@ export default function PlanDetailScreen() {
                     {/* title */}
                     <Block align="center">
                         <Text h4 center>
-                            {planDetail?.name}
+                            {planDetail?.nombre}
                         </Text>
                     </Block>
                     {/* Image */}
                     <Block flex={0} paddingVertical={sizes.padding} style={styles.image_container}>
-                        {planDetail?.image ? (
+                        {planDetail?.imagen ? (
                             <Image
-                                source={{ uri: planDetail?.image }}
+                                source={{ uri: planDetail?.imagen }}
                                 style={styles.image_background}
                             />
                         ) : (
@@ -203,9 +205,9 @@ export default function PlanDetailScreen() {
                     </Block>
                     {/* Content */}
                     <Block>
-                        <IconRow name={'smile-o'} text={planDetail?.suscription} />
-                        <IconRow name={'play'} text={planDetail?.description} />
-                        <IconRow name={'clock-o'} text={planDetail?.duration} />
+                        <IconRow name={'smile-o'} text={String(planDetail?.suscripcion)} />
+                        <IconRow name={'play'} text={planDetail?.descripcion} />
+                        <IconRow name={'clock-o'} text={planDetail?.duracion} />
                     </Block>
                     {/* Button suscription */}
                     <Block paddingBottom={sizes.md}>
@@ -225,8 +227,8 @@ export default function PlanDetailScreen() {
                         <Block flex={0} paddingBottom={sizes.s}>
                             <Text h4>{t('plans.detail.label.routine')}</Text>
                         </Block>
-                        {planDetail.routine?.map((item, index) => {
-                            return <WeekRoutine key={index} {...item} />;
+                        {planDetail.rutinas?.map((item, index) => {
+                            return <DayRoutine key={index} {...item} />;
                         })}
                     </Block>
                 </Block>

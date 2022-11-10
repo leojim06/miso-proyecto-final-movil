@@ -5,15 +5,24 @@ import { Block, Text } from '..';
 import { useTheme, useTranslation } from '../../hooks';
 import { PlansScreenNavigationProp } from '../../navigation/types';
 
-export interface ITrainigPlans {
+export interface ITrainingPlans {
     id: string;
-    name?: string;
-    description?: string;
-    level?: 'Beginner' | 'Intermediate' | 'Advanced';
-    duration?: number;
+    nombre?: string;
+    descripcion?: string;
+    nivelPlan?: number;
+    duracion?: string;
+    imagen?: string;
+    suscripcion?: number;
+    rutinas: ITrainingRoutine[];
 }
 
-const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainigPlans; isInMyPlans: boolean }) => {
+export interface ITrainingRoutine {
+    id: string;
+    dia: number;
+    ejercicio: string;
+}
+
+const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainingPlans; isInMyPlans: boolean }) => {
     // hooks from app
     const { t } = useTranslation();
     const { colors, sizes } = useTheme();
@@ -31,20 +40,20 @@ const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainigPlans; isInMyPlans
             >
                 <Block padding={sizes.sm}>
                     <Text h5 bold>
-                        {props.name}
+                        {props.nombre}
                     </Text>
-                    <Text p>{props.description}</Text>
+                    <Text p>{props.descripcion}</Text>
                     <Block row>
                         <Text p bold>
                             {t('plans.label.level')}
                         </Text>
-                        <Text p>{props.level}</Text>
+                        <Text p>{props.nivelPlan}</Text>
                     </Block>
                     <Block row>
                         <Text p bold>
                             {t('plans.label.duration')}
                         </Text>
-                        <Text p>{props.duration}</Text>
+                        <Text p>{props.duracion}</Text>
                     </Block>
                 </Block>
             </TouchableOpacity>
