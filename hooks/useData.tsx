@@ -60,12 +60,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [setTrainingSession]);
 
-    const handleTrainingSession = useCallback(
-        (payload: ITrainingSessionProps) => {
+    const handleTrainingSession = useCallback(async (payload: ITrainingSessionProps) => {
             if (payload === null || payload === undefined) {
-                Storage.removeItem('trainingSession');
+                await Storage.removeItem('trainingSession');
             } else {
-                Storage.setItem('trainingSession', JSON.stringify(payload));
+                await Storage.setItem('trainingSession', JSON.stringify(payload));
             }
             setTrainingSession(payload);
         },
@@ -80,10 +79,13 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [setSuscriptionCatalog]);
 
-    const handleSuscriptionCatalog = useCallback(
-        (payload: ISuscription[]) => {
+    const handleSuscriptionCatalog = useCallback(async (payload: ISuscription[]) => {
+            if (payload === null || payload === undefined) {
+                await Storage.removeItem('suscriptions');
+            } else {
+                await Storage.setItem('suscriptions', JSON.stringify(payload));
+            }
             setSuscriptionCatalog(payload);
-            Storage.setItem('suscriptions', JSON.stringify(payload));
         },
         [setSuscriptionCatalog]
     );
@@ -96,10 +98,13 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [setTrainingLevelCatalog]);
 
-    const handleTrainingLevelCatalog = useCallback(
-        (payload: ITrainingLevel[]) => {
+    const handleTrainingLevelCatalog = useCallback(async (payload: ITrainingLevel[]) => {
+            if (payload === null || payload === undefined) {
+                await Storage.removeItem('trainingLevels');
+            } else {
+                await Storage.setItem('trainingLevels', JSON.stringify(payload));
+            }
             setTrainingLevelCatalog(payload);
-            Storage.setItem('trainingLevels', JSON.stringify(payload));
         },
         [setTrainingLevelCatalog]
     );

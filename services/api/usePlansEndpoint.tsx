@@ -69,13 +69,16 @@ const usePlansEndpoint = () => {
 
     const loadTrainingDetail = async (
         trainingId: string,
+        day: number,
         withData: boolean
     ): Promise<ITrainingSessionDetailProps> => {
         try {
             // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/events/${event_id}`);
             // return response.data;
             await timeout(800);
-            return withData ? trainingSessionDetail : ({} as ITrainingSessionDetailProps);
+            return withData
+                ? { ...trainingSessionDetail, id: trainingId, day: day  }
+                : ({} as ITrainingSessionDetailProps);
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 throw t('login.error.unauthorized');

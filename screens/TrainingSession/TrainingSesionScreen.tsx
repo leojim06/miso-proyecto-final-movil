@@ -8,18 +8,11 @@ import { ITrainingSessionProps } from './TrainingSesion';
 
 export default function TrainingSessionScreen() {
     // hooks for screen
-    // const [routine, setRoutine] = useState<ITrainingSessionProps>();
 
     // hooks from app
     const { t } = useTranslation();
     const { sizes } = useTheme();
-    const { handleTrainingSession, trainingSession } = useData();
-
-    console.info(JSON.stringify(trainingSession, null, 3));
-
-    // useEffect(() => {
-    //     if (trainingSession) setRoutine(trainingSession);
-    // }, []);
+    const { trainingSession } = useData();
 
     return (
         <Block safe padding={sizes.padding}>

@@ -30,6 +30,7 @@ const DaySession = (props: IDayTrainingSessionProps) => {
                 onPress={() =>
                     navigation.navigate('TrainingDetailScreen', {
                         trainingId: props.id,
+                        day: props.dia
                     })
                 }
             >

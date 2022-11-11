@@ -15,21 +15,6 @@ export interface ITrainingLevel {
 const suscriptions: ISuscription[] = [
     {
         id: 1,
-        descripcion: 'Principiante',
-    },
-    {
-        id: 2,
-        descripcion: 'Intermedio',
-    },
-    {
-        id: 3,
-        descripcion: 'Avanzado',
-    },
-];
-
-const trainingLevels: ITrainingLevel[] = [
-    {
-        id: 1,
         descripcion: 'Plan Gratuito',
     },
     {
@@ -39,6 +24,21 @@ const trainingLevels: ITrainingLevel[] = [
     {
         id: 3,
         descripcion: 'Plan Premium',
+    },
+];
+
+const trainingLevels: ITrainingLevel[] = [
+    {
+        id: 1,
+        descripcion: 'Principiante',
+    },
+    {
+        id: 2,
+        descripcion: 'Intermedio',
+    },
+    {
+        id: 3,
+        descripcion: 'Avanzado',
     },
 ];
 

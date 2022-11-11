@@ -5,7 +5,8 @@ import { ITrainingSessionDetailProps } from '../../screens/TrainingSession/Train
 export type TrainingSessionStackNavigatorParamList = {
     TrainingSessionScreen: undefined;
     TrainingDetailScreen: {
-        trainingId: string
+        trainingId: string,
+        day: number
     };
     TrainingWatcher: {
         session: ITrainingSessionDetailProps

@@ -150,7 +150,10 @@ export default function PlanDetailScreen() {
                 {},
                 {
                     activo: true,
-                    ...planDetail,
+                    id: planDetail?.id, 
+                    nombre: planDetail?.nombre,
+                    descripcion: planDetail?.descripcion,
+                    duracion: planDetail?.duracion,
                     rutinas: [
                         {
                             semana: 1,

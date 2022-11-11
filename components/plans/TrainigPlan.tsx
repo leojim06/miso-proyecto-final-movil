@@ -50,7 +50,7 @@ const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainingPlan; isInMyPlans
                         <Text p bold>
                             {t('plans.label.level')}
                         </Text>
-                        <Text p>{props.suscripcionDetalle?.descripcion}</Text>
+                        <Text p>{props.nivelPlanDetalle?.descripcion}</Text>
                     </Block>
                     <Block row>
                         <Text p bold>

@@ -2,7 +2,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { Image } from 'react-native';
 import { Block, Button, Text } from '../../components';
-import { useTheme, useTranslation } from '../../hooks';
+import { useData, useTheme, useTranslation } from '../../hooks';
 import { useTimer } from '../../hooks/useTimer';
 import {
     TrainingSessionScreenNavigationProp,
@@ -17,6 +17,30 @@ export default function TrainingWatcher() {
     const { start, stop, time, isRunning } = useTimer();
     const { assets, sizes } = useTheme();
     const { t } = useTranslation();
+    const { trainingSession, handleTrainingSession } = useData();
+
+    const handleFinishTrainingSession = () => {
+        console.warn(session);
+        const currentSession = Object.assign(
+            {},
+            {
+                ...trainingSession,
+                rutinas: trainingSession.rutinas?.map((rutina) => ({
+                    ...rutina,
+                    dias: rutina.dias.map((dia) => {
+                        if (dia.dia === session.day + 1) return { ...dia, activo: true };
+
+                        return session.id === dia.id
+                            ? { ...dia, activo: false, completo: true, tiempo: time }
+                            : { ...dia };
+                    }),
+                })),
+            }
+        );
+
+        handleTrainingSession(currentSession);
+        navigation.navigate('TrainingSessionScreen')
+    };
 
     return (
         <Block flex={1} center align="center" paddingTop={130} padding={sizes.padding}>
@@ -37,7 +61,7 @@ export default function TrainingWatcher() {
                     <Button
                         primary
                         paddingHorizontal={sizes.padding}
-                        onPress={() => navigation.pop()}
+                        onPress={() => handleFinishTrainingSession()}
                     >
                         <Text white bold transform="uppercase">
                             {t('training.detail.btn.end')}

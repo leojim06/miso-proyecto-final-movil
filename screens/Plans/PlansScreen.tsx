@@ -43,6 +43,7 @@ export default function PlansScreen() {
                         ...trainingLevelCatalog.find((level) => level.id === plan.nivelPlan),
                     },
                 }));
+                console.info(info)
                 setMyPlans(info);
             })
             .catch((error: string) => {
@@ -64,6 +65,7 @@ export default function PlansScreen() {
                         ...trainingLevelCatalog.find((level) => level.id === plan.nivelPlan),
                     },
                 }));
+                console.info(info)
                 setMySuggestedPlans(info);
             })
             .catch((error: string) => {

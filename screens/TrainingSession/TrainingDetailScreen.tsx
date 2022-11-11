@@ -27,7 +27,7 @@ export default function TrainingDetailScreen() {
     // hooks from app
     const navigation = useNavigation<TrainingSessionScreenNavigationProp>();
     const route = useRoute<TrainingDetailScreenRouteProop>();
-    const { trainingId } = route.params;
+    const { trainingId, day } = route.params;
     const { sizes } = useTheme();
     const { handleLoading } = useData();
     const { loadTrainingDetail } = usePlansEndpoint();
@@ -37,7 +37,7 @@ export default function TrainingDetailScreen() {
         setTrainingDetail(undefined);
         handleLoading(true);
 
-        loadTrainingDetail(trainingId, true)
+        loadTrainingDetail(trainingId, day, true)
             .then((data: ITrainingSessionDetailProps) => setTrainingDetail(data))
             .catch((error: string) => setError(error))
             .finally(() => handleLoading(false));

@@ -17,8 +17,6 @@ export interface IDayTrainingSession {
     ejercicio: string;
 }
 
-
-
 export interface ITrainingSessionProps extends ITrainingSession {
     activo: boolean;
     rutinas?: IWeekTrainingSessionProps[];
@@ -33,7 +31,6 @@ export interface IDayTrainingSessionProps extends IDayTrainingSession {
     activo: boolean;
     completo?: boolean;
 }
-
 
 export interface ITrainingPlanDetailProps extends ITrainingSession {
     imagen?: string;

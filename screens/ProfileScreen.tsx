@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, ScrollViewBase, ScrollView } from 'react-native';
 import { useData } from '../hooks';
 
 export default function ProfileScreen() {
@@ -8,7 +8,9 @@ export default function ProfileScreen() {
         handleTrainingSession,
         handleSuscriptionCatalog,
         handleTrainingLevelCatalog,
+        trainingSession,
     } = useData();
+
     const logout = () => {
         handleUser(undefined);
     };
@@ -18,16 +20,19 @@ export default function ProfileScreen() {
     };
 
     const resetCatalogs = () => {
-        handleSuscriptionCatalog([]);
-        handleTrainingLevelCatalog([]);
+        handleSuscriptionCatalog(undefined);
+        handleTrainingLevelCatalog(undefined);
     };
 
     return (
         <View style={styles.container}>
-            <Text>ProfileScreen</Text>
-            <Button title="Logout" onPress={logout} />
-            <Button title="Borrar entrenamiento" onPress={dropTrainingSession} />
-            <Button title="Reset catálogos" onPress={resetCatalogs} />
+            <ScrollView>
+                <Text>ProfileScreen</Text>
+                <Button title="Logout" onPress={logout} />
+                <Button title="Borrar entrenamiento" onPress={dropTrainingSession} />
+                <Button title="Reset catálogos" onPress={resetCatalogs} />
+                <Text>{JSON.stringify(trainingSession, null, 2)}</Text>
+            </ScrollView>
         </View>
     );
 }
