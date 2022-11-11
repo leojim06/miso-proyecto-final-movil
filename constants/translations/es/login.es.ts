@@ -13,8 +13,8 @@ export const loginEs = {
         invalidEmail: 'Correo electrónico no válido',
         minLenghtPassword: 'La contraseña debe tener al menos 6 caracteres',
     },
-    error: {
-        unauthorized: 'Usuario o contraseña incorrecta',
-        server: 'Problemas con el servicio SportApp',
-    },
+    warning: {
+        modalTitle: 'Iniciar sesión',
+        modalButton: 'Aceptar'
+    }
 };

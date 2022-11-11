@@ -1,11 +1,12 @@
 import { FontAwesome } from '@expo/vector-icons';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import styles from '../../assets/style/styles';
 import { Block, Image, Text } from '../../components';
+import CustomModal, { ICustomPanel } from '../../components/modals/CustomModal';
 import IconRow from '../../components/utils/IconRow';
 import { useData, useTheme, useTranslation } from '../../hooks';
-import { EventDetailScreenRouteProp } from '../../navigation/types';
+import { EventDetailScreenRouteProp, EventsScreenNavigationProp } from '../../navigation/types';
 import useEventEndpoint from '../../services/api/useEventEndpoint';
 
 export interface IEventDetailProps {
@@ -24,15 +25,21 @@ export interface IEventDetailProps {
 
 export default function EventDetailScreen() {
     // hooks for screen
+    const [modal, setModal] = useState<ICustomPanel>({
+        isVisible: false,
+        type: 'success',
+        title: '',
+        message: '',
+    });
     const [eventDetail, setEventDetail] = useState<IEventDetailProps>();
-    const [error, setError] = useState<string>();
 
     // hoots from app
+    const navigation = useNavigation<EventsScreenNavigationProp>();
     const route = useRoute<EventDetailScreenRouteProp>();
     const { eventId } = route.params;
     const { t, i18n } = useTranslation();
     const { handleLoading } = useData();
-    const { assets, sizes, colors } = useTheme();
+    const { assets, sizes } = useTheme();
     const { loadEventDetail } = useEventEndpoint();
 
     useEffect(() => {
@@ -41,14 +48,27 @@ export default function EventDetailScreen() {
 
         loadEventDetail(eventId, true)
             .then((data: IEventDetailProps) => setEventDetail(data))
-            .catch((error: string) => setError(error))
+            .catch((error: string) => {
+                setModal({
+                    isVisible: true,
+                    title: t('events.detail.modal.errorTitle'),
+                    message: error,
+                    type: 'error',
+                    confirmButtonTitle: t('events.detail.modal.errorButton'),
+                    onConfirmPress: () => {
+                        setModal({ ...modal, isVisible: false });
+                        navigation.pop();
+                    },
+                });
+            })
             .finally(() => handleLoading(false));
     }, []);
 
     return (
         <>
+            <CustomModal {...modal} />
             {!eventDetail ? null : (
-                <Block padding={sizes.margin}>
+                <Block padding={sizes.padding}>
                     {/* title */}
                     <Block flex={0} align="center" paddingBottom={sizes.s}>
                         <Text h4 center>

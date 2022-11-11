@@ -1,56 +1,86 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
-import { Block, Button, Text } from '../../components';
+import { Block, Text } from '../../components';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
-import CustomInfoOption from '../../components/modals/CustomInfoOption';
-import CustomInfoPanel from '../../components/modals/CustomInfoPanel';
-import TrainigPlan, { ITrainigPlans } from '../../components/plans/TrainigPlan';
+import TrainigPlan, { ITrainingPlan } from '../../components/plans/TrainigPlan';
+import DataNotFound from '../../components/utils/DataNotFound';
 import { useData, useTheme, useTranslation } from '../../hooks';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
 
 export default function PlansScreen() {
     // hooks for screen
-    const [showModal, setModal] = useState(false);
-    const [error, setError] = useState<string>();
-    const [myPlans, setMyPlans] = useState<ITrainigPlans[]>([]);
+    const [myPlans, setMyPlans] = useState<ITrainingPlan[]>([]);
     const [isMyPlansLoading, setIsMyPlansLoading] = useState<boolean>(false);
-    const [mySuggestedPlans, setMySuggestedPlans] = useState<ITrainigPlans[]>([]);
+    const [mySuggestedPlans, setMySuggestedPlans] = useState<ITrainingPlan[]>([]);
     const [isMySuggestedPlansLoading, setIsMySuggestedPlansLoading] = useState<boolean>(false);
 
     // hooks from app
-    // const { handleLoading } = useData();
     const { t } = useTranslation();
     const { sizes } = useTheme();
     const { loadMyPlans, loadMySuggestedPlans } = usePlansEndpoint();
+    const isFocused = useIsFocused();
+    const { user, suscriptionCatalog, trainingLevelCatalog } = useData();
 
     useEffect(() => {
-        // handleLoading(true);
         setMyPlans([]);
         setIsMyPlansLoading(true);
         setMySuggestedPlans([]);
         setIsMySuggestedPlansLoading(true);
 
-        loadMyPlans('10', true)
-            .then((data: ITrainigPlans[]) => setMyPlans(data))
+        let errorMessage = '';
+
+        loadMyPlans(user.userId)
+            .then((data: ITrainingPlan[]) => {
+                const info: ITrainingPlan[] = data.map((plan) => ({
+                    ...plan,
+                    suscripcionDetalle: {
+                        ...suscriptionCatalog.find(
+                            (suscription) => suscription.id === plan.suscripcion
+                        ),
+                    },
+                    nivelPlanDetalle: {
+                        ...trainingLevelCatalog.find((level) => level.id === plan.nivelPlan),
+                    },
+                }));
+                console.info(info)
+                setMyPlans(info);
+            })
             .catch((error: string) => {
-                setError(error);
-                setModal(true);
+                console.error(error)
+                errorMessage = errorMessage ? `${errorMessage}\n${error}` : error;
             })
             .finally(() => setIsMyPlansLoading(false));
 
-        loadMySuggestedPlans('10', true)
-            .then((data: ITrainigPlans[]) => setMySuggestedPlans(data))
+        loadMySuggestedPlans(user.userId)
+            .then((data: ITrainingPlan[]) => {
+                const info: ITrainingPlan[] = data.map((plan) => ({
+                    ...plan,
+                    suscripcionDetalle: {
+                        ...suscriptionCatalog.find(
+                            (suscription) => suscription.id === plan.suscripcion
+                        ),
+                    },
+                    nivelPlanDetalle: {
+                        ...trainingLevelCatalog.find((level) => level.id === plan.nivelPlan),
+                    },
+                }));
+                console.info(info)
+                setMySuggestedPlans(info);
+            })
             .catch((error: string) => {
-                setError(error);
-                setModal(true);
+                console.error(error)
+                errorMessage = errorMessage ? `${errorMessage}\n${error}` : error;
             })
             .finally(() => setIsMySuggestedPlansLoading(false));
-    }, []);
+    }, [isFocused]);
 
     return (
-        <Block safe margin={sizes.margin}>
+        <Block safe padding={sizes.padding}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
-                <Text h3>{t('plans.label.title')}</Text>
+                <Text h3 center>
+                    {t('plans.label.title')}
+                </Text>
             </Block>
             <Block flex={1} marginBottom={sizes.xl}>
                 <Text h4>{t('plans.label.myPlans')}</Text>
@@ -64,7 +94,7 @@ export default function PlansScreen() {
                         isMyPlansLoading ? (
                             <LoadingPlaceholder />
                         ) : (
-                            <Text>{t('plans.warning.myPlansNotFound')}</Text>
+                            <DataNotFound title={t('plans.warning.myPlansNotFound')} />
                         )
                     }
                     showsVerticalScrollIndicator={false}
@@ -82,29 +112,12 @@ export default function PlansScreen() {
                         isMySuggestedPlansLoading ? (
                             <LoadingPlaceholder />
                         ) : (
-                            <Text>{t('plans.warning.mySuggestedPlansNotFound')}</Text>
+                            <DataNotFound title={t('plans.warning.mySuggestedPlansNotFound')} />
                         )
                     }
                     showsVerticalScrollIndicator={false}
                 />
             </Block>
-            <CustomInfoPanel
-                isVisible={false}
-                type="warn"
-                title={'Cierre de sesión'}
-                confirmButtonTitle={'ACEPTAR'}
-                onConfirPress={() => {
-                    // showSpinner();
-                }}
-                cancelButtonTitle={'CANCELAR'}
-                onCancelPress={() => {
-                    // setShowErrorMessage(false);
-                }}
-                tempInfo={'temp info from screen'}
-                message={
-                    'Ha seleccionado el cierre de sesión asdf  af as lsalaskdjlsdkfjslkfj asldfj asldf lasd lasdjf alsdkjf laskdjfl askdjf lksjd flkasjdf lkasjd flkajsdlf kjasdlfk jasldkfj a;lsdkf jasdjkf hn,asdjmn wkljur474as;lkf jalsdkjf alskjfalskdfj lasdkfj asldkj'
-                }
-            />
         </Block>
     );
 }

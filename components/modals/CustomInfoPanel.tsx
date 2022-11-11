@@ -152,6 +152,9 @@ function infoPanelStyles(props?) {
             borderRadius: 50,
             bottom: Math.ceil(props?.height) - (ICON_HEIGHT + BORDER_HEIGHT),
             zIndex: 10,
+
+
+            
         },
         content: {
             borderTopRightRadius: 20,

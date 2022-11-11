@@ -1,6 +1,7 @@
 import i18n from 'i18n-js';
 import { ImageSourcePropType } from 'react-native';
-import { InfoModalProps } from '../../components/modals/InformationModal';
+import { ITrainingSessionProps } from '../../screens/TrainingSession/TrainingSesion';
+import { ISuscription, ITrainingLevel } from '../../services/api/useCatalogEndpoint';
 import { ITheme } from './theme';
 
 export * from './components';
@@ -14,7 +15,7 @@ export interface IUser {
     // stats?: { posts?: number; followers?: number; following?: number };
     // social?: { twitter?: string; dribbble?: string };
     // about?: string;
-    userId: number;
+    userId: string;
     accessToken: string;
 }
 
@@ -67,10 +68,16 @@ export interface IUseData {
     handleIsDark: (isDark?: boolean) => void;
     theme: ITheme;
     setTheme: (theme?: ITheme) => void;
-    user: any;
+    user: IUser;
     handleUser: (data?: IUser) => void;
     isLoading: boolean;
     handleLoading: (isLoading?: boolean) => void;
+    trainingSession: ITrainingSessionProps;
+    handleTrainingSession: (trainingSession?: ITrainingSessionProps) => void;
+    suscriptionCatalog: ISuscription[],
+    handleSuscriptionCatalog: (suscriptions?: ISuscription[]) => void;
+    trainingLevelCatalog: ITrainingLevel[],
+    handleTrainingLevelCatalog: (trainingLevels?: ITrainingLevel[]) => void;
     // hasInfoModal: InfoModalProps,
     // handleInfoModalPanel: (data?: InfoModalProps) => void;
 }
@@ -122,11 +129,11 @@ export interface INotification {
     business?: boolean;
     createdAt?: number | Date;
     type:
-        | 'document'
-        | 'documentation'
-        | 'payment'
-        | 'notification'
-        | 'profile'
-        | 'extras'
-        | 'office';
+    | 'document'
+    | 'documentation'
+    | 'payment'
+    | 'notification'
+    | 'profile'
+    | 'extras'
+    | 'office';
 }

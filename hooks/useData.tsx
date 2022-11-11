@@ -3,7 +3,8 @@ import Storage from '@react-native-async-storage/async-storage';
 
 import { ITheme, IUseData, IUser } from '../constants/types';
 import { light } from '../constants';
-import { InfoModalProps } from '../components/modals/InformationModal';
+import { ITrainingSessionProps } from '../screens/TrainingSession/TrainingSesion';
+import { ISuscription, ITrainingLevel } from '../services/api/useCatalogEndpoint';
 
 export const DataContext = React.createContext({});
 
@@ -12,7 +13,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [theme, setTheme] = useState<ITheme>(light);
     const [user, setUser] = useState<IUser>();
     const [isLoading, setIsLoading] = useState(false);
-    // const [hasInfoModal, setInfoModal] = useState<InfoModalProps>();
+    const [trainingSession, setTrainingSession] = useState<ITrainingSessionProps>();
+    const [suscriptionCatalog, setSuscriptionCatalog] = useState<ISuscription[]>();
+    const [trainingLevelCatalog, setTrainingLevelCatalog] = useState<ITrainingLevel[]>();
 
     // get isDark mode from storage
     const getIsDark = useCallback(async () => {
@@ -49,13 +52,62 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         [setIsLoading]
     );
 
-    // // handle info modal panel
-    // const handleInfoModalPanel = useCallback(
-    //     (payload: InfoModalProps) => {
-    //         setInfoModal(payload);
-    //     },
-    //     [setInfoModal]
-    // );
+    // training session
+    const getTrainingSession = useCallback(async () => {
+        const myTrainingSession = await Storage.getItem('trainingSession');
+        if (myTrainingSession !== null) {
+            setTrainingSession(JSON.parse(myTrainingSession));
+        }
+    }, [setTrainingSession]);
+
+    const handleTrainingSession = useCallback(async (payload: ITrainingSessionProps) => {
+            if (payload === null || payload === undefined) {
+                await Storage.removeItem('trainingSession');
+            } else {
+                await Storage.setItem('trainingSession', JSON.stringify(payload));
+            }
+            setTrainingSession(payload);
+        },
+        [setTrainingSession]
+    );
+
+    // suscription catalog
+    const getSuscriptionsCatalog = useCallback(async () => {
+        const suscriptions = await Storage.getItem('suscriptions');
+        if (suscriptions !== null) {
+            setSuscriptionCatalog(JSON.parse(suscriptions));
+        }
+    }, [setSuscriptionCatalog]);
+
+    const handleSuscriptionCatalog = useCallback(async (payload: ISuscription[]) => {
+            if (payload === null || payload === undefined) {
+                await Storage.removeItem('suscriptions');
+            } else {
+                await Storage.setItem('suscriptions', JSON.stringify(payload));
+            }
+            setSuscriptionCatalog(payload);
+        },
+        [setSuscriptionCatalog]
+    );
+
+    // training level catalog
+    const getTrainingLevelCatalog = useCallback(async () => {
+        const trainingLevels = await Storage.getItem('trainingLevels');
+        if (trainingLevels !== null) {
+            setTrainingLevelCatalog(JSON.parse(trainingLevels));
+        }
+    }, [setTrainingLevelCatalog]);
+
+    const handleTrainingLevelCatalog = useCallback(async (payload: ITrainingLevel[]) => {
+            if (payload === null || payload === undefined) {
+                await Storage.removeItem('trainingLevels');
+            } else {
+                await Storage.setItem('trainingLevels', JSON.stringify(payload));
+            }
+            setTrainingLevelCatalog(payload);
+        },
+        [setTrainingLevelCatalog]
+    );
 
     // get initial data for: isDark & language
     useEffect(() => {
@@ -67,12 +119,20 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         setTheme(isDark ? light : light);
     }, [isDark]);
 
-    // // get initial data for information panel
-    // useEffect(() => {
-    //     setInfoModal({
-    //         isVisible: false,
-    //     });
-    // }, [hasInfoModal]);
+    // get initial data for training session
+    useEffect(() => {
+        getTrainingSession();
+    }, [getTrainingSession]);
+
+    // get initial data for suscription catalog
+    useEffect(() => {
+        getSuscriptionsCatalog();
+    }, [getSuscriptionsCatalog]);
+
+    // get initial data for trainig level catalog
+    useEffect(() => {
+        getTrainingLevelCatalog();
+    }, [getTrainingLevelCatalog]);
 
     const contextValue = {
         isDark,
@@ -83,8 +143,12 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         handleUser,
         isLoading,
         handleLoading,
-        // hasInfoModal,
-        // handleInfoModalPanel,
+        trainingSession,
+        handleTrainingSession,
+        suscriptionCatalog,
+        handleSuscriptionCatalog,
+        trainingLevelCatalog,
+        handleTrainingLevelCatalog,
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

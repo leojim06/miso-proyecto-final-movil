@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useTheme, useTranslation } from '../../hooks';
 import { IWeekRoutine } from '../../screens/Plans/PlanDetailScreen';
 import Text from '../Text';
@@ -11,14 +11,12 @@ const WeekRoutine = (props: IWeekRoutine) => {
     const { t } = useTranslation();
 
     return (
-        <FlatList
-            ListHeaderComponent={
-                <Text h5>{t('plans.detail.label.week', { week: props.week })}</Text>
-            }
-            data={props.days}
-            renderItem={({ item, index }) => <DayRoutine {...item} />}
-            style={{ paddingLeft: sizes.sm }}
-        />
+        <View>
+            <Text h5>{t('plans.detail.label.week', { week: props.week })}</Text>
+            {props.days.map((item, index) => {
+                return <DayRoutine key={index} {...item} />;
+            })}
+        </View>
     );
 };
 

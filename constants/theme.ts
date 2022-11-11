@@ -49,6 +49,12 @@ export const ASSETS: ThemeAssets = {
 
     // background/images
     landscapePlaceholder: require('../assets/images/background.png'),
+
+    // modal/icons
+    success: require('../assets/icons/aprobado.png'),
+    warning: require('../assets/icons/pendiente.png'),
+    error: require('../assets/icons/denegado.png'),
+    info: require('../assets/icons/aprobado.png'),
 };
 
 export const FONTS: ThemeFonts = {
