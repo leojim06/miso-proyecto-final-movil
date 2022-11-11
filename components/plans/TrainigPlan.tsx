@@ -4,15 +4,18 @@ import { TouchableOpacity } from 'react-native';
 import { Block, Text } from '..';
 import { useTheme, useTranslation } from '../../hooks';
 import { PlansScreenNavigationProp } from '../../navigation/types';
+import { ISuscription, ITrainingLevel } from '../../services/api/useCatalogEndpoint';
 
-export interface ITrainingPlans {
+export interface ITrainingPlan {
     id: string;
     nombre?: string;
     descripcion?: string;
     nivelPlan?: number;
+    nivelPlanDetalle?: ITrainingLevel;
     duracion?: string;
     imagen?: string;
     suscripcion?: number;
+    suscripcionDetalle?: ISuscription;
     rutinas: ITrainingRoutine[];
 }
 
@@ -22,7 +25,7 @@ export interface ITrainingRoutine {
     ejercicio: string;
 }
 
-const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainingPlans; isInMyPlans: boolean }) => {
+const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainingPlan; isInMyPlans: boolean }) => {
     // hooks from app
     const { t } = useTranslation();
     const { colors, sizes } = useTheme();
@@ -47,7 +50,7 @@ const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainingPlans; isInMyPlan
                         <Text p bold>
                             {t('plans.label.level')}
                         </Text>
-                        <Text p>{props.nivelPlan}</Text>
+                        <Text p>{props.suscripcionDetalle?.descripcion}</Text>
                     </Block>
                     <Block row>
                         <Text p bold>

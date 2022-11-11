@@ -4,6 +4,7 @@ import Storage from '@react-native-async-storage/async-storage';
 import { ITheme, IUseData, IUser } from '../constants/types';
 import { light } from '../constants';
 import { ITrainingSessionProps } from '../screens/TrainingSession/TrainingSesion';
+import { ISuscription, ITrainingLevel } from '../services/api/useCatalogEndpoint';
 
 export const DataContext = React.createContext({});
 
@@ -12,7 +13,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [theme, setTheme] = useState<ITheme>(light);
     const [user, setUser] = useState<IUser>();
     const [isLoading, setIsLoading] = useState(false);
-    const [trainingSession, setTrainingSession] = useState<any>();
+    const [trainingSession, setTrainingSession] = useState<ITrainingSessionProps>();
+    const [suscriptionCatalog, setSuscriptionCatalog] = useState<ISuscription[]>();
+    const [trainingLevelCatalog, setTrainingLevelCatalog] = useState<ITrainingLevel[]>();
 
     // get isDark mode from storage
     const getIsDark = useCallback(async () => {
@@ -49,6 +52,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         [setIsLoading]
     );
 
+    // training session
     const getTrainingSession = useCallback(async () => {
         const myTrainingSession = await Storage.getItem('trainingSession');
         if (myTrainingSession !== null) {
@@ -68,6 +72,38 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         [setTrainingSession]
     );
 
+    // suscription catalog
+    const getSuscriptionsCatalog = useCallback(async () => {
+        const suscriptions = await Storage.getItem('suscriptions');
+        if (suscriptions !== null) {
+            setSuscriptionCatalog(JSON.parse(suscriptions));
+        }
+    }, [setSuscriptionCatalog]);
+
+    const handleSuscriptionCatalog = useCallback(
+        (payload: ISuscription[]) => {
+            setSuscriptionCatalog(payload);
+            Storage.setItem('suscriptions', JSON.stringify(payload));
+        },
+        [setSuscriptionCatalog]
+    );
+
+    // training level catalog
+    const getTrainingLevelCatalog = useCallback(async () => {
+        const trainingLevels = await Storage.getItem('trainingLevels');
+        if (trainingLevels !== null) {
+            setTrainingLevelCatalog(JSON.parse(trainingLevels));
+        }
+    }, [setTrainingLevelCatalog]);
+
+    const handleTrainingLevelCatalog = useCallback(
+        (payload: ITrainingLevel[]) => {
+            setTrainingLevelCatalog(payload);
+            Storage.setItem('trainingLevels', JSON.stringify(payload));
+        },
+        [setTrainingLevelCatalog]
+    );
+
     // get initial data for: isDark & language
     useEffect(() => {
         getIsDark();
@@ -83,6 +119,16 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         getTrainingSession();
     }, [getTrainingSession]);
 
+    // get initial data for suscription catalog
+    useEffect(() => {
+        getSuscriptionsCatalog();
+    }, [getSuscriptionsCatalog]);
+
+    // get initial data for trainig level catalog
+    useEffect(() => {
+        getTrainingLevelCatalog();
+    }, [getTrainingLevelCatalog]);
+
     const contextValue = {
         isDark,
         handleIsDark,
@@ -94,6 +140,10 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         handleLoading,
         trainingSession,
         handleTrainingSession,
+        suscriptionCatalog,
+        handleSuscriptionCatalog,
+        trainingLevelCatalog,
+        handleTrainingLevelCatalog,
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

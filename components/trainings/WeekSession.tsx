@@ -12,19 +12,19 @@ const WeekSession = (props: IWeekTrainingSessionProps) => {
     const { t } = useTranslation();
 
     return (
-        <Block card marginBottom={sizes.sm} color={props.active ? colors.secondary : colors.gray}>
+        <Block card marginBottom={sizes.sm} color={props.activo ? colors.secondary : colors.gray}>
             <FlatList
                 ListHeaderComponent={
                     <Text
                         h5
-                        color={props.active ? colors.white : colors.black}
-                        transform={props.active ? 'uppercase' : 'none'}
-                        bold={props.active}
+                        color={props.activo ? colors.white : colors.black}
+                        transform={props.activo ? 'uppercase' : 'none'}
+                        bold={props.activo}
                     >
-                        {t('plans.detail.label.week', { week: props.week })}
+                        {t('plans.detail.label.week', { week: props.semana })}
                     </Text>
                 }
-                data={props.days}
+                data={props.dias}
                 renderItem={({ item, index }) => <DaySession {...item} />}
                 style={{ paddingLeft: sizes.sm }}
             />

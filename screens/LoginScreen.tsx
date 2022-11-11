@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Block, Input, ModalPanel, Text } from '../components';
+import { Block, Text } from '../components';
 import LoginForm from '../components/forms/loginForm';
 import CustomModal, { ICustomPanel } from '../components/modals/CustomModal';
 import { IUser } from '../constants/types';
 import { useTheme, useTranslation, useData } from '../hooks';
+import useCatalogEndpoint from '../services/api/useCatalogEndpoint';
 import useLoginEndpoint from '../services/api/useLoginEndpoint';
+import { timeout } from '../utils/timeout';
 
 export default function LoginScreen() {
     // hooks for screen
@@ -17,16 +18,20 @@ export default function LoginScreen() {
     });
 
     // hooks from app
-    const { handleUser, handleLoading } = useData();
+    const { handleUser, handleLoading, suscriptionCatalog, trainingLevelCatalog } = useData();
     const { sizes } = useTheme();
     const { t } = useTranslation();
     const { loadLogin } = useLoginEndpoint();
+    const { loadSuscriptions, loadTrainingLevels } = useCatalogEndpoint();
 
     const handleSubmit = (values: any) => {
         handleLoading(true);
 
         loadLogin({ username: values.email, password: values.password })
-            .then((user: IUser) => handleUser(user))
+            .then((user: IUser) => {
+                handleUser(user);
+                handleCatalogs().then(() => timeout(600));
+            })
             .catch((error: string) => {
                 setModal({
                     isVisible: true,
@@ -38,6 +43,12 @@ export default function LoginScreen() {
                 });
             })
             .finally(() => handleLoading(false));
+    };
+
+    const handleCatalogs = async () => {
+        if (!suscriptionCatalog || !trainingLevelCatalog) {
+            await Promise.all([loadSuscriptions(), loadTrainingLevels()]);
+        }
     };
 
     return (

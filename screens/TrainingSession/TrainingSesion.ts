@@ -1,48 +1,48 @@
 export interface ITrainingSession {
     id: string;
-    name?: string;
-    description?: string;
-    duration?: string;
-    routine?: IWeekTrainingSession[];
+    nombre?: string;
+    descripcion?: string;
+    duracion?: string;
+    rutinas?: IWeekTrainingSession[];
 }
 
 export interface IWeekTrainingSession {
-    week: number;
-    days: IDayTrainingSession[];
+    semana: number;
+    dias: IDayTrainingSession[];
 }
 
 export interface IDayTrainingSession {
     id: string;
-    day: number;
-    exercise: string;
+    dia: number;
+    ejercicio: string;
 }
 
 
 
 export interface ITrainingSessionProps extends ITrainingSession {
-    active: boolean;
-    routine?: IWeekTrainingSessionProps[];
+    activo: boolean;
+    rutinas?: IWeekTrainingSessionProps[];
 }
 
 export interface IWeekTrainingSessionProps extends IWeekTrainingSession {
-    active: boolean;
-    days: IDayTrainingSessionProps[];
+    activo: boolean;
+    dias: IDayTrainingSessionProps[];
 }
 
 export interface IDayTrainingSessionProps extends IDayTrainingSession {
-    active: boolean;
-    complete?: boolean;
+    activo: boolean;
+    completo?: boolean;
 }
 
 
 export interface ITrainingPlanDetailProps extends ITrainingSession {
-    image?: string;
-    suscription?: 'Free' | 'Intermediate' | 'Pro';
-    routine?: IWeekTrainingPlanDetailProps[];
+    imagen?: string;
+    suscripcion?: 'Free' | 'Intermediate' | 'Pro';
+    rutinas?: IWeekTrainingPlanDetailProps[];
 }
 
 export interface IWeekTrainingPlanDetailProps extends IWeekTrainingSession {
-    days: IDayTrainingPlanDetailProps[];
+    dias: IDayTrainingPlanDetailProps[];
 }
 
 export interface IDayTrainingPlanDetailProps extends IDayTrainingSession {

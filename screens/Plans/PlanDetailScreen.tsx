@@ -4,13 +4,15 @@ import styles from '../../assets/style/styles';
 import { Text, Button, Block, Image } from '../../components';
 import CustomModal, { ICustomPanel } from '../../components/modals/CustomModal';
 import DayRoutine from '../../components/plans/DayRoutine';
-import { ITrainingPlans } from '../../components/plans/TrainigPlan';
-import WeekRoutine from '../../components/plans/WeekRoutine';
+import { ITrainingPlan } from '../../components/plans/TrainigPlan';
 import IconRow from '../../components/utils/IconRow';
 import { useData, useTheme, useTranslation } from '../../hooks';
 import { PlanDetailScreenRouteProp, PlansScreenNavigationProp } from '../../navigation/types';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
-import { ITrainingPlanDetailProps, ITrainingSessionProps } from '../TrainingSession/TrainingSesion';
+import {
+    IDayTrainingSessionProps,
+    ITrainingSessionProps,
+} from '../TrainingSession/TrainingSesion';
 
 export default function PlanDetailScreen() {
     //hooks for screen
@@ -20,7 +22,7 @@ export default function PlanDetailScreen() {
         title: '',
         message: '',
     });
-    const [planDetail, setPlanDetail] = useState<ITrainingPlans>();
+    const [planDetail, setPlanDetail] = useState<ITrainingPlan>();
 
     // hooks from app
     const navigation = useNavigation<PlansScreenNavigationProp>();
@@ -28,7 +30,14 @@ export default function PlanDetailScreen() {
     const { planId, isInMyPlans } = route.params;
     const { t } = useTranslation();
     const { sizes, assets } = useTheme();
-    const { handleLoading, trainingSession, handleTrainingSession, user } = useData();
+    const {
+        handleLoading,
+        trainingSession,
+        handleTrainingSession,
+        user,
+        suscriptionCatalog,
+        trainingLevelCatalog,
+    } = useData();
     const { loadPlanDetail, subscribeMyPlan } = usePlansEndpoint();
 
     useEffect(() => {
@@ -36,7 +45,23 @@ export default function PlanDetailScreen() {
         handleLoading(true);
 
         loadPlanDetail(planId)
-            .then((data: ITrainingPlans) => setPlanDetail(data))
+            .then((data: ITrainingPlan) => {
+                const info: ITrainingPlan = Object.assign(
+                    {},
+                    {
+                        ...data,
+                        suscripcionDetalle: {
+                            ...suscriptionCatalog.find(
+                                (suscription) => suscription.id === data.suscripcion
+                            ),
+                        },
+                        nivelPlanDetalle: {
+                            ...trainingLevelCatalog.find((level) => level.id === data.nivelPlan),
+                        },
+                    }
+                );
+                setPlanDetail(info);
+            })
             .catch((error: string) =>
                 setModal({
                     isVisible: true,
@@ -57,7 +82,7 @@ export default function PlanDetailScreen() {
         let modalInformation: ICustomPanel = {
             type: 'success',
             isVisible: true,
-            title: t('plans.detail.modal.warningTitleSuscription'),
+            title: t('plans.detail.modal.warningTitleStartRoutine'),
             message: '',
             confirmButtonTitle: t('plans.detail.modal.confirmBtnTitle'),
             cancelButtonTitle: t('plans.detail.modal.cancelBtnTitle'),
@@ -103,7 +128,9 @@ export default function PlanDetailScreen() {
         setModal({
             isVisible: true,
             title: t('plans.detail.modal.warningTitleSuscription'),
-            message: t('plans.detail.modal.warningMessageSuscription', { name: planDetail?.nombre }),
+            message: t('plans.detail.modal.warningMessageSuscription', {
+                name: planDetail?.nombre,
+            }),
             type: 'warning',
             confirmButtonTitle: t('plans.detail.modal.confirmBtnTitle'),
             cancelButtonTitle: t('plans.detail.modal.cancelBtnTitle'),
@@ -119,12 +146,35 @@ export default function PlanDetailScreen() {
 
     const registerRoutineToStart = () => {
         try {
-            handleTrainingSession(planDetail);
+            const trainingSession: ITrainingSessionProps = Object.assign(
+                {},
+                {
+                    activo: true,
+                    ...planDetail,
+                    rutinas: [
+                        {
+                            semana: 1,
+                            activo: true,
+                            dias: planDetail?.rutinas.map(
+                                (rutina, index): IDayTrainingSessionProps => ({
+                                    ...rutina,
+                                    activo: index === 0,
+                                    completo: false,
+                                })
+                            ),
+                        },
+                    ],
+                }
+            );
+
+            console.info(JSON.stringify(trainingSession, null, 3));
+
+            handleTrainingSession(trainingSession);
             setModal({
                 ...modal,
                 isVisible: true,
                 type: 'info',
-                title: t('plans.detail.modal.warningTitleSuscription'),
+                title: t('plans.detail.modal.warningTitleStartRoutine'),
                 message: t('plans.detail.modal.successMessageRegistery', {
                     name: planDetail?.nombre,
                 }),
@@ -136,7 +186,7 @@ export default function PlanDetailScreen() {
                 ...modal,
                 isVisible: true,
                 type: 'error',
-                title: t('plans.detail.modal.warningTitleSuscription'),
+                title: t('plans.detail.modal.warningTitleStartRoutine'),
                 message: t('plans.detail.modal.errorMessageRegistery'),
                 confirmButtonTitle: t('plans.detail.modal.configmBtnTitleInfo'),
                 onConfirmPress: () => setModal({ ...modal, isVisible: false }),
@@ -205,7 +255,10 @@ export default function PlanDetailScreen() {
                     </Block>
                     {/* Content */}
                     <Block>
-                        <IconRow name={'smile-o'} text={String(planDetail?.suscripcion)} />
+                        <IconRow
+                            name={'smile-o'}
+                            text={String(planDetail?.suscripcionDetalle?.descripcion)}
+                        />
                         <IconRow name={'play'} text={planDetail?.descripcion} />
                         <IconRow name={'clock-o'} text={planDetail?.duracion} />
                     </Block>

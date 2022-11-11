@@ -23,10 +23,10 @@ const DaySession = (props: IDayTrainingSessionProps) => {
         <Block
             card
             marginBottom={sizes.s}
-            color={props.complete ? colors.success : props.active ? colors.tertiary : colors.light}
+            color={props.completo ? colors.success : props.activo ? colors.tertiary : colors.light}
         >
             <TouchableOpacity
-                disabled={!props.active}
+                disabled={!props.activo}
                 onPress={() =>
                     navigation.navigate('TrainingDetailScreen', {
                         trainingId: props.id,
@@ -34,12 +34,12 @@ const DaySession = (props: IDayTrainingSessionProps) => {
                 }
             >
                 <Text semibold>
-                    {t('plans.detail.label.day', { day: props.day }) +
+                    {t('plans.detail.label.day', { day: props.dia }) +
                         ' ' +
-                        addTrainingDays(props.day)}
+                        addTrainingDays(props.dia)}
                 </Text>
                 <Text p paddingLeft={sizes.sm}>
-                    {props.exercise}
+                    {props.ejercicio}
                 </Text>
             </TouchableOpacity>
         </Block>

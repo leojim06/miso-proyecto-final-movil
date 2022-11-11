@@ -3,16 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
-import TrainigPlan, { ITrainingPlans } from '../../components/plans/TrainigPlan';
+import TrainigPlan, { ITrainingPlan } from '../../components/plans/TrainigPlan';
 import DataNotFound from '../../components/utils/DataNotFound';
 import { useData, useTheme, useTranslation } from '../../hooks';
 import usePlansEndpoint from '../../services/api/usePlansEndpoint';
 
 export default function PlansScreen() {
     // hooks for screen
-    const [myPlans, setMyPlans] = useState<ITrainingPlans[]>([]);
+    const [myPlans, setMyPlans] = useState<ITrainingPlan[]>([]);
     const [isMyPlansLoading, setIsMyPlansLoading] = useState<boolean>(false);
-    const [mySuggestedPlans, setMySuggestedPlans] = useState<ITrainingPlans[]>([]);
+    const [mySuggestedPlans, setMySuggestedPlans] = useState<ITrainingPlan[]>([]);
     const [isMySuggestedPlansLoading, setIsMySuggestedPlansLoading] = useState<boolean>(false);
 
     // hooks from app
@@ -20,7 +20,7 @@ export default function PlansScreen() {
     const { sizes } = useTheme();
     const { loadMyPlans, loadMySuggestedPlans } = usePlansEndpoint();
     const isFocused = useIsFocused();
-    const { user } = useData();
+    const { user, suscriptionCatalog, trainingLevelCatalog } = useData();
 
     useEffect(() => {
         setMyPlans([]);
@@ -31,15 +31,43 @@ export default function PlansScreen() {
         let errorMessage = '';
 
         loadMyPlans(user.userId)
-            .then((data: ITrainingPlans[]) => setMyPlans(data))
+            .then((data: ITrainingPlan[]) => {
+                const info: ITrainingPlan[] = data.map((plan) => ({
+                    ...plan,
+                    suscripcionDetalle: {
+                        ...suscriptionCatalog.find(
+                            (suscription) => suscription.id === plan.suscripcion
+                        ),
+                    },
+                    nivelPlanDetalle: {
+                        ...trainingLevelCatalog.find((level) => level.id === plan.nivelPlan),
+                    },
+                }));
+                setMyPlans(info);
+            })
             .catch((error: string) => {
+                console.error(error)
                 errorMessage = errorMessage ? `${errorMessage}\n${error}` : error;
             })
             .finally(() => setIsMyPlansLoading(false));
 
         loadMySuggestedPlans(user.userId)
-            .then((data: ITrainingPlans[]) => setMySuggestedPlans(data))
+            .then((data: ITrainingPlan[]) => {
+                const info: ITrainingPlan[] = data.map((plan) => ({
+                    ...plan,
+                    suscripcionDetalle: {
+                        ...suscriptionCatalog.find(
+                            (suscription) => suscription.id === plan.suscripcion
+                        ),
+                    },
+                    nivelPlanDetalle: {
+                        ...trainingLevelCatalog.find((level) => level.id === plan.nivelPlan),
+                    },
+                }));
+                setMySuggestedPlans(info);
+            })
             .catch((error: string) => {
+                console.error(error)
                 errorMessage = errorMessage ? `${errorMessage}\n${error}` : error;
             })
             .finally(() => setIsMySuggestedPlansLoading(false));

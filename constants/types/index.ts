@@ -1,8 +1,7 @@
 import i18n from 'i18n-js';
 import { ImageSourcePropType } from 'react-native';
-import { InfoModalProps } from '../../components/modals/InformationModal';
-import { ITrainingPlans } from '../../components/plans/TrainigPlan';
 import { ITrainingSessionProps } from '../../screens/TrainingSession/TrainingSesion';
+import { ISuscription, ITrainingLevel } from '../../services/api/useCatalogEndpoint';
 import { ITheme } from './theme';
 
 export * from './components';
@@ -73,8 +72,12 @@ export interface IUseData {
     handleUser: (data?: IUser) => void;
     isLoading: boolean;
     handleLoading: (isLoading?: boolean) => void;
-    trainingSession: ITrainingPlans;
-    handleTrainingSession: (trainingSession?: ITrainingPlans) => void;
+    trainingSession: ITrainingSessionProps;
+    handleTrainingSession: (trainingSession?: ITrainingSessionProps) => void;
+    suscriptionCatalog: ISuscription[],
+    handleSuscriptionCatalog: (suscriptions?: ISuscription[]) => void;
+    trainingLevelCatalog: ITrainingLevel[],
+    handleTrainingLevelCatalog: (trainingLevels?: ITrainingLevel[]) => void;
     // hasInfoModal: InfoModalProps,
     // handleInfoModalPanel: (data?: InfoModalProps) => void;
 }

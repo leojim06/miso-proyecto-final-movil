@@ -20,6 +20,7 @@ export const applicationEs = {
     },
     error: {
         unauthorized: 'Usuario o contraseña incorrecta',
+        forbidden: 'No tiene permisos para realizar esta acción',
         server: 'Problemas con el servicio SportApp',
     },
 };

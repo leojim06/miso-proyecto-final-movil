@@ -3,7 +3,12 @@ import { Text, View, StyleSheet, Button } from 'react-native';
 import { useData } from '../hooks';
 
 export default function ProfileScreen() {
-    const { handleUser, handleTrainingSession } = useData();
+    const {
+        handleUser,
+        handleTrainingSession,
+        handleSuscriptionCatalog,
+        handleTrainingLevelCatalog,
+    } = useData();
     const logout = () => {
         handleUser(undefined);
     };
@@ -12,11 +17,17 @@ export default function ProfileScreen() {
         handleTrainingSession(undefined);
     };
 
+    const resetCatalogs = () => {
+        handleSuscriptionCatalog([]);
+        handleTrainingLevelCatalog([]);
+    };
+
     return (
         <View style={styles.container}>
             <Text>ProfileScreen</Text>
             <Button title="Logout" onPress={logout} />
             <Button title="Borrar entrenamiento" onPress={dropTrainingSession} />
+            <Button title="Reset catálogos" onPress={resetCatalogs} />
         </View>
     );
 }
