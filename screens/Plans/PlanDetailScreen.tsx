@@ -170,8 +170,6 @@ export default function PlanDetailScreen() {
                 }
             );
 
-            console.info(JSON.stringify(trainingSession, null, 3));
-
             handleTrainingSession(trainingSession);
             setModal({
                 ...modal,

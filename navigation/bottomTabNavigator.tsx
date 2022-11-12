@@ -3,12 +3,12 @@ import * as React from 'react';
 
 import { TabBarIcon } from './tabBarIcon';
 import { useTheme, useTranslation } from '../hooks';
-import ProgressScreen from '../screens/ProgressScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { PlansNavigator } from './plansNavigator';
 import { EventsNavigator } from './eventsNavigator';
 import { TrainingSessionNavigator } from './trainigSessionNavigator';
 import { BottomTabNavigatorParamList } from './types';
+import { ProgressEventNavigator } from './progressEventNavigator';
 
 const BottomTab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
@@ -36,7 +36,7 @@ export function BottomTabNavigator() {
             />
             <BottomTab.Screen
                 name="Progress"
-                component={ProgressScreen}
+                component={ProgressEventNavigator}
                 options={{
                     title: t('app.menubar.progress'),
                     tabBarIcon: ({ color }) => <TabBarIcon name="bar-chart" color={color} />,

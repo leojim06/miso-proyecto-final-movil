@@ -21,6 +21,8 @@ export interface IEventDetailProps {
     description?: string;
     food?: string;
     host?: string;
+    calorias?: number,
+    tiempo?: number,
 }
 
 export default function EventDetailScreen() {
