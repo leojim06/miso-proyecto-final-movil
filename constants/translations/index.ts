@@ -4,6 +4,7 @@ import { plansEs } from './es/plans.es';
 import { eventsEs } from './es/events.es';
 import { applicationPtBR } from './ptBR/application.pt-BR';
 import { trainingEs } from './es/training.es';
+import { progressEs } from './es/progress.es';
 
 export default {
     es: {
@@ -12,6 +13,7 @@ export default {
         plans: plansEs,
         events: eventsEs,
         training: trainingEs,
+        progress: progressEs,
     },
     "pt-BR": {
         app: applicationPtBR,

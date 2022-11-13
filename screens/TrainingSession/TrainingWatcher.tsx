@@ -20,7 +20,6 @@ export default function TrainingWatcher() {
     const { trainingSession, handleTrainingSession } = useData();
 
     const handleFinishTrainingSession = () => {
-        console.warn(session);
         const currentSession = Object.assign(
             {},
             {

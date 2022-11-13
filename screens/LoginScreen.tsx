@@ -46,11 +46,7 @@ export default function LoginScreen() {
     };
 
     const handleCatalogs = async () => {
-        console.group('Catalogos');
-        console.info(JSON.stringify(suscriptionCatalog, null, 3));
-        console.info(JSON.stringify(trainingLevelCatalog, null, 3));
         if (!suscriptionCatalog || !trainingLevelCatalog) {
-            console.warn('recuperando data de catalogos')
             await Promise.all([loadSuscriptions(), loadTrainingLevels()]);
         }
     };
