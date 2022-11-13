@@ -1,7 +1,7 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
-import { Block, Text } from '../../components';
+import { Block, Button, Text } from '../../components';
 import Event, { IEventProps } from '../../components/events/Event';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
 import DataNotFound from '../../components/utils/DataNotFound';
@@ -30,17 +30,17 @@ export default function ProgressEventScreen() {
     }, [isFocused]);
 
     return (
-        <Block safe padding={sizes.padding}>
+        <Block safe padding={sizes.padding} >
             <Block flex={0} align="center" paddingBottom={sizes.s}>
                 <Text h3 center>
                     {t('progress.label.title')}
                 </Text>
             </Block>
-            <Block flex={1} marginBottom={sizes.xl}>
+            <Block flex={1} marginBottom={sizes.sm} >
                 <FlatList
                     data={myProgressEvents}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item, index }) => <Event props={item} path='Progress' />}
+                    renderItem={({ item, index }) => <Event props={item} path="Progress" />}
                     ListEmptyComponent={
                         isMyProgressEventsLoading ? (
                             <LoadingPlaceholder />
@@ -50,6 +50,13 @@ export default function ProgressEventScreen() {
                     }
                     showsVerticalScrollIndicator={false}
                 />
+            </Block>
+            <Block flex={0}>
+                <Button primary onPress={() => {}}>
+                    <Text white bold transform="uppercase">
+                        {t('progress.btn.sportProfile')}
+                    </Text>
+                </Button>
             </Block>
         </Block>
     );

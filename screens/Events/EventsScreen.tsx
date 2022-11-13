@@ -17,7 +17,6 @@ export default function EventsScreen() {
     const { sizes } = useTheme();
     const { loadMySuggestedEvents } = useEventEndpoint();
     const isFocused = useIsFocused();
-    
 
     useEffect(() => {
         setMySuggestedEvents([]);

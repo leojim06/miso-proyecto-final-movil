@@ -10,34 +10,19 @@ import {
 } from '../../navigation/types/progressEventStackNavigatorParamList';
 import useEventEndpoint from '../../services/api/useEventEndpoint';
 import { IEventDetailProps } from '../Events/EventDetailScreen';
-import { BarChart } from 'react-native-chart-kit';
-
-const chartConfig = {
-    backgroundGradientFrom: '#1E2923',
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: '#08130D',
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
-};
-
-const caloriasData = {
-    labels: ['Calorias'],
-    datasets: [{ data: [250] }],
-};
-
-const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [
-        {
-            data: [20, 45, 28, 80, 99, 43],
-        },
-    ],
-};
+import { BarChart } from 'react-native-gifted-charts';
 
 export default function ProgressEventDetailScreen() {
+    const barData = [
+        {
+            value: 250,
+            label: 'Apr',
+            frontColor: '#4ADDBA',
+            sideColor: '#36D9B2',
+            topColor: '#7DE7CE',
+        },
+    ];
+
     // hooks for screen
     const [modal, setModal] = useState<ICustomPanel>({
         isVisible: false,
@@ -46,6 +31,8 @@ export default function ProgressEventDetailScreen() {
         message: '',
     });
     const [eventDetail, setEventDetail] = useState<IEventDetailProps>();
+    const [caloriesData, setCaloriesData] = useState<any>([]);
+    const [timeData, setTimeData] = useState<any>([]);
 
     // hooks from app
     const navigation = useNavigation<ProgressEventScreenNavigationProp>();
@@ -53,7 +40,7 @@ export default function ProgressEventDetailScreen() {
     const { eventId } = route.params;
     const { t, i18n } = useTranslation();
     const { handleLoading } = useData();
-    const { sizes } = useTheme();
+    const { sizes, colors } = useTheme();
     const { loadMyEventProgressDetail } = useEventEndpoint();
 
     useEffect(() => {
@@ -61,7 +48,23 @@ export default function ProgressEventDetailScreen() {
         handleLoading(true);
 
         loadMyEventProgressDetail(eventId, true)
-            .then((data: IEventDetailProps) => setEventDetail(data))
+            .then((data: IEventDetailProps) => {
+                setCaloriesData([
+                    {
+                        value: data.calorias,
+                        label: t('progress.detail.label.caloriesSymbol'),
+                        frontColor: colors.primary,
+                    },
+                ]);
+                setTimeData([
+                    {
+                        value: data.tiempo,
+                        label: t('progress.detail.label.timeSymbol'),
+                        frontColor: colors.tertiary,
+                    },
+                ]);
+                setEventDetail(data);
+            })
             .catch((error: string) => {
                 setModal({
                     isVisible: true,
@@ -78,6 +81,8 @@ export default function ProgressEventDetailScreen() {
             .finally(() => handleLoading(false));
     }, []);
 
+    const roundUpToNearest100 = (num: number): number => Math.ceil(num / 100) * 100;
+
     return (
         <>
             <CustomModal {...modal} />
@@ -90,7 +95,7 @@ export default function ProgressEventDetailScreen() {
                         </Text>
                     </Block>
                     {/* Content */}
-                    <Block>
+                    <Block flex={0}>
                         <IconRow name={'map-marker'} text={eventDetail?.location} />
                         <IconRow
                             name={'calendar'}
@@ -109,17 +114,33 @@ export default function ProgressEventDetailScreen() {
                         <IconRow text={eventDetail?.description} />
                     </Block>
                     {/* Graficas */}
-                    <Block>
-                        {/* <BarChart
-                            // style={graphStyle}
-                            data={data}
-                            width={200}
-                            height={220}
-                            yAxisLabel="$"
-                            yAxisSuffix='suffix'
-                            chartConfig={chartConfig}
-                            verticalLabelRotation={30}
-                        /> */}
+                    <Block row>
+                        <Block>
+                            <Text bold primary h5>
+                                {t('progress.detail.label.calories')}
+                            </Text>
+                            <BarChart
+                                barWidth={32}
+                                noOfSections={3}
+                                maxValue={roundUpToNearest100(eventDetail.calorias)}
+                                data={caloriesData}
+                                yAxisThickness={0}
+                                rulesColor={colors.tertiary}
+                            />
+                        </Block>
+                        <Block>
+                            <Text bold primary h5>
+                                {t('progress.detail.label.time')}
+                            </Text>
+                            <BarChart
+                                barWidth={32}
+                                noOfSections={3}
+                                maxValue={roundUpToNearest100(eventDetail.tiempo)}
+                                data={timeData}
+                                yAxisThickness={0}
+                                rulesColor={colors.dribbble}
+                            />
+                        </Block>
                     </Block>
                 </Block>
             )}

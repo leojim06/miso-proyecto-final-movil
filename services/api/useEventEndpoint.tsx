@@ -32,6 +32,66 @@ const eventsProgress: IEventProps[] = [
         name: 'Name',
         description: 'Description',
     },
+    // {
+    //     id: '2',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // },
+    // {
+    //     id: '3',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // },
+    // {
+    //     id: '4',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // },
+    // {
+    //     id: '5',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // },
+    // {
+    //     id: '6',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // },
+    // {
+    //     id: '7',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // },
+    // {
+    //     id: '8',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // },
+    // {
+    //     id: '9',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // },
+    // {
+    //     id: '10',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // },
+    // {
+    //     id: '11',
+    //     date: new Date(),
+    //     name: 'Name',
+    //     description: 'Description',
+    // }
 ];
 
 const eventsNotFound: IEventProps[] = [];
