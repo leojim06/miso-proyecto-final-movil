@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { Block, Text } from '../../components';
@@ -15,16 +16,18 @@ export default function EventsScreen() {
     const { t } = useTranslation();
     const { sizes } = useTheme();
     const { loadMySuggestedEvents } = useEventEndpoint();
+    const isFocused = useIsFocused();
+    
 
     useEffect(() => {
         setMySuggestedEvents([]);
         setIsEventsLoading(true);
 
-        loadMySuggestedEvents('10', true)
+        loadMySuggestedEvents('10', false)
             .then((data: IEventProps[]) => setMySuggestedEvents(data))
             .catch((error: string) => {})
             .finally(() => setIsEventsLoading(false));
-    }, []);
+    }, [isFocused]);
 
     return (
         <Block safe padding={sizes.padding}>
@@ -37,7 +40,7 @@ export default function EventsScreen() {
                 <FlatList
                     data={mySuggestedEvents}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item, index }) => <Event {...item} />}
+                    renderItem={({ item, index }) => <Event props={item} path="Events" />}
                     ListEmptyComponent={
                         isEventsLoading ? (
                             <LoadingPlaceholder />

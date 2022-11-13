@@ -111,7 +111,7 @@ const useEventEndpoint = () => {
     ): Promise<IEventProps[]> => {
         try {
             await timeout(600);
-            return withData ? eventsProgress : ({} as IEventProps[]);
+            return withData ? eventsProgress : eventsNotFound;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 throw t('login.error.unauthorized');
