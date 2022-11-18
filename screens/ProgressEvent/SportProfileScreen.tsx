@@ -62,7 +62,7 @@ export default function SportProfileScreen() {
         <>
             <CustomModal {...modal} />
             {!sportProfileDetail ? null : (
-                <Block safe padding={sizes.padding} flex={1}>
+                <Block safe padding={sizes.padding} flex={0}>
                     {/* tiele */}
                     <Block flex={0} align="center" paddingBottom={sizes.s}>
                         <Text h3 center>
@@ -70,7 +70,7 @@ export default function SportProfileScreen() {
                         </Text>
                     </Block>
                     {/* Image */}
-                    <Block flex={1} align="center">
+                    <Block flex={0} align="center">
                         <Block
                             flex={0}
                             paddingVertical={sizes.padding}
@@ -90,24 +90,37 @@ export default function SportProfileScreen() {
                         </Block>
                     </Block>
                     {/* Content */}
-                    <Block>
-                        <IconRow text={sportProfileDetail?.nombre} />
-                        <IconRow
-                            text={t('sportProfile.label.age', {
-                                age: sportProfileDetail?.edad,
-                            })}
-                        />
-                        <IconRow text={sportProfileDetail?.sexo} />
-                        <IconRow
-                            text={t('sportProfile.label.weight', {
-                                weight: sportProfileDetail?.peso,
-                            })}
-                        />
-                        <IconRow
-                            text={t('sportProfile.label.height', {
-                                height: sportProfileDetail?.estatura,
-                            })}
-                        />
+                    <Block flex={0} card marginBottom={sizes.sm}>
+                        <Block flex={0}>
+                            <IconRow name="flag-checkered" text={sportProfileDetail?.nombre} />
+                        </Block>
+                        <Block flex={0} row justify="space-around">
+                            <IconRow
+                                name="flash"
+                                text={t('sportProfile.label.age', {
+                                    age: sportProfileDetail?.edad,
+                                })}
+                            />
+                            <IconRow name="flash" text={sportProfileDetail?.sexo} />
+                        </Block>
+                        <Block flex={0} row justify="space-around">
+                            <IconRow
+                                name="flash"
+                                text={t('sportProfile.label.weight', {
+                                    weight: sportProfileDetail?.peso,
+                                })}
+                            />
+                            <IconRow
+                                name="flash"
+                                text={t('sportProfile.label.height', {
+                                    height: sportProfileDetail?.estatura,
+                                })}
+                            />
+                        </Block>
+                    </Block>
+                    {/* Vo2max */}
+                    <Block flex={0} card>
+                        <Text h4>Vo2Max</Text>
                     </Block>
                 </Block>
             )}

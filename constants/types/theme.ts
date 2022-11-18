@@ -172,6 +172,8 @@ export interface ThemeSizes {
 
     panelIconHeight: number;
     panelIconBorder: number;
+
+    numberOfLines: number;
 }
 
 export interface ThemeSpacing {

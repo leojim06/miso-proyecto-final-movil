@@ -49,7 +49,7 @@ export const ASSETS: ThemeAssets = {
 
     // background/images
     landscapePlaceholder: require('../assets/images/background.png'),
-    avatarPlaceholder: require('../assets/images/background.png'),
+    avatarPlaceholder: require('../assets/images/man.jpg'),
 
     // modal/icons
     success: require('../assets/icons/aprobado.png'),
