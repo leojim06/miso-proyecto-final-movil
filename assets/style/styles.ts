@@ -35,5 +35,15 @@ export default StyleSheet.create({
         resizeMode: 'cover',
         width: undefined,
         height: undefined,
+    },
+    "avatar_container": {
+        width: '50%', height: 200
+    },
+    "avatar_background": {
+        flex: 1,
+        backgroundColor: 'white',
+        resizeMode: 'cover',
+        width: undefined,
+        height: undefined
     }
 });

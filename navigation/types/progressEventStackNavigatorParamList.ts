@@ -5,12 +5,18 @@ export type ProgressEventStackNavigatorParamList = {
     ProgressEventScreen: undefined;
     ProgressEventDetailScreen: {
         eventId: string;
-    }
+    };
+    SportProfileScreen: undefined
 };
 
 export type ProgressEventScreenNavigationProp = NativeStackNavigationProp<
     ProgressEventStackNavigatorParamList,
     'ProgressEventScreen'
+>;
+
+export type SportProfileScreenNavigationProp = NativeStackNavigationProp<
+    ProgressEventStackNavigatorParamList,
+    'SportProfileScreen'
 >;
 
 export type ProgressEventDetailScreenRouteProp = RouteProp<

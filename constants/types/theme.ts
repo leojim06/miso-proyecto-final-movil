@@ -220,6 +220,7 @@ export interface ThemeAssets {
     OpenSansBold?: any;
     
     landscapePlaceholder: ImageSourcePropType;
+    avatarPlaceholder: ImageSourcePropType;
     
     success: ImageSourcePropType;
     warning: ImageSourcePropType;

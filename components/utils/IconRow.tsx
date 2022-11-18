@@ -13,7 +13,7 @@ const IconRow = ({
     text?: string;
 }) => {
     return (
-        <View style={{ flexDirection: 'row', marginBottom: 8 }}>
+        <View style={{ flexDirection: 'row', marginBottom: 6 }}>
             <View style={{ width: 36, alignItems: 'center' }}>
                 <FontAwesome size={24} name={name} color={color} />
             </View>
