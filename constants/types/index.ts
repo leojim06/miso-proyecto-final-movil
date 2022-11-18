@@ -17,6 +17,7 @@ export interface IUser {
     // about?: string;
     userId: string;
     accessToken: string;
+    account: string;
 }
 
 export interface ICategory {

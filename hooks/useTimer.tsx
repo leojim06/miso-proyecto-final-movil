@@ -60,5 +60,5 @@ export const useTimer = () => {
         setTime(0);
     };
 
-    return { start, stop, reset, isRunning, time: formatMs(time) };
+    return { start, stop, reset, isRunning, time: formatMs(time), milliseconds: time };
 };

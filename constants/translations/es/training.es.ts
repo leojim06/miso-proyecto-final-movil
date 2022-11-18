@@ -13,7 +13,7 @@ export const trainingEs = {
         },
         btn: {
             start: 'Iniciar',
-            end: 'Finalizar sessión',
+            end: 'Finalizar sesión',
         }
     }
 }

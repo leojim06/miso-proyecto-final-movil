@@ -1,6 +1,7 @@
 import { getFocusedRouteNameFromRoute, useNavigation, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import RestRoutineScreen from '../screens/TrainingSession/RestRoutineScreen';
 import TrainingDetailScreen from '../screens/TrainingSession/TrainingDetailScreen';
 import TrainingSessionScreen from '../screens/TrainingSession/TrainingSesionScreen';
 import TrainingWatcher from '../screens/TrainingSession/TrainingWatcher';
@@ -33,6 +34,7 @@ export function TrainingSessionNavigator() {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen name="RestRoutineScreen" component={RestRoutineScreen} />
         </Stack.Navigator>
     );
 }

@@ -11,6 +11,7 @@ export type TrainingSessionStackNavigatorParamList = {
     TrainingWatcher: {
         session: ITrainingSessionDetailProps
     };
+    RestRoutineScreen: undefined;
 };
 
 export type TrainingSessionScreenNavigationProp = NativeStackNavigationProp<

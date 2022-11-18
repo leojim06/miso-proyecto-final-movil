@@ -5,6 +5,7 @@ import { eventsEs } from './es/events.es';
 import { applicationPtBR } from './ptBR/application.pt-BR';
 import { trainingEs } from './es/training.es';
 import { progressEs } from './es/progress.es';
+import { restRoutineEs } from './es/restRoutine.es';
 
 export default {
     es: {
@@ -14,6 +15,7 @@ export default {
         events: eventsEs,
         training: trainingEs,
         progress: progressEs,
+        restRoutine: restRoutineEs,
     },
     "pt-BR": {
         app: applicationPtBR,
