@@ -31,7 +31,7 @@ export default function RestRoutineScreen() {
             .then((data: IRestRoutine[]) => setMyRestRoutines(data))
             .catch((error: string) => {})
             .finally(() => setIsMyRestRoutinesLoading(false));
-    });
+    }, []);
 
     return (
         <Block safe padding={sizes.padding}>
