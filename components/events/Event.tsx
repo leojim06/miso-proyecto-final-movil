@@ -46,7 +46,7 @@ const Event = ({ props, path }: { props: IEventProps; path: 'Events' | 'Progress
                     <Text p semibold>
                         {props.name}
                     </Text>
-                    <Text p>{props.description}</Text>
+                    <Text numberOfLines={sizes.numberOfLines} p>{props.description}</Text>
                 </Block>
             </TouchableOpacity>
         </Block>

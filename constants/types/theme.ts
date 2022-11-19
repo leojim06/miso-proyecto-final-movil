@@ -172,6 +172,8 @@ export interface ThemeSizes {
 
     panelIconHeight: number;
     panelIconBorder: number;
+
+    numberOfLines: number;
 }
 
 export interface ThemeSpacing {
@@ -220,6 +222,7 @@ export interface ThemeAssets {
     OpenSansBold?: any;
     
     landscapePlaceholder: ImageSourcePropType;
+    avatarPlaceholder: ImageSourcePropType;
     
     success: ImageSourcePropType;
     warning: ImageSourcePropType;

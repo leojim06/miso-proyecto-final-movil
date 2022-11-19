@@ -46,9 +46,9 @@ const usePlansEndpoint = () => {
             return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
-                throw t('login.error.unauthorized');
+                throw t('app.error.unauthorized');
             } else {
-                throw t('login.error.server');
+                throw t('app.error.server');
             }
         }
     };
@@ -60,9 +60,9 @@ const usePlansEndpoint = () => {
             return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
-                throw t('login.error.unauthorized');
+                throw t('app.error.unauthorized');
             } else {
-                throw t('login.error.server');
+                throw t('app.error.server');
             }
         }
     };
@@ -81,9 +81,9 @@ const usePlansEndpoint = () => {
                 : ({} as ITrainingSessionDetailProps);
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
-                throw t('login.error.unauthorized');
+                throw t('app.error.unauthorized');
             } else {
-                throw t('login.error.server');
+                throw t('app.error.server');
             }
         }
     };
@@ -95,9 +95,9 @@ const usePlansEndpoint = () => {
             return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
-                throw t('login.error.unauthorized');
+                throw t('app.error.unauthorized');
             } else {
-                throw t('login.error.server');
+                throw t('app.error.server');
             }
         }
     };

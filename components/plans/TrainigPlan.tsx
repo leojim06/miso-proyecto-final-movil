@@ -45,7 +45,7 @@ const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainingPlan; isInMyPlans
                     <Text h5 bold>
                         {props.nombre}
                     </Text>
-                    <Text p>{props.descripcion}</Text>
+                    <Text numberOfLines={sizes.numberOfLines} p>{props.descripcion}</Text>
                     <Block row>
                         <Text p bold>
                             {t('plans.label.level')}

@@ -140,9 +140,9 @@ const useEventEndpoint = () => {
             return withData ? events : eventsNotFound;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
-                throw t('login.error.unauthorized');
+                throw t('app.error.unauthorized');
             } else {
-                throw t('login.error.server');
+                throw t('app.error.server');
             }
         }
     };
@@ -158,9 +158,9 @@ const useEventEndpoint = () => {
             return withData ? eventDetail : ({} as IEventDetailProps);
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
-                throw t('login.error.unauthorized');
+                throw t('app.error.unauthorized');
             } else {
-                throw t('login.error.server');
+                throw t('app.error.server');
             }
         }
     };
@@ -174,9 +174,9 @@ const useEventEndpoint = () => {
             return withData ? eventsProgress : eventsNotFound;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
-                throw t('login.error.unauthorized');
+                throw t('app.error.unauthorized');
             } else {
-                throw t('login.error.server');
+                throw t('app.error.server');
             }
         }
     };
@@ -190,9 +190,9 @@ const useEventEndpoint = () => {
             return withData ? eventProgressDetail : ({} as IEventProps);
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
-                throw t('login.error.unauthorized');
+                throw t('app.error.unauthorized');
             } else {
-                throw t('login.error.server');
+                throw t('app.error.server');
             }
         }
     };

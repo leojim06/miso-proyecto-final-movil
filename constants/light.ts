@@ -153,7 +153,9 @@ export const SIZES: ThemeSizes = {
 
     
     panelIconBorder: 8,
-    panelIconHeight: 60
+    panelIconHeight: 60,
+    
+    numberOfLines: 3,
 };
 
 export const SPACING: ThemeSpacing = {
