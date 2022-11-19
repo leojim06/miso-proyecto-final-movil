@@ -1,6 +1,7 @@
 import { getFocusedRouteNameFromRoute, useNavigation, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import { HeaderBackButton } from '@react-navigation/elements';
 import RestRoutineScreen from '../screens/TrainingSession/RestRoutineScreen';
 import TrainingDetailScreen from '../screens/TrainingSession/TrainingDetailScreen';
 import TrainingSessionScreen from '../screens/TrainingSession/TrainingSesionScreen';
@@ -34,7 +35,17 @@ export function TrainingSessionNavigator() {
                     headerShown: false,
                 }}
             />
-            <Stack.Screen name="RestRoutineScreen" component={RestRoutineScreen} />
+            <Stack.Screen
+                name="RestRoutineScreen"
+                component={RestRoutineScreen}
+                options={({ navigation, route }) => ({
+                    headerLeft: () => (
+                        <HeaderBackButton
+                            onPress={() => navigation.navigate('TrainingSessionScreen')}
+                        />
+                    ),
+                })}
+            />
         </Stack.Navigator>
     );
 }

@@ -5,14 +5,14 @@ import { IRestRoutine } from '../../screens/TrainingSession/RestRoutineScreen';
 
 const RestRoutine = (props: IRestRoutine) => {
     // hooks from app
-    const { colors } = useTheme();
+    const { colors, sizes } = useTheme();
 
     return (
-        <Block color={colors.card}>
-            <Text h5 bold></Text>
-            <Text p semibold>
+        <Block marginBottom={sizes.sm} padding={sizes.padding} card>
+            <Text h5 bold>
                 {props.nombre}
             </Text>
+            <Text p>{props.descripcion}</Text>
         </Block>
     );
 };

@@ -1,10 +1,14 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import { BackHandler, FlatList } from 'react-native';
 import { Block, Text } from '../../components';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder';
 import RestRoutine from '../../components/restRoutine/RestRoutine';
 import DataNotFound from '../../components/utils/DataNotFound';
 import { useTheme, useTranslation } from '../../hooks';
+import {
+    TrainingSessionScreenNavigationProp,
+} from '../../navigation/types/trainingSessionStackNavigatorParamList';
 import useRestRoutinesEndpoint from '../../services/api/useRestRoutinesEndpoint';
 
 export interface IRestRoutine {
@@ -22,6 +26,12 @@ export default function RestRoutineScreen() {
     const { t } = useTranslation();
     const { sizes } = useTheme();
     const { loadRestRoutines } = useRestRoutinesEndpoint();
+    const navigation = useNavigation<TrainingSessionScreenNavigationProp>();
+
+    const handleBackButtonClick = () => {
+        navigation.navigate('TrainingSessionScreen');
+        return true;
+    };
 
     useEffect(() => {
         setMyRestRoutines([]);
@@ -31,6 +41,11 @@ export default function RestRoutineScreen() {
             .then((data: IRestRoutine[]) => setMyRestRoutines(data))
             .catch((error: string) => {})
             .finally(() => setIsMyRestRoutinesLoading(false));
+    }, []);
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
     }, []);
 
     return (
