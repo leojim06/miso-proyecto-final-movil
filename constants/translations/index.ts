@@ -6,6 +6,7 @@ import { applicationPtBR } from './ptBR/application.pt-BR';
 import { trainingEs } from './es/training.es';
 import { progressEs } from './es/progress.es';
 import { sportProfileEs } from './es/sportProfile.es';
+import { restRoutineEs } from './es/restRoutine.es';
 
 export default {
     es: {
@@ -16,6 +17,7 @@ export default {
         training: trainingEs,
         progress: progressEs,
         sportProfile: sportProfileEs,
+        restRoutine: restRoutineEs,
     },
     "pt-BR": {
         app: applicationPtBR,
