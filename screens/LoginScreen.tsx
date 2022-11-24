@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import * as Notifications from 'expo-notifications';
 import { Block, Text } from '../components';
 import LoginForm from '../components/forms/loginForm';
 import CustomModal, { ICustomPanel } from '../components/modals/CustomModal';
@@ -7,6 +8,7 @@ import { useTheme, useTranslation, useData } from '../hooks';
 import useCatalogEndpoint from '../services/api/useCatalogEndpoint';
 import useLoginEndpoint from '../services/api/useLoginEndpoint';
 import { timeout } from '../utils/timeout';
+import usePushNotification from '../services/notification/usePushNotification';
 
 export default function LoginScreen() {
     // hooks for screen
@@ -16,6 +18,10 @@ export default function LoginScreen() {
         title: '',
         message: '',
     });
+    const [expoPushToken, setExpoPushToken] = useState<string | undefined>(undefined);
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
 
     // hooks from app
     const { handleUser, handleLoading, suscriptionCatalog, trainingLevelCatalog } = useData();
@@ -23,6 +29,7 @@ export default function LoginScreen() {
     const { t } = useTranslation();
     const { loadLogin } = useLoginEndpoint();
     const { loadSuscriptions, loadTrainingLevels } = useCatalogEndpoint();
+    const { registerForPushNotificationsAsync } = usePushNotification();
 
     const handleSubmit = (values: any) => {
         handleLoading(true);
@@ -50,6 +57,30 @@ export default function LoginScreen() {
             await Promise.all([loadSuscriptions(), loadTrainingLevels()]);
         }
     };
+
+    useEffect(() => {
+        registerForPushNotificationsAsync()
+            .then((token: string | undefined) => setExpoPushToken(token))
+            .catch((error: string) => console.error('Notification error: ', error));
+
+        notificationListener.current = Notifications.addNotificationReceivedListener(
+            (notification) => {
+                console.log('Notification: ', notification);
+                setNotification(notification);
+            }
+        );
+
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(
+            (response) => {
+                console.log('Response notification: ', response);
+            }
+        );
+
+        return () => {
+            Notifications.removeNotificationSubscription(notificationListener.current);
+            Notifications.removeNotificationSubscription(responseListener.current);
+        };
+    }, []);
 
     return (
         <Block justify="center">

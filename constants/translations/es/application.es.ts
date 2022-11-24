@@ -14,7 +14,7 @@ export const applicationEs = {
         profile: 'Perfil',
     },
     date: {
-        formats:{
+        formats: {
             ordinalDay: "%B %{day}",
         }
     },
@@ -23,4 +23,8 @@ export const applicationEs = {
         forbidden: 'No tiene permisos para realizar esta acción',
         server: 'Problemas con el servicio SportApp',
     },
+    notifications: {
+        notPermissions: 'No tenemos los permisos necesarios para mostrar notificaciones',
+        notPhysicalDevice: 'Debe usar un dispositivo físico para ver las notificaciones',
+    }
 };

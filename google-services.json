@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "140477666656",
+    "project_id": "sportapp-miso-grupo6",
+    "storage_bucket": "sportapp-miso-grupo6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140477666656:android:63f04d40bd153bf45c3a05",
+        "android_client_info": {
+          "package_name": "com.uniandes.nativos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140477666656-qql47d557m79bm07i2neojpjm2ir5ou8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXtrx_ePIcEp0H5E6sbq7hqKZH9zWeuEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140477666656-qql47d557m79bm07i2neojpjm2ir5ou8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

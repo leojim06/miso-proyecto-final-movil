@@ -55,7 +55,6 @@ export default function Navigation() {
                 <NavigationContainer theme={navigationTheme}>
                     {user ? <RootNavigator /> : <PublicNavigator />}
                     <Spinner isLoading={isLoading} />
-                    {/* <InformationModal {...hasInfoModal} /> */}
                 </NavigationContainer>
             </ThemeProvider>
         </TranlationProvider>
