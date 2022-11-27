@@ -3,12 +3,12 @@ import * as React from 'react';
 
 import { TabBarIcon } from './tabBarIcon';
 import { useTheme, useTranslation } from '../hooks';
-import ProfileScreen from '../screens/ProfileScreen';
 import { PlansNavigator } from './plansNavigator';
 import { EventsNavigator } from './eventsNavigator';
 import { TrainingSessionNavigator } from './trainigSessionNavigator';
 import { BottomTabNavigatorParamList } from './types';
 import { ProgressEventNavigator } from './progressEventNavigator';
+import { ProfileNavigator } from './profileNavigator';
 
 const BottomTab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
@@ -60,7 +60,7 @@ export function BottomTabNavigator() {
             />
             <BottomTab.Screen
                 name="Profile"
-                component={ProfileScreen}
+                component={ProfileNavigator}
                 options={{
                     title: t('app.menubar.profile'),
                     tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,

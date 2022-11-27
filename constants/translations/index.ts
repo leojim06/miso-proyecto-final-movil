@@ -7,6 +7,7 @@ import { trainingEs } from './es/training.es';
 import { progressEs } from './es/progress.es';
 import { sportProfileEs } from './es/sportProfile.es';
 import { restRoutineEs } from './es/restRoutine.es';
+import { profileEs } from './es/profile.es';
 
 export default {
     es: {
@@ -18,6 +19,7 @@ export default {
         progress: progressEs,
         sportProfile: sportProfileEs,
         restRoutine: restRoutineEs,
+        profile: profileEs,
     },
     "pt-BR": {
         app: applicationPtBR,

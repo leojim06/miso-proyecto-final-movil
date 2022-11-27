@@ -2,6 +2,7 @@ import i18n from 'i18n-js';
 import { ImageSourcePropType } from 'react-native';
 import { ITrainingSessionProps } from '../../screens/TrainingSession/TrainingSesion';
 import { ISuscription, ITrainingLevel } from '../../services/api/useCatalogEndpoint';
+import { ILanguageProps } from './components';
 import { ITheme } from './theme';
 
 export * from './components';
@@ -18,6 +19,8 @@ export interface IUser {
     userId: string;
     accessToken: string;
     account: string;
+    foto: string;
+    nombre: string;
 }
 
 export interface ICategory {
@@ -89,6 +92,7 @@ export interface ITranslate {
     t: (scope?: i18n.Scope, options?: i18n.TranslateOptions) => string;
     translate: (scope?: i18n.Scope, options?: i18n.TranslateOptions) => string;
     i18n: i18n.I18n;
+    languages: ILanguageProps[]
 }
 export interface IExtra {
     id?: number;
