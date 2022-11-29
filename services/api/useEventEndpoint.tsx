@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useTranslation } from '../../hooks';
 import { timeout } from '../../utils/timeout';
 import { IEventProps } from '../../components/events/Event';
 import { IEventDetailProps } from '../../screens/Events/EventDetailScreen';
+import useAxiosInstance from '../../hooks/useAxiosInstance';
 
 const events: IEventProps[] = [
     {
@@ -128,16 +129,13 @@ const eventProgressDetail: IEventDetailProps = {
 
 const useEventEndpoint = () => {
     const { t } = useTranslation();
+    const sportAppInstance = useAxiosInstance();
 
-    const loadMySuggestedEvents = async (
-        user_id: string,
-        withData: boolean
-    ): Promise<IEventProps[]> => {
+    const loadMySuggestedEvents = async (): Promise<IEventProps[]> => {
         try {
-            // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/my-plans/${user_id}`);
-            // return response.data;
-            await timeout(800);
-            return withData ? events : eventsNotFound;
+            const url: string = `/evento/sugerencias`;
+            const response: AxiosResponse<IEventProps[]> = await sportAppInstance.get(url);
+            return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 throw t('app.error.unauthorized');
@@ -147,15 +145,11 @@ const useEventEndpoint = () => {
         }
     };
 
-    const loadEventDetail = async (
-        event_id: string,
-        withData: boolean
-    ): Promise<IEventDetailProps> => {
+    const loadEventDetail = async (eventId: number): Promise<IEventDetailProps> => {
         try {
-            // const response: AxiosResponse<IMyPlans> = await axios.get(`${API_URL}/events/${event_id}`);
-            // return response.data;
-            await timeout(800);
-            return withData ? eventDetail : ({} as IEventDetailProps);
+            const url: string = `/evento/${eventId}`;
+            const response: AxiosResponse<IEventDetailProps> = await sportAppInstance.get(url);
+            return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 throw t('app.error.unauthorized');

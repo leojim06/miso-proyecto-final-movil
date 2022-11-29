@@ -6,7 +6,6 @@ import { Text } from './';
 const RadioButtons = ({
     id = 'RadioButtons',
     children,
-    key,
     item,
     checked,
     setChecked,

@@ -9,20 +9,29 @@ import { useData, useTheme, useTranslation } from '../../hooks';
 import { EventDetailScreenRouteProp, EventsScreenNavigationProp } from '../../navigation/types';
 import useEventEndpoint from '../../services/api/useEventEndpoint';
 
+// export interface IEventDetailProps {
+//     id: string;
+//     image?: string;
+//     location?: string;
+//     time?: {
+//         start?: Date;
+//         end?: Date;
+//     };
+//     name?: string;
+//     description?: string;
+//     food?: string;
+//     host?: string;
+//     calorias?: number,
+//     tiempo?: number,
+// }
+
 export interface IEventDetailProps {
-    id: string;
-    image?: string;
-    location?: string;
-    time?: {
-        start?: Date;
-        end?: Date;
-    };
-    name?: string;
-    description?: string;
-    food?: string;
-    host?: string;
-    calorias?: number,
-    tiempo?: number,
+    idEvento: number;
+    nombre?: string;
+    descripcion?: string;
+    ciudad?: string;
+    fecha?: Date;
+    idDeporte: number;
 }
 
 export default function EventDetailScreen() {
@@ -48,7 +57,7 @@ export default function EventDetailScreen() {
         setEventDetail(undefined);
         handleLoading(true);
 
-        loadEventDetail(eventId, true)
+        loadEventDetail(eventId)
             .then((data: IEventDetailProps) => setEventDetail(data))
             .catch((error: string) => {
                 setModal({
@@ -74,7 +83,7 @@ export default function EventDetailScreen() {
                     {/* title */}
                     <Block flex={0} align="center" paddingBottom={sizes.s}>
                         <Text h4 center>
-                            {eventDetail?.name}
+                            {eventDetail?.nombre}
                         </Text>
                     </Block>
                     {/* Image */}
@@ -93,22 +102,22 @@ export default function EventDetailScreen() {
                     </Block>
                     {/* Content */}
                     <Block>
-                        <IconRow name={'map-marker'} text={eventDetail?.location} />
+                        <IconRow name={'map-marker'} text={eventDetail?.ciudad} />
                         <IconRow
                             name={'calendar'}
                             text={i18n.toTime(
                                 'date.formats.short',
-                                eventDetail?.time?.start ?? Date.now()
+                                eventDetail?.fecha ?? Date.now()
                             )}
                         />
                         <IconRow
                             name={'clock-o'}
                             text={i18n.toTime(
                                 'date.formats.short',
-                                eventDetail?.time?.end ?? Date.now()
+                                eventDetail?.fecha ?? Date.now()
                             )}
                         />
-                        <IconRow text={eventDetail?.description} />
+                        <IconRow text={eventDetail?.descripcion} />
                         <IconRow
                             name={'houzz'}
                             text={t('events.detail.label.food', { food: eventDetail?.food })}

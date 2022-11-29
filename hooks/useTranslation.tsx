@@ -19,10 +19,10 @@ export const TranlationProvider = ({ children }: { children: React.ReactNode }) 
     i18n.enableFallback = true;
     i18n.defaultLocale = 'es';
 
-    let languages: ILanguageProps[] = [
+    const [languages, setLanguages] = useState<ILanguageProps[]>([
         { label: i18n.t('profile.label.spanish'), id: 0, locale: 'es', active: false },
-        { label: i18n.t('profile.label.portuguese'), id: 1, locale: 'ptBR', active: false },
-    ];
+        { label: i18n.t('profile.label.portuguese'), id: 1, locale: 'pt-BR', active: false },
+    ]);
 
     const t = useCallback(
         (scope: i18n.Scope, options: i18n.TranslateOptions) => {
@@ -34,16 +34,15 @@ export const TranlationProvider = ({ children }: { children: React.ReactNode }) 
     // get local from storage
     const getLocale = useCallback(async () => {
         const localeJSON = await Storage.getItem('locale');
-        setLocale(localeJSON !== null ? localeJSON : Localization.locale);
-        languages = Object.assign(
-            {},
-            {
-                ...languages.map((l) => {
-                    if (l.locale === localeJSON) l.active = true;
-                    return l;
-                }),
-            }
+        const localeToSet = localeJSON !== null ? localeJSON : Localization.locale;
+        console.log('obteniendo locale: ', localeToSet);
+        setLocale(localeToSet);
+        setLanguages(
+            languages.map((l) => {
+                return { ...l, active: l.locale === localeToSet };
+            })
         );
+        console.log(languages);
     }, [setLocale]);
 
     useEffect(() => {
@@ -53,18 +52,11 @@ export const TranlationProvider = ({ children }: { children: React.ReactNode }) 
     useEffect(() => {
         Storage.setItem('locale', locale);
         i18n.locale = locale;
-        languages = Object.assign(
-            {},
-            {
-                ...languages.map((l) => {
-                    console.info('locale: ', locale);
-                    if (l.locale === locale) l.active = true;
-                    return l;
-                }),
-            }
+        setLanguages(
+            languages.map((l) => {
+                return { ...l, active: l.locale === locale };
+            })
         );
-        console.log('locale: ', locale);
-        console.log('change locale: ', JSON.stringify(languages, null, 4));
     }, [locale]);
 
     const contextValue = {

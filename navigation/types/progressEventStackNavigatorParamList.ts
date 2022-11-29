@@ -4,7 +4,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 export type ProgressEventStackNavigatorParamList = {
     ProgressEventScreen: undefined;
     ProgressEventDetailScreen: {
-        eventId: string;
+        eventId: number;
     };
     SportProfileScreen: undefined
 };
