@@ -18,7 +18,7 @@ export default function TrainingWatcher() {
 
     const timer = useTimer();
     const sensor = useFitMetrics();
-    const { assets, sizes } = useTheme();
+    const { assets, sizes, colors } = useTheme();
     const { t } = useTranslation();
     const { trainingSession, handleTrainingSession, user, isSensorActive } = useData();
 
@@ -59,7 +59,9 @@ export default function TrainingWatcher() {
     return (
         <Block>
             <Block flex={1} center align="center" paddingTop={180} padding={sizes.padding}>
-                <Text h1>{timer.time}</Text>
+                <Text h1 primary>
+                    {timer.time}
+                </Text>
                 <Block>
                     <Button onPress={handleStartTrainigSession}>
                         {timer.isRunning ? (
@@ -73,8 +75,8 @@ export default function TrainingWatcher() {
             <Block flex={1} justify="flex-end" padding={sizes.padding}>
                 {isSensorActive ? (
                     <Block justify="flex-end" align="flex-end">
-                        <FontAwesome size={84} name={'heartbeat'} color={'red'} />
-                        <Text h3 center>
+                        <FontAwesome size={84} name={'heartbeat'} color={colors.danger} />
+                        <Text h3 center tertiary>
                             {sensor.isRunning ? sensor.heartRate.slice(-1)[0].value : 0}
                         </Text>
                     </Block>

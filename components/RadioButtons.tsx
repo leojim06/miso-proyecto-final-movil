@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { IRadioButtonsProps } from '../constants/types';
+import { useTheme } from '../hooks';
 import { Text } from './';
 
 const RadioButtons = ({
@@ -10,9 +11,12 @@ const RadioButtons = ({
     checked,
     setChecked,
 }: IRadioButtonsProps) => {
+    const { colors } = useTheme();
+
     const radioPress = () => {
         setChecked(item?.id);
     };
+
     return (
         <View
             style={{
@@ -30,7 +34,7 @@ const RadioButtons = ({
                             width: 24,
                             borderRadius: 12,
                             borderWidth: 2,
-                            borderColor: '#000',
+                            borderColor: colors.tertiary,
                             alignItems: 'center',
                             justifyContent: 'center',
                         },
@@ -42,7 +46,7 @@ const RadioButtons = ({
                                 height: 12,
                                 width: 12,
                                 borderRadius: 6,
-                                backgroundColor: '#000',
+                                backgroundColor: colors.tertiary,
                             }}
                         />
                     ) : null}

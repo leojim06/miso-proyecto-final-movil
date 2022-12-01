@@ -50,7 +50,7 @@ export default function TrainingDetailScreen() {
                 <Block padding={sizes.padding}>
                     {/* title */}
                     <Block flex={0} align="center">
-                        <Text h3 center>
+                        <Text h3 center tertiary>
                             {t('training.detail.label.day', { day: trainingDetail?.day })} -{' '}
                             {i18n.toTime('date.formats.short', Date.now())}
                         </Text>

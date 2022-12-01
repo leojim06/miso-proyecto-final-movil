@@ -90,7 +90,7 @@ export default function ProgressEventDetailScreen() {
                 <Block padding={sizes.padding}>
                     {/* title */}
                     <Block flex={0} align="center" paddingBottom={sizes.s}>
-                        <Text h4 center>
+                        <Text h4 center tertiary>
                             {eventDetail?.name}
                         </Text>
                     </Block>

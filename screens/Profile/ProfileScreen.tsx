@@ -53,7 +53,7 @@ export default function ProfileScreen() {
                 <Block scroll showsVerticalScrollIndicator={false} padding={sizes.padding} flex={0}>
                     {/* title */}
                     <Block flex={0} align="center" paddingBottom={sizes.s}>
-                        <Text h3 center>
+                        <Text h3 center tertiary>
                             {t('profile.label.title')}
                         </Text>
                     </Block>
@@ -84,7 +84,7 @@ export default function ProfileScreen() {
                         </Block>
                         {/* Integrations */}
                         <Block flex={0}>
-                            <Text h4>{t('profile.label.integrations')}</Text>
+                            <Text h4 tertiary>{t('profile.label.integrations')}</Text>
                             <Block
                                 flex={0}
                                 row
@@ -132,7 +132,7 @@ export default function ProfileScreen() {
                             justify="space-between"
                             align="center"
                         >
-                            <Text h4>{t('profile.label.sensors')}</Text>
+                            <Text h4 tertiary>{t('profile.label.sensors')}</Text>
                             <Button color={colors.primary} onPress={handleActivateSensor}>
                                 <Text white bold transform="uppercase" paddingHorizontal={sizes.md}>
                                     {!isSensorActive
@@ -149,7 +149,7 @@ export default function ProfileScreen() {
                             justify="space-between"
                             align="center"
                         >
-                            <Text h4>{t('profile.label.notifications')}</Text>
+                            <Text h4 tertiary>{t('profile.label.notifications')}</Text>
                             <Switch
                                 checked={activateNotification}
                                 onPress={(checked) => setActivateNotification(checked)}
@@ -158,7 +158,7 @@ export default function ProfileScreen() {
 
                         {/* Language */}
                         <Block flex={0}>
-                            <Text h4>{t('profile.label.language')}</Text>
+                            <Text h4 tertiary>{t('profile.label.language')}</Text>
                             <Block row flex={0} align="center" paddingHorizontal={sizes.sm}>
                                 <Block row>
                                     {languages.map((item, i) => (

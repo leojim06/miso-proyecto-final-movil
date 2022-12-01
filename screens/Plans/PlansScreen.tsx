@@ -76,12 +76,12 @@ export default function PlansScreen() {
     return (
         <Block safe padding={sizes.padding}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
-                <Text h3 center>
+                <Text h3 center tertiary>
                     {t('plans.label.title')}
                 </Text>
             </Block>
             <Block flex={1} marginBottom={sizes.xl}>
-                <Text h4>{t('plans.label.myPlans')}</Text>
+                <Text h4 tertiary>{t('plans.label.myPlans')}</Text>
                 <FlatList
                     data={myPlans}
                     keyExtractor={(item) => item.id.toString()}
@@ -99,7 +99,7 @@ export default function PlansScreen() {
                 />
             </Block>
             <Block flex={1}>
-                <Text h4>{t('plans.label.suggestedPlans')}</Text>
+                <Text h4 tertiary>{t('plans.label.suggestedPlans')}</Text>
                 <FlatList
                     data={mySuggestedPlans}
                     keyExtractor={(item) => item.id.toString()}

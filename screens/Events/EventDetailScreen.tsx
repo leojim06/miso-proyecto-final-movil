@@ -3,36 +3,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import styles from '../../assets/style/styles';
 import { Block, Image, Text } from '../../components';
+import { IEventProps } from '../../components/events/Event';
 import CustomModal, { ICustomPanel } from '../../components/modals/CustomModal';
 import IconRow from '../../components/utils/IconRow';
 import { useData, useTheme, useTranslation } from '../../hooks';
 import { EventDetailScreenRouteProp, EventsScreenNavigationProp } from '../../navigation/types';
 import useEventEndpoint from '../../services/api/useEventEndpoint';
-
-// export interface IEventDetailProps {
-//     id: string;
-//     image?: string;
-//     location?: string;
-//     time?: {
-//         start?: Date;
-//         end?: Date;
-//     };
-//     name?: string;
-//     description?: string;
-//     food?: string;
-//     host?: string;
-//     calorias?: number,
-//     tiempo?: number,
-// }
-
-export interface IEventDetailProps {
-    idEvento: number;
-    nombre?: string;
-    descripcion?: string;
-    ciudad?: string;
-    fecha?: Date;
-    idDeporte: number;
-}
 
 export default function EventDetailScreen() {
     // hooks for screen
@@ -42,7 +18,7 @@ export default function EventDetailScreen() {
         title: '',
         message: '',
     });
-    const [eventDetail, setEventDetail] = useState<IEventDetailProps>();
+    const [eventDetail, setEventDetail] = useState<IEventProps>();
 
     // hoots from app
     const navigation = useNavigation<EventsScreenNavigationProp>();
@@ -58,7 +34,7 @@ export default function EventDetailScreen() {
         handleLoading(true);
 
         loadEventDetail(eventId)
-            .then((data: IEventDetailProps) => setEventDetail(data))
+            .then((data: IEventProps) => setEventDetail(data))
             .catch((error: string) => {
                 setModal({
                     isVisible: true,
@@ -82,15 +58,15 @@ export default function EventDetailScreen() {
                 <Block padding={sizes.padding}>
                     {/* title */}
                     <Block flex={0} align="center" paddingBottom={sizes.s}>
-                        <Text h4 center>
+                        <Text h4 center tertiary>
                             {eventDetail?.nombre}
                         </Text>
                     </Block>
                     {/* Image */}
                     <Block flex={0} paddingVertical={sizes.padding} style={styles.image_container}>
-                        {eventDetail?.image ? (
+                        {eventDetail?.imagen ? (
                             <Image
-                                source={{ uri: eventDetail?.image }}
+                                source={{ uri: eventDetail?.imagen }}
                                 style={styles.image_background}
                             />
                         ) : (
@@ -107,24 +83,24 @@ export default function EventDetailScreen() {
                             name={'calendar'}
                             text={i18n.toTime(
                                 'date.formats.short',
-                                eventDetail?.fecha ?? Date.now()
+                                eventDetail?.fechaInicio ?? Date.now()
                             )}
                         />
                         <IconRow
                             name={'clock-o'}
                             text={i18n.toTime(
                                 'date.formats.short',
-                                eventDetail?.fecha ?? Date.now()
+                                eventDetail?.fechaFin ?? Date.now()
                             )}
                         />
                         <IconRow text={eventDetail?.descripcion} />
                         <IconRow
                             name={'houzz'}
-                            text={t('events.detail.label.food', { food: eventDetail?.food })}
+                            text={t('events.detail.label.food', { food: eventDetail?.comida })}
                         />
                         <IconRow
                             name={'bed'}
-                            text={t('events.detail.label.host', { host: eventDetail.host })}
+                            text={t('events.detail.label.host', { host: eventDetail.estadia })}
                         />
                     </Block>
                 </Block>

@@ -145,10 +145,10 @@ const useEventEndpoint = () => {
         }
     };
 
-    const loadEventDetail = async (eventId: number): Promise<IEventDetailProps> => {
+    const loadEventDetail = async (eventId: number): Promise<IEventProps> => {
         try {
             const url: string = `/evento/${eventId}`;
-            const response: AxiosResponse<IEventDetailProps> = await sportAppInstance.get(url);
+            const response: AxiosResponse<IEventProps> = await sportAppInstance.get(url);
             return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {

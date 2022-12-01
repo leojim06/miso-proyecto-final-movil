@@ -236,7 +236,7 @@ export default function PlanDetailScreen() {
                 <Block scroll showsVerticalScrollIndicator={false} padding={sizes.padding}>
                     {/* title */}
                     <Block align="center">
-                        <Text h4 center>
+                        <Text h4 center tertiary>
                             {planDetail?.nombre}
                         </Text>
                     </Block>
@@ -279,7 +279,7 @@ export default function PlanDetailScreen() {
                     {/* Routine */}
                     <Block card>
                         <Block flex={0} paddingBottom={sizes.s}>
-                            <Text h4>{t('plans.detail.label.routine')}</Text>
+                            <Text h4 tertiary>{t('plans.detail.label.routine')}</Text>
                         </Block>
                         {planDetail.rutinas?.map((item, index) => {
                             return <DayRoutine key={index} {...item} />;

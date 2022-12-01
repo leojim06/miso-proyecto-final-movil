@@ -35,7 +35,7 @@ export default function ProgressEventScreen() {
     return (
         <Block safe padding={sizes.padding} >
             <Block flex={0} align="center" paddingBottom={sizes.s}>
-                <Text h3 center>
+                <Text h3 center tertiary>
                     {t('progress.label.title')}
                 </Text>
             </Block>

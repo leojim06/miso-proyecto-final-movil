@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { DateTime } from 'i18n-js/typings';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useTheme, useTranslation } from '../../hooks';
@@ -13,7 +12,11 @@ export interface IEventProps {
     nombre?: string;
     descripcion?: string;
     ciudad?: string;
-    fecha?: DateTime;
+    fechaInicio?: Date;
+    fechaFin?: Date;
+    comida?: string;
+    estadia?: string;
+    imagen?: string;
     idDeporte: number;
 }
 
@@ -43,7 +46,7 @@ const Event = ({ props, path }: { props: IEventProps; path: 'Events' | 'Progress
                     <Text h5 bold>
                         {/* {i18n.l("time.formats.short", "2019-11-09T18:10:34")} */}
                         {/* {i18n.strftime(props.date ?? Date.now(), "%d/%m/%Y")} */}
-                        {i18n.toTime('date.formats.short', props.fecha ?? Date.now())}
+                        {i18n.toTime('date.formats.short', props.fechaInicio ?? Date.now())}
                     </Text>
                     <Text p semibold>
                         {props.nombre}
