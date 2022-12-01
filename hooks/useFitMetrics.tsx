@@ -6,15 +6,15 @@ interface IHeartRate {
     endDate: number;
 }
 
-const randomHeartRate = (min: number = 75, max: number = 170) =>
+const SAMPLING_RATE: number = 2500;
+
+const randomHeartRate = (min: number = 75, max: number = 130) =>
     Math.floor(Math.random() * (max - min) + min);
 
 export const useFitMetrics = () => {
     const [heartRate, setHeartRate] = useState<IHeartRate[]>([]);
     const [isRunning, setIsRunning] = useState<boolean>(false);
     const [startTime, setStartTime] = useState<number>(0);
-
-    // const interval = useRef<ReturnType<typeof setInterval>>();
 
     useEffect(() => {
         let interval;
@@ -23,17 +23,11 @@ export const useFitMetrics = () => {
                 const actualHeartRate: IHeartRate = {
                     value: randomHeartRate(),
                     startDate: Date.now() - startTime,
-                    endDate: Date.now() - startTime + 5000,
+                    endDate: Date.now() - startTime + SAMPLING_RATE,
                 };
                 setHeartRate((old) => [...old, actualHeartRate]);
-            }, 5000);
+            }, SAMPLING_RATE);
         }
-        // else {
-        //     if (interval.current) {
-        //         clearInterval(interval.current);
-        //         interval.current = undefined;
-        //     }
-        // }
         return () => {
             clearInterval(interval);
         };
@@ -46,7 +40,7 @@ export const useFitMetrics = () => {
         const actualHeartRate: IHeartRate = {
             value: randomHeartRate(),
             startDate: st - startTime,
-            endDate: st - startTime + 5000,
+            endDate: st - startTime + SAMPLING_RATE,
         };
         setHeartRate((old) => [...old, actualHeartRate]);
     };

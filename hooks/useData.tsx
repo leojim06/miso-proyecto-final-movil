@@ -13,6 +13,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [theme, setTheme] = useState<ITheme>(light);
     const [user, setUser] = useState<IUser>();
     const [isLoading, setIsLoading] = useState(false);
+    const [isSensorActive, setIsSensorActive] = useState<boolean>(false);
     const [trainingSession, setTrainingSession] = useState<ITrainingSessionProps>();
     const [suscriptionCatalog, setSuscriptionCatalog] = useState<ISuscription[]>();
     const [trainingLevelCatalog, setTrainingLevelCatalog] = useState<ITrainingLevel[]>();
@@ -32,6 +33,23 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
             Storage.setItem('isDark', JSON.stringify(payload));
         },
         [setIsDark]
+    );
+
+    // get isSensorActive from storage
+    const getIsSensorActive = useCallback(async () => {
+        const isSensorActiveJSON = await Storage.getItem('sensorActive');
+        if (isSensorActiveJSON !== null) {
+            setIsSensorActive(JSON.parse(isSensorActiveJSON));
+        }
+    }, [setIsSensorActive]);
+
+    // handle activity of sensor
+    const handleSensor = useCallback(
+        (payload: boolean) => {
+            setIsSensorActive(payload);
+            Storage.setItem('sensorActive', JSON.stringify(payload));
+        },
+        [setIsSensorActive]
     );
 
     // handle user
@@ -60,7 +78,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [setTrainingSession]);
 
-    const handleTrainingSession = useCallback(async (payload: ITrainingSessionProps) => {
+    const handleTrainingSession = useCallback(
+        async (payload: ITrainingSessionProps) => {
             if (payload === null || payload === undefined) {
                 await Storage.removeItem('trainingSession');
             } else {
@@ -79,7 +98,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [setSuscriptionCatalog]);
 
-    const handleSuscriptionCatalog = useCallback(async (payload: ISuscription[]) => {
+    const handleSuscriptionCatalog = useCallback(
+        async (payload: ISuscription[]) => {
             if (payload === null || payload === undefined) {
                 await Storage.removeItem('suscriptions');
             } else {
@@ -98,7 +118,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [setTrainingLevelCatalog]);
 
-    const handleTrainingLevelCatalog = useCallback(async (payload: ITrainingLevel[]) => {
+    const handleTrainingLevelCatalog = useCallback(
+        async (payload: ITrainingLevel[]) => {
             if (payload === null || payload === undefined) {
                 await Storage.removeItem('trainingLevels');
             } else {
@@ -113,6 +134,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         getIsDark();
     }, [getIsDark]);
+
+    // get initial status for sensor
+    useEffect(() => {
+        getIsSensorActive();
+    }, [getIsSensorActive]);
 
     // change theme based on isDark updates
     useEffect(() => {
@@ -149,6 +175,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         handleSuscriptionCatalog,
         trainingLevelCatalog,
         handleTrainingLevelCatalog,
+        isSensorActive,
+        handleSensor
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

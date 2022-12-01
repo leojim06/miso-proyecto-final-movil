@@ -13,5 +13,7 @@ export const profilePtBR = {
     btn: {
         connect: 'Ligar',
         add: 'Adicionar',
+        remove: 'Remover',
+        closeSesion: 'Fechar Sessão'
     }
 }

@@ -9,6 +9,7 @@ import useCatalogEndpoint from '../services/api/useCatalogEndpoint';
 import useLoginEndpoint from '../services/api/useLoginEndpoint';
 import { timeout } from '../utils/timeout';
 import usePushNotification from '../services/notification/usePushNotification';
+import useSuscriptionEndpoint from '../services/api/useSuscriptionEndpoint';
 
 export default function LoginScreen() {
     // hooks for screen
@@ -29,33 +30,47 @@ export default function LoginScreen() {
     const { t } = useTranslation();
     const { loadLogin } = useLoginEndpoint();
     const { loadSuscriptions, loadTrainingLevels } = useCatalogEndpoint();
+    const { getManageSuscription } = useSuscriptionEndpoint();
     const { registerForPushNotificationsAsync } = usePushNotification();
 
-    const handleSubmit = (values: any) => {
-        handleLoading(true);
-
-        loadLogin({ username: values.email, password: values.password })
-            .then((user: IUser) => {
-                handleUser(user);
-                handleCatalogs().then(() => timeout(600));
-            })
-            .catch((error: string) => {
-                setModal({
-                    isVisible: true,
-                    title: t('login.warning.modalTitle'),
-                    message: error,
-                    type: 'error',
-                    confirmButtonTitle: t('login.warning.modalButton'),
-                    onConfirmPress: () => setModal({ ...modal, isVisible: false }),
-                });
-            })
-            .finally(() => handleLoading(false));
+    const handleSubmit = async (values: any) => {
+        try {
+            handleLoading(true);
+            const user = await handleLogin(values.email, values.password);
+            await handleCatalogs(user);
+            const updatedUser = await handleUserSuscription(user);
+            handleUser(updatedUser);
+        } catch (error: string) {
+            setModal({
+                isVisible: true,
+                title: t('login.warning.modalTitle'),
+                message: error,
+                type: 'error',
+                confirmButtonTitle: t('login.warning.modalButton'),
+                onConfirmPress: () => setModal({ ...modal, isVisible: false }),
+            });
+        } finally {
+            handleLoading(false);
+        }
     };
 
-    const handleCatalogs = async () => {
+    const handleLogin = async (username: string, password: string): Promise<IUser> =>
+        await loadLogin({ username, password });
+
+    const handleCatalogs = async (user: IUser) => {
         if (!suscriptionCatalog || !trainingLevelCatalog) {
-            await Promise.all([loadSuscriptions(), loadTrainingLevels()]);
+            await Promise.all([
+                loadSuscriptions(user.accessToken),
+                loadTrainingLevels(user.accessToken),
+            ]);
         }
+    };
+
+    const handleUserSuscription = async (user: IUser): Promise<IUser> => {
+        const userSuscription = await getManageSuscription(user.userId, user.accessToken);
+        const updatedUser = Object.assign({}, { ...user, suscripcion: userSuscription });
+        console.log('usuario: ', updatedUser);
+        return updatedUser;
     };
 
     useEffect(() => {

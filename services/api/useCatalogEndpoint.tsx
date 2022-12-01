@@ -46,20 +46,28 @@ const useCatalogEndpoint = () => {
     const sportAppInstance = useAxiosInstance();
     const { handleSuscriptionCatalog, handleTrainingLevelCatalog } = useData();
 
-    const loadSuscriptions = async (): Promise<void> => {
+    const loadSuscriptions = async (token: string): Promise<void> => {
         try {
             const url: string = `/suscripciones/`;
-            const response: AxiosResponse<ISuscription[]> = await sportAppInstance.get(url);
+            const response: AxiosResponse<ISuscription[]> = await sportAppInstance.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             handleSuscriptionCatalog(response.data);
         } catch (error: unknown) {
             handleSuscriptionCatalog(suscriptions);
         }
     };
 
-    const loadTrainingLevels = async (): Promise<void> => {
+    const loadTrainingLevels = async (token: string): Promise<void> => {
         try {
             const url: string = `/niveles-plan/`;
-            const response: AxiosResponse<ITrainingLevel[]> = await sportAppInstance.get(url);
+            const response: AxiosResponse<ITrainingLevel[]> = await sportAppInstance.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             handleTrainingLevelCatalog(response.data);
         } catch (error) {
             handleTrainingLevelCatalog(trainingLevels);

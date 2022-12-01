@@ -13,5 +13,7 @@ export const profileEs = {
     btn: {
         connect: 'Conectar',
         add: 'Agregar',
+        remove: 'Eliminar',
+        closeSesion: 'Cerrar Sesión'
     }
 }

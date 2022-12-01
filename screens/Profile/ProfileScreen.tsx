@@ -6,6 +6,7 @@ import { useData, useTheme, useTranslation } from '../../hooks';
 import styles from '../../assets/style/styles';
 import IconRow from '../../components/utils/IconRow';
 import { TouchableOpacity, View } from 'react-native';
+import { timeout } from '../../utils/timeout';
 
 export default function ProfileScreen() {
     // hooks for screen
@@ -21,21 +22,25 @@ export default function ProfileScreen() {
     // hooks from app
     const { sizes, assets, colors } = useTheme();
     const { t, setLocale, languages } = useTranslation();
-    const { user, handleLoading } = useData();
+    const { user, handleLoading, isSensorActive, handleSensor, handleUser } = useData();
     const [languageChecked, setLanguageChecked] = useState<number>();
-
-    // useEffect(() => {
-    //     console.info(languageChecked);
-    //     setLocale(languages.find((l) => l.id === languageChecked)?.locale);
-    // }, [languageChecked]);
 
     const handleLanguageChanged = (item: ILanguageProps) => {
         setLanguageChecked(item.id);
         setLocale(item.locale);
     };
 
+    const handleActivateSensor = () => {
+        handleLoading(true);
+        timeout(500).finally(() => handleLoading(false));
+        handleSensor(!isSensorActive);
+    };
+
+    const logout = () => {
+        handleUser(undefined);
+    };
+
     useEffect(() => {
-        console.info('languages: ', JSON.stringify(languages, null, 2));
         const locale = languages.find((l) => l.active);
         setLanguageChecked(locale?.id);
         setUserProfileDetail(user);
@@ -128,9 +133,11 @@ export default function ProfileScreen() {
                             align="center"
                         >
                             <Text h4>{t('profile.label.sensors')}</Text>
-                            <Button color={colors.primary}>
+                            <Button color={colors.primary} onPress={handleActivateSensor}>
                                 <Text white bold transform="uppercase" paddingHorizontal={sizes.md}>
-                                    {t('profile.btn.add')}
+                                    {!isSensorActive
+                                        ? t('profile.btn.add')
+                                        : t('profile.btn.remove')}
                                 </Text>
                             </Button>
                         </Block>
@@ -166,6 +173,15 @@ export default function ProfileScreen() {
                                     ))}
                                 </Block>
                             </Block>
+                        </Block>
+
+                        {/* Close session */}
+                        <Block>
+                            <Button color={colors.primary} onPress={logout}>
+                                <Text white bold transform="uppercase" paddingHorizontal={sizes.md}>
+                                    {t('profile.btn.closeSesion')}
+                                </Text>
+                            </Button>
                         </Block>
                     </Block>
                 </Block>
