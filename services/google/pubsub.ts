@@ -10,7 +10,6 @@ export async function publishMessage(data: string) {
         const messageId = await pubSubClient
             .topic(pubSubTopicId)
             .publishMessage({ data: message })
-        console.log(`Message ${messageId} published`)
     } catch (error) {
         console.error(`Received error while publishing: ${error.message}`);
     }

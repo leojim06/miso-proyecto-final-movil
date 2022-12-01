@@ -18,16 +18,13 @@ const useSuscriptionEndpoint = () => {
     const getManageSuscription = async (userId: string, token: string): Promise<any> => {
         try {
             const url: string = `/gestion-planes/${userId}`;
-            console.log('url: ', url);
             const response: AxiosResponse<any> = await sportAppInstance.get(url, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log('data suscripcion: ', response.data);
             return response.data;
         } catch (error: unknown) {
-            console.error(error);
             if (
                 axios.isAxiosError(error) &&
                 (error.response?.status === 401 || error.response?.status === 403)

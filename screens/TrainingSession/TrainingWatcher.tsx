@@ -52,7 +52,6 @@ export default function TrainingWatcher() {
     };
 
     useEffect(() => {
-        console.log('sensor: ', isSensorActive);
         if (isSensorActive) sensor.start();
     }, []);
 

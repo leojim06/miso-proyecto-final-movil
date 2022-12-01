@@ -35,14 +35,12 @@ export const TranlationProvider = ({ children }: { children: React.ReactNode }) 
     const getLocale = useCallback(async () => {
         const localeJSON = await Storage.getItem('locale');
         const localeToSet = localeJSON !== null ? localeJSON : Localization.locale;
-        console.log('obteniendo locale: ', localeToSet);
         setLocale(localeToSet);
         setLanguages(
             languages.map((l) => {
                 return { ...l, active: l.locale === localeToSet };
             })
         );
-        console.log(languages);
     }, [setLocale]);
 
     useEffect(() => {

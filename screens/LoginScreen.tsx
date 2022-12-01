@@ -69,7 +69,6 @@ export default function LoginScreen() {
     const handleUserSuscription = async (user: IUser): Promise<IUser> => {
         const userSuscription = await getManageSuscription(user.userId, user.accessToken);
         const updatedUser = Object.assign({}, { ...user, suscripcion: userSuscription });
-        console.log('usuario: ', updatedUser);
         return updatedUser;
     };
 
@@ -80,14 +79,12 @@ export default function LoginScreen() {
 
         notificationListener.current = Notifications.addNotificationReceivedListener(
             (notification) => {
-                console.log('Notification: ', notification);
                 setNotification(notification);
             }
         );
 
         responseListener.current = Notifications.addNotificationResponseReceivedListener(
             (response) => {
-                console.log('Response notification: ', response);
             }
         );
 
