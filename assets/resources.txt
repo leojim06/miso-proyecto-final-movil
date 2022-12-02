@@ -1,1 +1,3 @@
 - Imagen para screen splash (../assets/images/splash.png) obtenida de https://www.pexels.com/photo/person-riding-bicycle-260409/
+- Imagen para login screen (../assets/images/login-background.png) obtenida de https://www.pexels.com/es-es/foto/fitnes-salud-cuerpo-ejercicio-6800695/
+- Icono de aplicacion obtenido de https://icons8.com/icons/set/fitness-tracker
