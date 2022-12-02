@@ -1,0 +1,1 @@
+- Imagen para screen splash (../assets/images/splash.png) obtenida de https://www.pexels.com/photo/person-riding-bicycle-260409/

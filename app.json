@@ -9,15 +9,15 @@
         "userInterfaceStyle": "automatic",
         "splash": {
             "image": "./assets/images/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#17C1E8"
+            "resizeMode": "cover",
+            "backgroundColor": "#257985"
         },
         "plugins": [
             [
                 "expo-notifications",
                 {
                     "icon": "./assets/app/notification-icon.png",
-                    "color": "#17C1E8",
+                    "color": "#257985",
                     "sounds": [
                         "./assets/app/notification-sound.wav",
                         "./assets/app/notification-sound-other.wav"
@@ -38,7 +38,7 @@
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/images/adaptive-icon.png",
-                "backgroundColor": "#17C1E8"
+                "backgroundColor": "#257985"
             },
             "package": "com.uniandes.nativos",
             "googleServicesFile": "./google-services.json"

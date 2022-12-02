@@ -10,6 +10,7 @@ import useLoginEndpoint from '../services/api/useLoginEndpoint';
 import { timeout } from '../utils/timeout';
 import usePushNotification from '../services/notification/usePushNotification';
 import useSuscriptionEndpoint from '../services/api/useSuscriptionEndpoint';
+import { ImageBackground } from 'react-native';
 
 export default function LoginScreen() {
     // hooks for screen
@@ -26,7 +27,7 @@ export default function LoginScreen() {
 
     // hooks from app
     const { handleUser, handleLoading, suscriptionCatalog, trainingLevelCatalog } = useData();
-    const { sizes } = useTheme();
+    const { sizes, assets } = useTheme();
     const { t } = useTranslation();
     const { loadLogin } = useLoginEndpoint();
     const { loadSuscriptions, loadTrainingLevels } = useCatalogEndpoint();
@@ -84,8 +85,7 @@ export default function LoginScreen() {
         );
 
         responseListener.current = Notifications.addNotificationResponseReceivedListener(
-            (response) => {
-            }
+            (response) => {}
         );
 
         return () => {
@@ -95,12 +95,26 @@ export default function LoginScreen() {
     }, []);
 
     return (
-        <Block justify="center">
-            <Block flex={0} padding={sizes.md}>
-                <Text h3>{t('login.label.title')}</Text>
-                <LoginForm onSubmit={(values) => handleSubmit(values)} />
+        <ImageBackground
+            source={assets.loginBackground}
+            resizeMode="cover"
+            style={{ flex: 1, justifyContent: 'center' }}
+        >
+            <Block
+                flex={0}
+                justify="center"
+                margin={sizes.margin}
+                style={{ backgroundColor: '#00000066' }}
+                radius={sizes.avatarRadius}
+            >
+                <Block flex={0} padding={sizes.md}>
+                    <Text h3 tertiary>
+                        {t('login.label.title')}
+                    </Text>
+                    <LoginForm onSubmit={(values) => handleSubmit(values)} />
+                </Block>
+                <CustomModal {...modal} />
             </Block>
-            <CustomModal {...modal} />
-        </Block>
+        </ImageBackground>
     );
 }
