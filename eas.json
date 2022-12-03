@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "version": ">= 2.4.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "API_URL": "http://35.244.246.183"
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "env": {
+        "API_URL": "https://api.production.com"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
