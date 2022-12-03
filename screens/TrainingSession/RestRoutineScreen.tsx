@@ -52,7 +52,7 @@ export default function RestRoutineScreen() {
         <Block safe padding={sizes.padding}>
             {/* title */}
             <Block flex={0} align="center" paddingBottom={sizes.s}>
-                <Text h3 center>
+                <Text h3 center tertiary>
                     {t('restRoutine.label.title')}
                 </Text>
             </Block>

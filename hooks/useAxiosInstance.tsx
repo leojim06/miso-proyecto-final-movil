@@ -11,8 +11,8 @@ const useAxiosInstance = () => {
     });
 
     const requestHandler = (request: any) => {
-        if (!request.url.includes('auth')) {
-            request.headers.Authorization = `Bearer ${user.accessToken}`;
+        if (!request.url.includes('auth') && user?.accessToken) {
+            request.headers.Authorization = `Bearer ${user?.accessToken}`;
         }
         return request;
     };

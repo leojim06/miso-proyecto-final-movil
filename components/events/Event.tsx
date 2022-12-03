@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { DateTime } from 'i18n-js/typings';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useTheme, useTranslation } from '../../hooks';
@@ -9,10 +8,16 @@ import Block from '../Block';
 import Text from '../Text';
 
 export interface IEventProps {
-    id: string;
-    date?: DateTime;
-    name?: string;
-    description?: string;
+    idEvento: number;
+    nombre?: string;
+    descripcion?: string;
+    ciudad?: string;
+    fechaInicio?: Date;
+    fechaFin?: Date;
+    comida?: string;
+    estadia?: string;
+    imagen?: string;
+    idDeporte: number;
 }
 
 const Event = ({ props, path }: { props: IEventProps; path: 'Events' | 'Progress' }) => {
@@ -28,11 +33,11 @@ const Event = ({ props, path }: { props: IEventProps; path: 'Events' | 'Progress
                 onPress={() => {
                     if (path === 'Events') {
                         eventNavigation.navigate('EventDetailScreen', {
-                            eventId: props.id,
+                            eventId: props.idEvento,
                         });
                     } else {
                         progressNavigation.navigate('ProgressEventDetailScreen', {
-                            eventId: props.id,
+                            eventId: props.idEvento,
                         });
                     }
                 }}
@@ -41,12 +46,12 @@ const Event = ({ props, path }: { props: IEventProps; path: 'Events' | 'Progress
                     <Text h5 bold>
                         {/* {i18n.l("time.formats.short", "2019-11-09T18:10:34")} */}
                         {/* {i18n.strftime(props.date ?? Date.now(), "%d/%m/%Y")} */}
-                        {i18n.toTime('date.formats.short', props.date ?? Date.now())}
+                        {i18n.toTime('date.formats.short', props.fechaInicio ?? Date.now())}
                     </Text>
                     <Text p semibold>
-                        {props.name}
+                        {props.nombre}
                     </Text>
-                    <Text numberOfLines={sizes.numberOfLines} p>{props.description}</Text>
+                    <Text numberOfLines={sizes.numberOfLines} p>{props.descripcion}</Text>
                 </Block>
             </TouchableOpacity>
         </Block>

@@ -29,9 +29,9 @@ import { ISpacing, ITheme } from './theme';
  */
 export interface IBlockProps
     extends ISpacing,
-        ViewProps,
-        ScrollViewProps,
-        KeyboardAvoidingViewProps {
+    ViewProps,
+    ScrollViewProps,
+    KeyboardAvoidingViewProps {
     /**
      * id for testID & accesibilityLabel
      */
@@ -237,6 +237,21 @@ export interface IBlockProps
      * @see https://docs.expo.io/versions/latest/sdk/linear-gradient/#props
      */
     // end?: LinearGradientPoint;
+}
+
+export interface ILanguageProps {
+    id: number;
+    label?: string;
+    locale?: string;
+    active?: boolean;
+}
+export interface IRadioButtonsProps extends TouchableOpacityProps, ISpacing {
+    id?: string;
+    key?: number;
+    item?: ILanguageProps;
+    checked?: number;
+    children?: React.ReactNode;
+    // setChecked?: () => void;
 }
 
 /**
@@ -540,6 +555,7 @@ export interface IInputProps extends TextInputProps, ISpacing {
      * @see https://reactnative.dev/docs/view-style-props#backgroundcolor
      */
     color?: ColorValue;
+    backgroundInputColor?: ColorValue;
     /**
      * Renders a borderColor & placeholderTextColor directly from the colors.primary value
      * @see https://reactnative.dev/docs/view-style-props#backgroundcolor

@@ -65,7 +65,7 @@ export default function SportProfileScreen() {
                 <Block safe padding={sizes.padding} flex={0}>
                     {/* tiele */}
                     <Block flex={0} align="center" paddingBottom={sizes.s}>
-                        <Text h3 center>
+                        <Text h3 center tertiary>
                             {t('sportProfile.label.title')}
                         </Text>
                     </Block>
@@ -120,7 +120,7 @@ export default function SportProfileScreen() {
                     </Block>
                     {/* Vo2max */}
                     <Block flex={0} card>
-                        <Text h4>Vo2Max</Text>
+                        <Text h4 tertiary>Vo2Max</Text>
                     </Block>
                 </Block>
             )}

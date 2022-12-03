@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 import { useTranslation } from '../../hooks';
-import { API_URL } from '@env';
 import { IUser } from '../../constants/types';
 import useAxiosInstance from '../../hooks/useAxiosInstance';
 
@@ -11,7 +10,6 @@ type loginRequest = {
 
 const useLoginEndpoint = () => {
     const { t } = useTranslation();
-    const url = `${API_URL}/autenticador/auth`;
     const sportAppInstance = useAxiosInstance();
 
     const loadLogin = async ({ username, password }: loginRequest) => {

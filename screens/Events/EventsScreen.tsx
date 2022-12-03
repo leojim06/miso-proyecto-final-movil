@@ -22,7 +22,7 @@ export default function EventsScreen() {
         setMySuggestedEvents([]);
         setIsEventsLoading(true);
 
-        loadMySuggestedEvents('10', false)
+        loadMySuggestedEvents()
             .then((data: IEventProps[]) => setMySuggestedEvents(data))
             .catch((error: string) => {})
             .finally(() => setIsEventsLoading(false));
@@ -31,14 +31,14 @@ export default function EventsScreen() {
     return (
         <Block safe padding={sizes.padding}>
             <Block flex={0} align="center" paddingBottom={sizes.s}>
-                <Text h3 center>
+                <Text h3 center tertiary>
                     {t('events.label.title')}
                 </Text>
             </Block>
             <Block flex={1} marginBottom={sizes.xl}>
                 <FlatList
                     data={mySuggestedEvents}
-                    keyExtractor={(item) => item.id.toString()}
+                    keyExtractor={(item) => item.idEvento.toString()}
                     renderItem={({ item, index }) => <Event props={item} path="Events" />}
                     ListEmptyComponent={
                         isEventsLoading ? (

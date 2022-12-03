@@ -40,6 +40,8 @@ const LoginForm = (props: LoginFormProps) => {
                         {/* email */}
                         <Block paddingBottom={sizes.sm}>
                             <Input
+                                secondary
+                                backgroundInputColor={colors.card}
                                 testID="email"
                                 value={values.email}
                                 onChangeText={handleChange('email')}
@@ -55,6 +57,8 @@ const LoginForm = (props: LoginFormProps) => {
                         {/* password */}
                         <Block paddingBottom={sizes.sm}>
                             <Input
+                                secondary
+                                backgroundInputColor={colors.card}
                                 testID="password"
                                 value={values.password}
                                 onChangeText={handleChange('password')}

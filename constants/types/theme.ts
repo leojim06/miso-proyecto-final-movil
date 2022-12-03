@@ -223,6 +223,7 @@ export interface ThemeAssets {
     
     landscapePlaceholder: ImageSourcePropType;
     avatarPlaceholder: ImageSourcePropType;
+    loginBackground: ImageSourcePropType;
     
     success: ImageSourcePropType;
     warning: ImageSourcePropType;

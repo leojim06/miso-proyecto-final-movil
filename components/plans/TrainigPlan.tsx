@@ -32,7 +32,7 @@ const TrainigPlan = ({ props, isInMyPlans }: { props: ITrainingPlan; isInMyPlans
     const navigation = useNavigation<PlansScreenNavigationProp>();
 
     return (
-        <Block color={colors.card} marginVertical={sizes.sm} radius={sizes.sm} shadow={true}>
+        <Block color={colors.secondary} marginVertical={sizes.sm} radius={sizes.sm} shadow={true}>
             <TouchableOpacity
                 onPress={() =>
                     navigation.navigate('PlanDetailScreen', {

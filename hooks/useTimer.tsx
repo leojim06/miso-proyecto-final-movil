@@ -27,19 +27,24 @@ export const useTimer = () => {
     const [startTime, setStartTime] = useState<number>(0);
     const [timeWhenLastStopped, setTimeWhenLastStopped] = useState<number>(0);
 
-    const interval = useRef<ReturnType<typeof setInterval>>();
+    // const interval = useRef<ReturnType<typeof setInterval>>();
 
     useEffect(() => {
+        let interval;
         if (startTime > 0) {
-            interval.current = setInterval(() => {
+            interval = setInterval(() => {
                 setTime(() => Date.now() - startTime + timeWhenLastStopped);
             }, 1);
-        } else {
-            if (interval.current) {
-                clearInterval(interval.current);
-                interval.current = undefined;
-            }
         }
+        // else {
+        //     if (interval.current) {
+        //         clearInterval(interval.current);
+        //         interval.current = undefined;
+        //     }
+        // }
+        return () => {
+            clearInterval(interval);
+        };
     }, [startTime]);
 
     const start = () => {

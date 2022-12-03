@@ -2,6 +2,8 @@ import i18n from 'i18n-js';
 import { ImageSourcePropType } from 'react-native';
 import { ITrainingSessionProps } from '../../screens/TrainingSession/TrainingSesion';
 import { ISuscription, ITrainingLevel } from '../../services/api/useCatalogEndpoint';
+import { IManageSuscription } from '../../services/api/useSuscriptionEndpoint';
+import { ILanguageProps } from './components';
 import { ITheme } from './theme';
 
 export * from './components';
@@ -18,6 +20,9 @@ export interface IUser {
     userId: string;
     accessToken: string;
     account: string;
+    foto: string;
+    nombre: string;
+    suscripcion: IManageSuscription;
 }
 
 export interface ICategory {
@@ -79,8 +84,8 @@ export interface IUseData {
     handleSuscriptionCatalog: (suscriptions?: ISuscription[]) => void;
     trainingLevelCatalog: ITrainingLevel[],
     handleTrainingLevelCatalog: (trainingLevels?: ITrainingLevel[]) => void;
-    // hasInfoModal: InfoModalProps,
-    // handleInfoModalPanel: (data?: InfoModalProps) => void;
+    isSensorActive: boolean;
+    handleSensor: (isActive: boolean) => void;
 }
 
 export interface ITranslate {
@@ -89,6 +94,7 @@ export interface ITranslate {
     t: (scope?: i18n.Scope, options?: i18n.TranslateOptions) => string;
     translate: (scope?: i18n.Scope, options?: i18n.TranslateOptions) => string;
     i18n: i18n.I18n;
+    languages: ILanguageProps[]
 }
 export interface IExtra {
     id?: number;

@@ -11,6 +11,7 @@ const Input = ({
     id = 'Input',
     style,
     color,
+    backgroundInputColor,
     primary,
     secondary,
     tertiary,
@@ -81,6 +82,7 @@ const Input = ({
             ...(marginRight && { marginRight: marginRight }),
             ...(marginLeft && { marginLeft: marginLeft }),
         },
+        
     ]) as ViewStyle;
 
     const inputContainerStyles = StyleSheet.flatten([
@@ -100,6 +102,8 @@ const Input = ({
             fontSize: sizes.p,
             color: colors.input,
             paddingHorizontal: sizes.inputPadding,
+            borderRadius: sizes.radius,
+            backgroundColor: backgroundInputColor
         },
     ]) as TextStyle;
 

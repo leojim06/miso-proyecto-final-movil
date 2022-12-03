@@ -8,11 +8,11 @@ export const COLORS: ThemeColors = {
 
     // base colors
     /** UI color for #primary */
-    primary: '#CB0C9F',
+    primary: '#257985',
     /** UI color for #secondary */
-    secondary: '#627594', // '#8392AB',
+    secondary: '#5EA8A7', // '#8392AB',
     /** UI color for #tertiary */
-    tertiary: '#E8AE4C',
+    tertiary: '#FF4447',
 
     // non-colors
     black: '#252F40',
